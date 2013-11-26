@@ -42,29 +42,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Index.html" />
-    <Content Include="Lib\inject.js" />
-    <Content Include="Lib\nano-v1.0.js" />
-    <Content Include="Modules\container.js" />
-    <Content Include="Modules\menuMain.js" />
-    <Content Include="Styles\testECMA.css" />
-    <Content Include="Modules\viewHello.js" />
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Models\" />
+    <Folder Include="Editor\" />
+    <Folder Include="Theatermode\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
