@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHtmlECMASite", "TestHtmlECMASite\TestHtmlECMASite.csproj", "{A6D305CE-3FA4-4FE3-85BC-FA374B90A068}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CBD89A9-AD60-454C-876F-88D1B5D10148}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\APPDATA\LOCAL\MICROSOFT\VISUALSTUDIO\12.0\EXTENSIONS\PO1N2VAW.I0D\description.html = ..\..\..\..\APPDATA\LOCAL\MICROSOFT\VISUALSTUDIO\12.0\EXTENSIONS\PO1N2VAW.I0D\description.html
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6D305CE-3FA4-4FE3-85BC-FA374B90A068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D305CE-3FA4-4FE3-85BC-FA374B90A068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D305CE-3FA4-4FE3-85BC-FA374B90A068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D305CE-3FA4-4FE3-85BC-FA374B90A068}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
