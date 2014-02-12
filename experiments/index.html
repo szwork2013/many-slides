@@ -11,7 +11,6 @@
             <div ng-repeat='item in items'>
                 <div class='item' style="
                     position: absolute;
-                    border: 1px solid black;
                     height: {{item.height}}px;
                     width: {{item.width}}px;
                     -webkit-transform: translate3d(
@@ -19,7 +18,7 @@
                         {{item.location[1]}}px,
                         {{item.layer}}px
                     );
-                    background: #{{item.background}}">
+                    background: {{item.background}}">
                 </div>
                 <div class='item-controls'>
                     <div>

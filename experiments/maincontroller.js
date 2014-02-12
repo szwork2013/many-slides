@@ -4,27 +4,27 @@ app.controller("MainController", function ($scope) {
             id: 0,
             location: [0, 0],
             layer: 0,
-            height: 10,
-            width: 10,
+            height: 200,
+            width: 200,
             rotation: 0.0,
             related_items: [],
             shape: {},
             text: {},
             style: {},
-            background: "000000"
+            background: "#99ea0f"
         },
         {
             id: 1,
-            location: [10, 0],
+            location: [0, 0],
             layer: 1,
-            height: 10,
-            width: 10,
+            height: 100,
+            width: 100,
             rotation: 0.0,
             related_items: [],
             shape: {},
             text: {},
             style: {},
-            background: "FFFFFF"
+            background: "#990f41"
         }
   ];
 
