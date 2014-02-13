@@ -8,38 +8,26 @@
     </head>
     <body>
         <div id='content' ng-app='MyTutorialApp' ng-controller='MainController'>
-            <div ng-repeat='item in items'>
-                <div class='item' style="
-                    position: absolute;
-                    height: {{item.height}}px;
-                    width: {{item.width}}px;
-                    -webkit-transform: translate3d(
-                        {{item.location[0]}}px,
-                        {{item.location[1]}}px,
-                        {{item.layer}}px
-                    );
-                    background: {{item.background}}">
-                </div>
-                <div class='item-controls'>
-                    <div>
-                        Widht: <input type='text' ng-model='item.width' />
-                    </div>
-                    <div>
-                        Height: <input type='text' ng-model='item.height' />
-                    </div>
-                    <div>
-                        Left: <input type='text' ng-model='item.location[0]' />
-                    </div>
-                    <div>
-                        Top: <input type='text' ng-model='item.location[1]' />
-                    </div>
-                    <div>
-                        Layer: <input type='text' ng-model='item.layer' />
-                    </div>
-                    <div>
-                        Color: <input type='text' ng-model='item.background' />
-                    </div>
-                </div>
+            <div ng-repeat='item in items' class='item' style="
+                position: absolute;
+                height: {{item.height}}px;
+                width: {{item.width}}px;
+                -webkit-transform: translate3d(
+                    {{item.location[0]}}px,
+                    {{item.location[1]}}0px,
+                    {{item.layer}}px
+                );
+                background: {{item.background}};
+                border-radius: {{item.border_radius}}px">
+            </div>
+            <div ng-repeat='item in items' class='item-controls'>
+                <div>Width: <input type='text' ng-model='item.width' /></div>
+                <div>Height: <input type='text' ng-model='item.height' /></div>
+                <div>Left: <input type='text' ng-model='item.location[0]' /></div>
+                <div>Top: <input type='text' ng-model='item.location[1]' /></div>
+                <div>Layer: <input type='text' ng-model='item.layer' /></div>
+                <div>Color: <input type='text' ng-model='item.background' /></div>
+                <div>Border Radius: <input type='text' ng-model='item.border_radius' /></div>
             </div>
         </div>
     </body>
