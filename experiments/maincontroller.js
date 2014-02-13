@@ -11,7 +11,8 @@ app.controller("MainController", function ($scope) {
             shape: {},
             text: {},
             style: {},
-            background: "#99ea0f"
+            background: "#99ea0f",
+            border_radius: 0
         },
         {
             id: 1,
@@ -24,7 +25,8 @@ app.controller("MainController", function ($scope) {
             shape: {},
             text: {},
             style: {},
-            background: "#990f41"
+            background: "#990f41",
+            border_radius: 0
         }
   ];
 
