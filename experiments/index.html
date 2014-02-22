@@ -7,7 +7,16 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div id='content' ng-app='MyTutorialApp' ng-controller='MainController'>
+        <div id='content' ng-app='MyTutorialApp' ng-model='inputValue' ng-controller='MainController'>
+
+            <div ng-model='inputValue'>
+		{{inputValue}}</div>
+            <div ng-repeat='slide in presentation.slides' class='slide'>
+                <div ng-repeat='layer in layers' class='layer'>
+                    <div ng-repeat='item in items' class='item'></div>
+                </div>
+            </div>
+<!--
             <div ng-repeat='item in items' class='item' style="
                 position: absolute;
                 height: {{item.height}}px;
@@ -27,8 +36,9 @@
                 <div>Top: <input type='text' ng-model='item.location[1]' /></div>
                 <div>Layer: <input type='text' ng-model='item.layer' /></div>
                 <div>Color: <input type='text' ng-model='item.background' /></div>
-                <div>Border Radius: <input type='text' ng-model='item.border_radius' /></div>
+                <div>Border-Radius: <input type='text' ng-model='item.border_radius' /></div>
             </div>
+-->
         </div>
     </body>
 </html>
