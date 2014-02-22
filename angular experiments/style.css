@@ -1,8 +1,4 @@
 #content {
-    width : 500px;
-    height: 300px;
-    border: 1 px dotted black;
-    margin: 30px auto;
     position: relative;
     -webkit-transform-style: preserve-3d;
 }
@@ -13,7 +9,7 @@
     border-radius: 5px;
     margin: 5px;
     float: right;
-    width: 240px;
+    width: 300px;
 }
 
 .item-controls div {
