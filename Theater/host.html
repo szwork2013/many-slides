@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>Host</title>
+
+    <link href="style/style2.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="style/jquery-ui.css">
+    <link href="style/style.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet/less" type="text/css" href="style/flat-ui-less/flat-ui.less" />
+
+    <!-- common imports -->
+    <script src="javascript/jquery-1.10.2.js"  type="text/javascript" ></script>
+    <script src="javascript/jquery-ui.js"  type="text/javascript" ></script>
+    <script src="javascript/less-1.6.3.js" type="text/javascript"></script>
+    <script src="javascript/angular.js"  type="text/javascript" ></script>
+
+    <!-- other imports -->
+    <script type="text/javascript" src="javascript/peer.js"></script>
+    <script type="text/javascript" src="javascript/host.js"></script>
+    <script>
+
+
+    </script>
+
+</head>
+
+<body>
+    <body>
+        <div id="connection">
+            <div id="actions">
+                Your are the Host and your PeerJS ID is <span id="pid" class="form-control  introFormTextBox headerPresentationTextBox"></span>
+                <p style="display: none;">Connect to a peer:</p>
+                <input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox"style="display: none;">
+                <input value="Connect" id="connect" type="button" class="btn btn-block btn-lg btn-primary headerPresentationButton"style="display: none;">
+
+                <input  onclick="shareLink()" value="Share Link" id="shareLink" name="Submit" type="submit" class="btn btn-block btn-lg btn-primary headerPresentationButton">
+                <input href="mailto:?Join Many Slides;body= Join now!" value="E-Mail Link" id="emailLink" name="Submit" type="submit" class="btn btn-block btn-lg btn-primary headerPresentationButton">
+
+
+                <form id="send" >
+                    <input id="text" placeholder="Enter message" type="text" class="form-control  introFormTextBox">
+                    <input value="Send to selected peers" type="submit"  class="btn btn-block btn-lg btn-primary headerPresentationButton" >
+                </form>
+
+
+
+                <button id="close" class="btn btn-block btn-lg btn-primary headerPresentationButton">Exit</button>
+            </div>
+        </div>
+
+        <div id="wrapper">
+            <div id="chatWindow" class="ui-widget-content">
+                <div id="messages" ></div>
+
+                <div id="wrap">
+                    <div id="connections">
+                        <span class="filler">No client is connected yet.</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="presentationWindow">
+                <p>Nothing here {{'yet' + '!'}}</p>
+            </div>
+
+
+
+            <!--<div id="box" style="background: #fff; font-size: 18px;padding:40px 30px; text-align: center;">
+            Drag file here to send to active connections.
+            </div>-->
+            <!--            <div class="warning browser">
+            </div>-->
+
+
+        </div>
+    </body>
+    <script> $(function () {
+     $("#chatWindow").resizable({
+     });
+ });
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+        console.log(getUrlVars()["peerID"]);
+        document.getElementById("rid").value = getUrlVars()["peerID"];
+        if (document.getElementById("rid").value != "undefined" && document.getElementById("rid").value != "") {
+            console.log("waiting");
+            setTimeout(function () {
+                document.getElementById("connect").click();
+            }, 2000);
+            console.log("clicked");
+        }
+
+    </script>
+</html>

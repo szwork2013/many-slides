@@ -1,0 +1,97 @@
+@base: #FFFFFF;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  -moz-box-shadow:    @style @c;
+  box-shadow:         @style @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  div { .box-shadow(0 0 5px, 30%) }
+}
+
+
+body, html
+{
+  background-color: @base;
+}
+
+.myStyle
+{
+  background-color: #ff0000;
+}
+
+footer
+{
+  text-align:center;
+  padding-top:3em;
+  padding-bottom:3em;
+  position:relative;
+  &:extend(.myStyle);
+}
+// Message Design
+.message
+{
+  font-size: 3rm;
+}
+.peer
+{
+  color: #FF7500;
+  &:extend(.message);
+}
+.you
+{
+  color: #0C6BA1;
+  &:extend(.message);
+}
+#messages
+{
+  border: 20rm #0000ff;
+}
+
+// Intro Design
+#introForm
+{
+  height:100%;
+  width:90%;
+  text-align: center;
+  margin: 10% auto;
+}
+.introFormTextBox
+{
+  height:auto;
+  margin: 0.5em;
+}
+.introFormButton
+{
+  height:auto;
+  width: 13.5em;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headerPresentationTextBox
+{
+  height:auto;
+  margin: 0.5em;
+}
+.headerPresentationButton
+{
+  height:auto;
+  width: auto;
+  margin-top: 0.2em;
+  margin-left: auto;
+  margin-right: auto;
+  padding:0.3em;
+}
+
+#pid
+{
+  color: #0C6BA1;
+  font-weight: bold;
+}
