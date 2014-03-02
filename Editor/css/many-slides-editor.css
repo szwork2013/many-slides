@@ -1,0 +1,44 @@
+#presentation {
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+}
+
+.item-controls {
+    background: #edeff1;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+    float: right;
+    width: 300px;
+}
+
+.item-controls div {
+    width: auto;
+    overflow: hidden;
+    margin: 10px 0px;
+}
+
+/* Bootstrap overwrites */
+
+.col-gutter-none {
+    padding-left: 0; 
+    padding-right: 0;
+}
+
+/* Flat UI overwrites */
+
+.navbar {
+    border-radius: 0;
+}
+
+input[type="text"] {
+    border: none;
+}
+
+.form-control:focus {
+    border: 2px solid #1abc9c;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
