@@ -90,10 +90,10 @@ $(document).ready(function () {
 //    });
 
     // Send a chat message to all active connections.
-    $('#send').submit(function (e) {
-        console.log("HI");
-        onMessageSend(e);
-    });
+//    $('#send').submit(function (e) {
+//        alert("HI");
+//        onMessageSend(e);
+//    });
 
 });
 

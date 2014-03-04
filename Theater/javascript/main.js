@@ -50,27 +50,27 @@ function initIndex() {
     console.log("init done!");
 }
 
-function generateSendTags()
-{
-    var sendForm = document.createElement("form");
-    sendForm.id = "send";
-
-    var text = document.createElement("input");
-    text.id="text";
-    text.placeholder ="Enter message"
-    text.type ="text"
-    text.setAttribute("class", "form-control  introFormTextBox");
-
-    var send = document.createElement("input");
-    send.value ="Send";
-    send.type ="submit";
-    send.setAttribute("class", "btn btn-block btn-lg btn-primary headerPresentationButton");
-
-    sendForm.appendChild(text);
-    sendForm.appendChild(send);
-
-    document.getElementById("actions").appendChild(sendForm);
-}
+//function generateSendTags()
+//{
+//    var sendForm = document.createElement("form");
+//    sendForm.id = "send";
+//
+//    var text = document.createElement("input");
+//    text.id="text";
+//    text.placeholder ="Enter message"
+//    text.type ="text"
+//    text.setAttribute("class", "form-control  introFormTextBox");
+//
+//    var send = document.createElement("input");
+//    send.value ="Send";
+//    send.type ="submit";
+//    send.setAttribute("class", "btn btn-block btn-lg btn-primary headerPresentationButton");
+//
+//    sendForm.appendChild(text);
+//    sendForm.appendChild(send);
+//
+//    document.getElementById("actions").appendChild(sendForm);
+//}
 
 function initConnection() {
     var name = document.getElementById("introName").value;

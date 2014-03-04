@@ -58,7 +58,8 @@ function connect(c) {
             console.log(data);
         });
         c.on('close', function () {
-            alert(c.peer + ' has left the chat.');
+            console.log(c.peer + ' has left the chat.');
+//            alert(c.peer + ' has left the chat.');
 //            chatbox.remove();
             if ($('.connection').length === 0) {
                 $('.filler').show();

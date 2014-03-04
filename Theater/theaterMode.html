@@ -29,19 +29,20 @@
 </head>
 
 <body>
-    <body>
-            <div id="actions">
-                Your PeerJS ID is <span id="pid" class="form-control  headerPresentationTextBox"></span>
-                Connect to a peer:
-                <input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox">
-                <input value="Connect" id="connect" type="button" class="btn btn-block btn-lg btn-primary headerPresentationButton">
+        <div id="actions">
+            Your PeerJS ID is <span id="pid" class="form-control  headerPresentationTextBox"></span>
+            Connect to a peer:
+            <input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox">
+            <input value="Connect" id="connect" type="button" class="btn btn-block btn-lg btn-primary headerPresentationButton">
 
-                <!--<form id="send">-->
-                    <!--<input id="text" placeholder="Enter message" type="text" class="form-control  introFormTextBox">-->
-                    <!--<input value="Send to selected peers" type="submit"  class="btn btn-block btn-lg btn-primary headerPresentationButton" >-->
-                <!--</form>-->
-                <button id="close" class="btn btn-block btn-lg btn-primary headerPresentationButton">Exit</button>
-            </div>
+
+            <form id="send" class="ng-pristine ng-valid">
+                <input type="text" id="text" placeholder="Enter message" class="form-control  introFormTextBox">
+                <input type="submit" value="Send" class="btn btn-block btn-lg btn-primary headerPresentationButton">
+            </form>
+
+            <button id="close" class="btn btn-block btn-lg btn-primary headerPresentationButton">Exit</button>
+        </div>
 
         <div id="wrapper">
             <div id="chatWindow" class="ui-widget-content">
@@ -75,19 +76,10 @@
     </body>
     <script>
 
-
-        generateSendTags();
         $(function () {
-     $("#chatWindow").resizable({
-     });
- });
-        function getUrlVars() {
-            var vars = {};
-            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-                vars[key] = value;
-            });
-            return vars;
-        }
+         $("#chatWindow").resizable({
+             });
+         });
         console.log(getUrlVars()["peerID"]);
         document.getElementById("rid").value = getUrlVars()["peerID"];
         if (document.getElementById("rid").value != "undefined" && document.getElementById("rid").value != "") {
