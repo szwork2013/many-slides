@@ -18,6 +18,16 @@
     margin: 10px 0px;
 }
 
+/* Stateful classes */
+
+.selected-object {
+    outline: 0.25em dashed #7777ff;
+}
+
+.hidden {
+    display: none;    
+}
+
 /* Bootstrap overwrites */
 
 .col-gutter-none {
