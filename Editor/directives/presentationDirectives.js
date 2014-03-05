@@ -25,23 +25,35 @@ app.directive('item', function() {
         element.on('click', function(event) {
             
             var this_element = $(this);
-            var is_selected_object = this_element.hasClass('selected-object');  
+            var this_controls = this_element.parent().children('.item-controls');
+            var element_is_selected = this_element.hasClass('selected-object');  
+            var selected_objects = $('.selected-object');
+            var selected_object_controls = selected_objects.parent().children('.item-controls')
             
-            if(is_selected_object) {
+            if(element_is_selected) {
                 this_element.removeClass('selected-object');
+                this_controls.addClass('hidden');
             } else {
-                $('.selected-object').removeClass();
+                selected_objects.removeClass('selected-object');
+                selected_object_controls.addClass('hidden');
                 this_element.addClass('selected-object');
-                this_element.parent().children('.item-controls').removeClass('.hidden');
+                this_controls.removeClass('hidden');
             }
+        });
+        
+        element.on('mousedown', function(event) {
+            event.preventDefault();
             
+            var this_element = $(this);
+            var this_controls = this_element.parent().children('.item-controls');
+            var element_is_selected = this_element.hasClass('selected-object'); 
+            
+            if (element_is_selected) {
+                console.log(this_controls.find('[ng-model="item.height"]').value());
+            }
         });
         
         element.on('dblclick', function() {
-            event.preventDefault();
-        });
-        
-        element.on('mousedown', function() {
             event.preventDefault();
         });
     }
