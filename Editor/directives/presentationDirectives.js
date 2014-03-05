@@ -47,9 +47,31 @@ app.directive('item', function() {
             var this_element = $(this);
             var this_controls = this_element.parent().children('.item-controls');
             var element_is_selected = this_element.hasClass('selected-object'); 
+            var startX = 0, startY = 0, x = 0, y = 0;
             
             if (element_is_selected) {
-                console.log(this_controls.find('[ng-model="item.height"]').value());
+                var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
+                var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
+                
+                x = element_x_input.val();
+                y = element_y_input.val();
+                
+                startX = event.pageX - x;
+                startY = event.pageY - y;
+                $(document).on('mousemove', mousemove);
+                $(document).on('mouseup', mouseup);
+            }
+            
+            function mousemove(event) {
+                y = event.pageY - startY;
+                x = event.pageX - startX;
+                element_x_input.val(x).change();
+                element_y_input.val(y).change();
+            }
+
+            function mouseup() {
+                $(document).unbind('mousemove', mousemove);
+                $(document).unbind('mouseup', mouseup);
             }
         });
         
