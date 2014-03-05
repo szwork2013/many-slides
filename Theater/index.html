@@ -7,32 +7,48 @@
 
     <link href="../css/jquery-ui.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/flat-ui.css">
-    <link rel="stylesheet/less" type="text/css" href="style/main.less" />
+    <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
     <!--<link href="style/flat-ui.css" rel="stylesheet" type="text/css">-->
-
-
-    <!-- common imports -->
-    <script src="../scripts/jquery-1.10.2.js"  type="text/javascript" ></script>
-    <script src="../scripts/jquery-ui.js"  type="text/javascript" ></script>
-    <script src="../scripts/less-1.6.3.js" type="text/javascript"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js" type="text/javascript"></script>
-
-    <!-- other imports -->
-    <script src="javascript/main.js" type="text/javascript"></script>
 
 
 </head>
 
 <body>
-    <div id="mainWrapper">
-        <!-- Content generated via JS -->
-    </div>
-</body>
+<div id="mainWrapper">
+    <form id="introForm" action="theaterMode.html" method="GET">
+        <h1 class="demo-section-title"> Welcome to Many Slides</h1>
 
+        <h3 class="demo-section-title">Please enter your name and the ID of the Host below</h3>
+        <input class="form-control introFormTextBox" placeholder="Name" name="name" id="name">
+        <br>
+        <input class="form-control introFormTextBox" placeholder="ID" name="peerID" id="peerID">
+        <br>
+        <input type="submit" class="btn btn-block btn-lg btn-primary introFormButton" value="Login">
+    </form>
+    <!-- Content generated via JS -->
+</div>
 <footer>
     <div id="footer">
         <p>Login as a Host <a href="presenterMode.html">here</a></p>
     </div>
 </footer>
-<script>initIndex();</script>
+</body>
+
+
+<!-- common imports -->
+<script src="../scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../scripts/jquery-ui.js" type="text/javascript"></script>
+<script src="../scripts/less-1.6.3.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js" type="text/javascript"></script>
+
+<!-- other imports -->
+<script src="javascript/main.js" type="text/javascript"></script>
+
+<script>
+    document.getElementById("name").value = getUrlVars()["name"];
+    document.getElementById("peerID").value = getUrlVars()["peerID"];
+
+</script>
+
+<!--<script>initIndex();</script>-->
 </html>

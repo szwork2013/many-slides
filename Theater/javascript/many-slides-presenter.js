@@ -42,7 +42,6 @@ peer.on('connection', connect);
 
 // Handle a connection object.
 function connect(c) {
-    alert(c);
     console.log(c);
     // Handle a chat connection.
     if (c.label === 'chat') {
