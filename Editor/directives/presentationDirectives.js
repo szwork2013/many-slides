@@ -22,8 +22,12 @@ app.directive('presentationSlides', function() {
 
 app.directive('item', function() {
     function link(scope, element, attrs) {
+         var mouse_down_fired = false;
         element.on('click', function(event) {
-            
+            if(mouse_down_fired) {
+                mouse_down_fired = false;
+                return;
+            }            
             var this_element = $(this);
             var this_controls = this_element.parent().children('.item-controls');
             var element_is_selected = this_element.hasClass('selected-object');  
@@ -43,13 +47,15 @@ app.directive('item', function() {
         
         element.on('mousedown', function(event) {
             event.preventDefault();
-            
+          
             var this_element = $(this);
             var this_controls = this_element.parent().children('.item-controls');
             var element_is_selected = this_element.hasClass('selected-object'); 
             var startX = 0, startY = 0, x = 0, y = 0;
             
             if (element_is_selected) {
+                mouse_down_fired =true; 
+                // TODO CHANGE THIS BEHAVIOUR
                 var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
                 var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
                 
