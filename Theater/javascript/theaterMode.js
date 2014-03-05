@@ -1,8 +1,7 @@
 // Connect to PeerJS, have server assign an ID instead of providing one
 // Showing off some of the configs available with PeerJS :).
 
-function shareLink()
-{
+function shareLink() {
     var peerID = document.getElementById("pid").innerHTML;
     console.log("Sharing Link with ID " + peerID);
     window.open("index.html?&peerID=" + peerID);
@@ -46,16 +45,16 @@ peer.on('connection', connect);
 function connect(c) {
     // Handle a chat connection.
     if (c.label === 'chat') {
-        var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
+//        var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
 
         connectedPeers.push(c.peer);
         $('.filler').hide();
         $('#messages').append(messages);
 
         c.on('data', function (data) {
-            $('#messages').append('<div><span class="peer">' + c.peer + '</span>: ' + data +
-                '</div>');
             console.log(data);
+            data = jQuery.parseJSON(data);
+            onMessageRecieve(c,data);
         });
         c.on('close', function () {
             console.log(c.peer + ' has left the chat.');
@@ -80,22 +79,19 @@ $(document).ready(function () {
     $('#connect').click(function () {
         requestedPeer = $('#rid').val();
         if (!connectedPeers[requestedPeer]) {
-            // Create 2 connections, one labelled chat and another labelled file.
+            // Create new chat connection.
             var c = peer.connect(requestedPeer, {
                 label: 'chat',
                 serialization: 'none',
                 reliable: false,
-                metadata: { message: 'hi i want to chat with you!' }
+                name: "TEST"
             });
             c.on('open', function () {
                 connect(c);
             });
-            c.on('error', function (err) { alert(err); });
-            var f = peer.connect(requestedPeer, { label: 'file' });
-            f.on('open', function () {
-                connect(f);
+            c.on('error', function (err) {
+                alert(err);
             });
-            f.on('error', function (err) { alert(err); });
         }
         connectedPeers[requestedPeer] = 1;
     });
@@ -113,10 +109,6 @@ $(document).ready(function () {
         onMessageSend(e);
     });
 
-
-
-//    // Show browser version
-//    $('#browsers').text(navigator.userAgent);
 });
 
 

@@ -42,14 +42,17 @@ peer.on('connection', connect);
 
 // Handle a connection object.
 function connect(c) {
+    alert(c);
+    console.log(c);
     // Handle a chat connection.
     if (c.label === 'chat') {
-        var messages = $('<div><em>Peer ' + c.peer +' connected.</em></div>').addClass('messages');
+        var messages = $('<div><em>Peer ' + c.peer +' joined.</em></div>').addClass('messages');
 
         eachActiveConnection(function (con, $c) {
             if (con.label === 'chat') {
-                con.send(c.peer + " Joined");
-                $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
+                var message = "{\"flag\": 0, \"content\":\""+ c.peer + "\"}";
+                con.send(message);
+//                $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
             }
         });
 
@@ -62,14 +65,15 @@ function connect(c) {
 
 
         c.on('data', function (data) {
-            eachActiveConnection(function (c, $c) {
-                if (c.label === 'chat') {
-                    c.send(data);
-                }
-            });
-            $('#messages').append('<div><span class="peer">' + c.peer + '</span>: ' + data +
-                '</div>');
             console.log(data);
+            data = jQuery.parseJSON(data);
+            onMessageRecieve(c,data);
+
+//            eachActiveConnection(function (c, $c) {
+//                if (c.label === 'chat') {
+//                    c.send(data);
+//                }
+//            });
         });
     }
 }
