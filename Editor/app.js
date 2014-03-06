@@ -1,1 +1,1 @@
-var app = angular.module('manySlidesEditor',[]);
+var app = angular.module('manySlidesEditor', ['cp']);

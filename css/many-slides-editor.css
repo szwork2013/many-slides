@@ -3,6 +3,10 @@
     -webkit-transform-style: preserve-3d;
 }
 
+.item {
+    -webkit-transition: width 100ms, height 100ms, background 100ms;
+}
+
 .item-controls {
     background: #edeff1;
     padding: 10px;

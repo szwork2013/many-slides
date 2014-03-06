@@ -118,7 +118,7 @@ app.directive('layerItems', function() {
                             '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
                             '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
                             '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +                        
-                            '<div class="form-group">Color: <input type="text" class="form-control" ng-model="item.style.background"></div>' +
+                            '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
                             '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
                             '</div>' +
                     '</div>' 
