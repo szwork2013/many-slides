@@ -1,6 +1,6 @@
-##Many Slides
+#Many Slides
 ###General
-... is a web presentation application for creating and sharing presentations from within your web-browser!
+Many Slides is a web presentation application for creating and sharing presentations from within your web-browser!
 
 This is an ongoing student research project, which will probably be reaching a somewhat stable state around June 2014.
 
@@ -15,13 +15,13 @@ The accompanying audio stream will (probably) be realised using WebRTC (wrapped 
 ###Modes
 There are three modes in this application:
 
-#####1. Editor Mode
+####1. Editor Mode
 Here you are able to create your presentations.
 
-#####2. Presentation Mode
+####2. Presentation Mode
 Here you are able to send invites for your presentations as well as hold your presentations.
 
-#####3. Theater Mode
+####3. Theater Mode
 Here you can watch and listen to presentations you have got invites to in real time.
 There is also a chat available for all written communication needs.
 
