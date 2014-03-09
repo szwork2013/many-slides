@@ -1,7 +1,7 @@
 ##Many Slides
-A web presentation application for creating and sharing presentations from within your web-browser!
-
 ###General
+... is a web presentation application for creating and sharing presentations from within your web-browser!
+
 This is an ongoing student research project, which will probably be reaching a somewhat stable state around June 2014.
 
 The main focus is to create a lightweight application which also enabled users to share their presentations with people all around the world, while minimizing the traffic needed to transfer the presentations over the internet to a bare minimum.
@@ -15,16 +15,13 @@ The accompanying audio stream will (probably) be realised using WebRTC (wrapped 
 ###Modes
 There are three modes in this application:
 
-####1. Editor Mode:
-
+#####1. Editor Mode
 Here you are able to create your presentations.
 
-####2. Presentation Mode:
-
+#####2. Presentation Mode
 Here you are able to send invites for your presentations as well as hold your presentations.
 
-####3. Theater Mode:
-
+#####3. Theater Mode
 Here you can watch and listen to presentations you have got invites to in real time.
 There is also a chat available for all written communication needs.
 
@@ -34,7 +31,7 @@ PeerJS - [Home](https://peerjs.com) - [GitHub](https://github.com/peers/peerjs)
 UnderscoreJS - [Home](https://underscorejs.org) - [GitHub](https://github.com/jashkenas/underscore)  
 angular-bootstrap-colorpicker - [GitHub](https://github.com/buberdds/angular-bootstrap-colorpicker)  
 
-###Notes
+##Notes
 09.03.2014 - Not using ng-include directive for html templates/fragments/partials, since doing so results in unexpected behaviour
     (When including the editor-menubar fonts are not loaded before the text is hovered over or a console opened.)
     
