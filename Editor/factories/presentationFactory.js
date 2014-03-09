@@ -22,9 +22,11 @@ app.factory('presentationFactory', function() {
                                 shape : {},
                                 text : {},
                                 style : {
-                                    background : "#99ea0f",
+                                    background : '#99ea0f',
+                                    border: '',
                                     border_radius : 100
-                                }
+                                },
+                                deleted: false
                             },
                             {
                                 location : [200, 200],
@@ -36,9 +38,11 @@ app.factory('presentationFactory', function() {
                                 shape : {},
                                 text : {},
                                 style : {
-                                    background : "#990f41",
+                                    background : '#990f41',
+                                    border: '',
                                     border_radius : 10
-                                }
+                                },
+                                deleted: false
                             }
                         ],
                         item_group : {

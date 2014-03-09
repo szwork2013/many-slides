@@ -14,6 +14,7 @@
     margin: 5px;
     float: right;
     width: 300px;
+    box-shadow: 0.2rem 0.2rem 0 #ccc;
 }
 
 .item-controls div {
@@ -40,6 +41,10 @@
 }
 
 /* Flat UI overwrites */
+
+body {
+    background: #fafafa;
+}
 
 .navbar {
     border-radius: 0;

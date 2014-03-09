@@ -22,10 +22,11 @@ app.directive('presentationSlides', function() {
 
 app.directive('item', function() {
     function link(scope, element, attrs) {
-         var mouse_down_fired = false;
+        var mousemove_fired = false;
+        
         element.on('click', function(event) {
-            if(mouse_down_fired) {
-                mouse_down_fired = false;
+            if(mousemove_fired) {
+                mousemove_fired = false;
                 return;
             }            
             var this_element = $(this);
@@ -53,8 +54,7 @@ app.directive('item', function() {
             var element_is_selected = this_element.hasClass('selected-object'); 
             var startX = 0, startY = 0, x = 0, y = 0;
             
-            if (element_is_selected) {
-                mouse_down_fired =true; 
+            if (element_is_selected) { 
                 // TODO CHANGE THIS BEHAVIOUR
                 var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
                 var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
@@ -69,6 +69,7 @@ app.directive('item', function() {
             }
             
             function mousemove(event) {
+                mousemove_fired = true;
                 y = event.pageY - startY;
                 x = event.pageX - startX;
                 element_x_input.val(x).change();
@@ -94,7 +95,8 @@ app.directive('item', function() {
                     '{{item.location[1]}}px,' +
                     '{{item.layer}}px);' +
                 'background: {{item.style.background}};' +
-                'border-radius: {{item.style.border_radius}}px';
+                'border: {{item.style.border}};' +
+                'border-radius: {{item.style.border_radius}}px;';
     
     return {
         link: link,
@@ -119,6 +121,7 @@ app.directive('layerItems', function() {
                             '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
                             '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +                        
                             '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
+                            '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
                             '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
                             '</div>' +
                     '</div>' 
