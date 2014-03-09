@@ -32,8 +32,8 @@ UnderscoreJS - [Home](https://underscorejs.org) - [GitHub](https://github.com/ja
 angular-bootstrap-colorpicker - [GitHub](https://github.com/buberdds/angular-bootstrap-colorpicker)  
 
 ##Notes
-09.03.2014 - Not using ng-include directive for html templates/fragments/partials, since doing so results in unexpected behaviour
-    (When including the editor-menubar fonts are not loaded before the text is hovered over or a console opened.)
+09.03.2014 - Not using ng-include directive for html templates/fragments/partials, since doing so results in unexpected behaviour.  
+*(When including the editor-menubar, fonts are not loaded before the text is hovered over or a console opened.)*
     
 09.03.2014 - Evaluation of Couch DB vs. Mongo DB is still to be had
 
