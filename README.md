@@ -19,25 +19,29 @@ Modes
 --------------------------------------
 There are three modes in this application:
 
-##1. Editor Mode:
+####1. Editor Mode:
 
 Here you are able to create your presentations.
 
-##2. Presentation Mode:
+####2. Presentation Mode:
 
 Here you are able to send invites for your presentations as well as hold your presentations.
 
-##3. Theater Mode:
+####3. Theater Mode:
 
 Here you can watch and listen to presentations you have got invites to in real time.
 There is also a chat available for all written communication needs.
 
 List of external sources
 --------------------------------------
-AngularJS - [Home](https://angularjs.org) - [GitHub](https://github.com/angular/angular.js)
-PeerJS - [Home](https://peerjs.com) - [GitHub](https://github.com/peers/peerjs)
-UnderscoreJS - [Home](https://underscorejs.org) - [GitHub](https://github.com/jashkenas/underscore)
-angular-bootstrap-colorpicker - [GitHub](https://github.com/buberdds/angular-bootstrap-colorpicker)
+AngularJS - [Home](https://angularjs.org) - [GitHub](https://github.com/angular/angular.js)  
+
+PeerJS - [Home](https://peerjs.com) - [GitHub](https://github.com/peers/peerjs)  
+
+UnderscoreJS - [Home](https://underscorejs.org) - [GitHub](https://github.com/jashkenas/underscore)  
+
+angular-bootstrap-colorpicker - [GitHub](https://github.com/buberdds/angular-bootstrap-colorpicker)  
+
 
 Notes
 --------------------------------------
