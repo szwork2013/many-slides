@@ -1,10 +1,7 @@
-many-slides
-===========
+##Many Slides
+A web presentation application for creating and sharing presentations from within your web-browser!
 
-Web presentation application for creating and sharing presentations from within your web-browser!
-
-General
---------------------------------------
+###General
 This is an ongoing student research project, which will probably be reaching a somewhat stable state around June 2014.
 
 The main focus is to create a lightweight application which also enabled users to share their presentations with people all around the world, while minimizing the traffic needed to transfer the presentations over the internet to a bare minimum.
@@ -15,8 +12,7 @@ Using this approach there is no need to establish a video stream, which would ot
 
 The accompanying audio stream will (probably) be realised using WebRTC (wrapped by PeerJS or other library/framework).
 
-Modes
---------------------------------------
+###Modes
 There are three modes in this application:
 
 ####1. Editor Mode:
@@ -32,19 +28,13 @@ Here you are able to send invites for your presentations as well as hold your pr
 Here you can watch and listen to presentations you have got invites to in real time.
 There is also a chat available for all written communication needs.
 
-List of external sources
---------------------------------------
+##List of external sources
 AngularJS - [Home](https://angularjs.org) - [GitHub](https://github.com/angular/angular.js)  
-
 PeerJS - [Home](https://peerjs.com) - [GitHub](https://github.com/peers/peerjs)  
-
 UnderscoreJS - [Home](https://underscorejs.org) - [GitHub](https://github.com/jashkenas/underscore)  
-
 angular-bootstrap-colorpicker - [GitHub](https://github.com/buberdds/angular-bootstrap-colorpicker)  
 
-
-Notes
---------------------------------------
+###Notes
 09.03.2014 - Not using ng-include directive for html templates/fragments/partials, since doing so results in unexpected behaviour
     (When including the editor-menubar fonts are not loaded before the text is hovered over or a console opened.)
     
