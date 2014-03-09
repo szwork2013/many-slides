@@ -138,3 +138,27 @@ app.directive('slideLayers', function() {
                     '</div>'
     };
 });
+
+app.directive('menubar', function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template: '<div class="col-xs-12 col-gutter-none">' +
+                      '<nav class="navbar navbar-inverse navbar-embossed" role="navigation">' +
+                        '<div class="navbar-header">' +
+                          '<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">' +
+                            '<span class="sr-only">Toggle navigation</span>' +
+                          '</button>' +
+                        '</div>' +
+                        '<div class="collapse navbar-collapse" id="navbar-collapse-01">' +
+                          '<ul class="nav navbar-nav navbar-left">' +
+                            '<li><a href="#" ng-click="addItem()">Add Item</a></li>' +
+                            '<li><a href="#" ng-click="deleteItems()">Delete Items</a></li>' +
+                            '<li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>' +
+                           '</ul>' +
+                        '</div>' +
+                      '</nav>' +
+                    '</div>'
+    }
+});

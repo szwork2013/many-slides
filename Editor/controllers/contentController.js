@@ -22,7 +22,7 @@ app.controller("contentController", function ($scope, presentationFactory) {
         $scope.presentation.slides[0].layers[0].items.push({
                                 location : [100, 100],
                                 layer : 0, //(Layer.position)
-                                height : 10,
+                                height : 100,
                                 width : 150,
                                 rotation : 0.0,
                                 related_items : [], //Item Array
