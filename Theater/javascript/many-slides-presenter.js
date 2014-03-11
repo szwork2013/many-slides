@@ -7,8 +7,7 @@ function shareLink()
     console.log("Sharing Link with ID " + peerID);
     window.open("index.html?&peerID=" + peerID);
 }
-
-
+var name = "Presenter";
 var peer = new Peer({
     // Set API key for cloud server (you don't need this if you're running your
     // own.
@@ -42,14 +41,20 @@ peer.on('connection', connect);
 
 // Handle a connection object.
 function connect(c) {
+    console.log("Host console log c");
     console.log(c);
     // Handle a chat connection.
     if (c.label === 'chat') {
-        var messages = $('<div><em>Peer ' + c.peer +' joined.</em></div>').addClass('messages');
+        var messages = $('<div><em>' + c.metadata.name +" - " +c.peer + ' joined.</em></div>');
 
         eachActiveConnection(function (con, $c) {
+            console.log("Sending peer -  " + c.metadata.name + " - " + c.peer);
             if (con.label === 'chat') {
-                var message = "{\"flag\": 0, \"content\":\""+ c.peer + "\"}";
+                var message = "{\"flag\": 0, " +
+                    "\"content\":\""+ c.peer + "\"," +
+                    "\"name\":\""+ c.metadata.name+"\"}";
+                console.log("Host sends message");
+                console.log(message);
                 con.send(message);
 //                $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
             }

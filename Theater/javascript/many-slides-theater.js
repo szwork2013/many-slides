@@ -1,12 +1,7 @@
 // Connect to PeerJS, have server assign an ID instead of providing one
 // Showing off some of the configs available with PeerJS :).
 
-function shareLink() {
-    var peerID = document.getElementById("pid").innerHTML;
-    console.log("Sharing Link with ID " + peerID);
-    window.open("index.html?&peerID=" + peerID);
-}
-
+var name;
 //---- Kann ausgelagert werden
 var peer = new Peer({
     // Set API key for cloud server (you don't need this if you're running your
@@ -45,21 +40,23 @@ peer.on('connection', connect);
 function connect(c) {
     // Handle a chat connection.
     if (c.label === 'chat') {
+        console.log(peer);
 //        var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
 
         connectedPeers.push(c.peer);
+        var message = "{\"flag\": 2}";
+        c.send (message);
         $('.filler').hide();
         $('#messages').append(messages);
 
         c.on('data', function (data) {
             console.log(data);
             data = jQuery.parseJSON(data);
-            onMessageRecieve(c,data);
+            onMessageRecieve(c, data);
         });
         c.on('close', function () {
             console.log(c.peer + ' has left the chat.');
-//            alert(c.peer + ' has left the chat.');
-//            chatbox.remove();
+
             if ($('.connection').length === 0) {
                 $('.filler').show();
             }
@@ -69,6 +66,7 @@ function connect(c) {
 }
 
 $(document).ready(function () {
+    name = getUrlVars()["name"];
 
     function doNothing(e) {
         e.preventDefault();
@@ -84,7 +82,10 @@ $(document).ready(function () {
                 label: 'chat',
                 serialization: 'none',
                 reliable: false,
-                name: "TEST"
+                metadata: {
+                    name: getUrlVars()["name"],
+                    message: 'hi i want to chat with you!'
+                }
             });
             c.on('open', function () {
                 connect(c);
