@@ -1,12 +1,5 @@
-// Connect to PeerJS, have server assign an ID instead of providing one
-// Showing off some of the configs available with PeerJS :).
 
-function shareLink()
-{
-    var peerID = document.getElementById("pid").innerHTML;
-    console.log("Sharing Link with ID " + peerID);
-    window.open("index.html?&peerID=" + peerID);
-}
+
 var name = "Presenter";
 var peer = new Peer({
     // Set API key for cloud server (you don't need this if you're running your
@@ -41,43 +34,40 @@ peer.on('connection', connect);
 
 // Handle a connection object.
 function connect(c) {
-    console.log("Host console log c");
-    console.log(c);
     // Handle a chat connection.
     if (c.label === 'chat') {
         var messages = $('<div><em>' + c.metadata.name +" - " +c.peer + ' joined.</em></div>');
 
         eachActiveConnection(function (con, $c) {
-            console.log("Sending peer -  " + c.metadata.name + " - " + c.peer);
             if (con.label === 'chat') {
                 var message = "{\"flag\": 0, " +
                     "\"content\":\""+ c.peer + "\"," +
                     "\"name\":\""+ c.metadata.name+"\"}";
-                console.log("Host sends message");
-                console.log(message);
                 con.send(message);
 //                $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
             }
         });
 
         connectedPeers.push(c.peer);
-        console.log(c.peer);
         // Select connection handler.
         $('.filler').hide();
         $('#messages').append(messages);
 
 
-
+        // If a message is received
         c.on('data', function (data) {
-            console.log(data);
             data = jQuery.parseJSON(data);
             onMessageRecieve(c,data);
+        });
 
-//            eachActiveConnection(function (c, $c) {
-//                if (c.label === 'chat') {
-//                    c.send(data);
-//                }
-//            });
+        // If a Peer leave a message gets shown and he gets removed from the list
+        c.on('close', function () {
+            $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
+
+            if (peer.connections == 'undefined') {
+                $('.filler').show();
+            }
+            delete connectedPeers[c.peer];
         });
     }
 }
@@ -88,24 +78,7 @@ $(document).ready(function () {
         e.preventDefault();
         e.stopPropagation();
     }
-
-    //---- is probably not used
-    // Close a connection.
-//    $('#close').click(function () {
-//        eachActiveConnection(function (c) {
-//            c.close();
-//        });
-//    });
-
-    // Send a chat message to all active connections.
-//    $('#send').submit(function (e) {
-//        alert("HI");
-//        onMessageSend(e);
-//    });
-
 });
-
-
 
 // Make sure things clean up properly.
 
@@ -114,3 +87,9 @@ window.onunload = window.onbeforeunload = function (e) {
         peer.destroy();
     }
 };
+
+function shareLink()
+{
+    var peerID = document.getElementById("pid").innerHTML;
+    window.open("index.html?&peerID=" + peerID);
+}

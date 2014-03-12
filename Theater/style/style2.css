@@ -11,12 +11,6 @@ body, html
     text-shadow: 0 1px 0 rgba(255,255,255,0.4);
 }
 
-#wrapper
-{
-    width:auto;
-    border: 1px solid black;
-    overflow: hidden;
-}
 #chatWindow
 {
     float: left;

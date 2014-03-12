@@ -1,11 +1,11 @@
+// Function that is run when a message is received.
+// Distinguished between different cases of messages
+
 function onMessageRecieve(c, data) {
 
-    console.log("Logging Peer");
-    console.log(peer);
 
     // Recive new peer ID
     if (data.flag == 0) {
-        console.log(data);
         connectedPeers.push(data.content);
         requestedPeer = data.content;
         if (!connectedPeers[requestedPeer]) {
@@ -21,7 +21,7 @@ function onMessageRecieve(c, data) {
             });
             c.on('open', function () {
                 connect(c);
-                var message = "{\"flag\": 3, \"peer\":\"" + peer.id + "\", \"name\":\"" + name + "\"}";
+                var message = "{\"flag\": 2, \"send\": 0  ,\"peer\":\"" + peer.id + "\", \"name\":\"" + name + "\"}";
                 c.send(message);
             });
             c.on('error', function (err) {
@@ -30,27 +30,27 @@ function onMessageRecieve(c, data) {
 
         }
         connectedPeers[requestedPeer] = 1;
-        console.log("Message recieved - printing c");
-        console.log(c);
         $('#messages').append('<div><em>' + c.metadata.name + " - " + c.peer + ' joined.</em></div>');
-
     }
+
     // Recieve normal text message
     else if (data.flag == 1) {
         $('#messages').append('<div><span class="peer">' + c.metadata.name + " - " + c.peer + '</span>: ' + data.content + '</div>');
     }
 
-    // NOT USED
+    // Send name or request names of other peer
     else if (data.flag == 2) {
-        var message = "{\"flag\": 3, \"peer\":\"" + peer.id + "\", \"name\":\"" + name + "\"}";
-        c.send(message);
+        if (data.send == 1) {
+            var message = "{\"flag\": 2, \"send\": 0  ,\"peer\":\"" + peer.id + "\", \"name\":\"" + name + "\"}";
+            c.send(message);
+        }
+        else if (data.send == 0) {
+            // Looking for the corresponding peerID in the Array, after that the correct name gets set
+            console.log(peer.connections[data.peer][0].peer + " - " + data.peer);
+            peer.connections[data.peer][0].metadata.name = data.name;
+            console.log(peer.connections[data.peer][0].metadata.name + " - " + data.name);
+        }
     }
-    else if (data.flag == 3) {
-        console.log(peer.connections[data.peer][0].peer + " - " + data.peer);
-        peer.connections[data.peer][0].metadata.name = data.name;
-        console.log(peer.connections[data.peer][0].metadata.name + " - " + data.name);
-    }
-
 }
 
 function onMessageSend(e) {
@@ -82,7 +82,15 @@ function eachActiveConnection(fn) {
                 fn(conn, $('#messages'));
             }
         }
-
         checkedIds[peerId] = 1;
     });
+}
+
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
 }

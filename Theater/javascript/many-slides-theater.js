@@ -1,8 +1,5 @@
-// Connect to PeerJS, have server assign an ID instead of providing one
-// Showing off some of the configs available with PeerJS :).
 
 var name;
-//---- Kann ausgelagert werden
 var peer = new Peer({
     // Set API key for cloud server (you don't need this if you're running your
     // own.
@@ -24,7 +21,7 @@ var peer = new Peer({
         ]
     } /* Sample servers, please use appropriate ones */
 });
-//---- Kann ausgelagert werden
+
 var connectedPeers = new Array();
 
 // Show this peer's ID.
@@ -32,7 +29,6 @@ peer.on('open', function (id) {
     $('#pid').text(id);
 });
 
-//---- Kann ausgelagert werden
 // Await connections from others
 peer.on('connection', connect);
 
@@ -44,20 +40,20 @@ function connect(c) {
 //        var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
 
         connectedPeers.push(c.peer);
-        var message = "{\"flag\": 2}";
+        var message = "{\"flag\": 2 , \"send\": 1}";
         c.send (message);
         $('.filler').hide();
         $('#messages').append(messages);
 
         c.on('data', function (data) {
-            console.log(data);
             data = jQuery.parseJSON(data);
             onMessageRecieve(c, data);
         });
+        // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
-            console.log(c.peer + ' has left the chat.');
+            $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
 
-            if ($('.connection').length === 0) {
+            if (peer.connections == 'undefined') {
                 $('.filler').show();
             }
             delete connectedPeers[c.peer];
@@ -96,14 +92,6 @@ $(document).ready(function () {
         }
         connectedPeers[requestedPeer] = 1;
     });
-
-    //---- is probably not used
-    // Close a connection.
-//    $('#close').click(function () {
-//        eachActiveConnection(function (c) {
-//            c.close();
-//        });
-//    });
 
     // Send a chat message to all active connections.
     $('#send').submit(function (e) {
