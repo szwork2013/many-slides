@@ -1,10 +1,12 @@
 #presentation {
     position: relative;
     -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 .item {
-    -webkit-transition: width 100ms, height 100ms, background 100ms;
+    transition: width 100ms, height 100ms, background 100ms;
 }
 
 .item-controls {

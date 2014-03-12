@@ -94,6 +94,14 @@ app.directive('item', function() {
                     '{{item.location[0]}}px,' +
                     '{{item.location[1]}}px,' +
                     '{{item.layer}}px);' +
+                '-moz-transform: translate3d(' +
+                    '{{item.location[0]}}px,' +
+                    '{{item.location[1]}}px,' +
+                    '{{item.layer}}px);' +
+                'transform: translate3d(' +
+                    '{{item.location[0]}}px,' +
+                    '{{item.location[1]}}px,' +
+                    '{{item.layer}}px);' +
                 'background: {{item.style.background}};' +
                 'border: {{item.style.border}};' +
                 'border-radius: {{item.style.border_radius}}px;';
