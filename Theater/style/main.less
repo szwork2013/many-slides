@@ -1,22 +1,9 @@
 @base: #FFFFFF;
 
-.box-shadow(@style, @c) when (iscolor(@c)) {
-  -webkit-box-shadow: @style @c;
-  -moz-box-shadow:    @style @c;
-  box-shadow:         @style @c;
-}
-.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
-  .box-shadow(@style, rgba(0, 0, 0, @alpha));
-}
-.box {
-  color: saturate(@base, 5%);
-  border-color: lighten(@base, 30%);
-  div { .box-shadow(0 0 5px, 30%) }
-}
-
-
 body, html
 {
+//  height: 100%;
+//  min-height: 100%;
   background-color: @base;
 }
 
@@ -30,7 +17,7 @@ footer
 // Message Design
 .message
 {
-  font-size: 3rm;
+  font-size: 3rem;
 }
 .peer
 {
@@ -41,10 +28,12 @@ footer
 {
   color: #0C6BA1;
   &:extend(.message);
+  font-family: "Lato",Helvetica,Arial,sans-serif;
+  font-size: 15px;
 }
 #messages
 {
-  border: 20rm #0000ff;
+  border: 20rem #0000ff;
   height: 60%;
 }
 #peers
@@ -57,6 +46,28 @@ footer
   border: 1px solid black;
   overflow: hidden;
   height: 100%;
+  position:relative;
+}
+
+#chatWindow
+{
+  float: left;
+//  width: 40%;
+  height: 100% - 9rem;
+  border: 2px solid #2ECC71;
+  border-radius: 6px;
+  box-shadow: none;
+  color: #34495E;
+  line-height: 1.467;
+  padding: 8px 12px;
+//  position:relative;
+}
+
+#actions
+{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 4rem;
 }
 
 // Intro Design
@@ -95,7 +106,14 @@ footer
   margin-right: auto;
   padding:0.3em;
 }
-
+.col-gutter-none
+{
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar{
+  border-radius: 0;
+}
 #pid
 {
   color: #0C6BA1;

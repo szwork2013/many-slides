@@ -10,6 +10,8 @@
 
     <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
 
+    <link href="../images/favicon.ico" rel="shortcut icon">
+
 
 </head>
 
@@ -29,8 +31,8 @@
     <button id="close" class="btn btn-block btn-lg btn-primary headerPresentationButton">Exit</button>
 </div>
 
-<div id="wrapper">
-    <div id="chatWindow" class="ui-widget-content">
+<div id="wrapper" >
+    <div id="chatWindow">
 
         <div id="messages"></div>
 
@@ -68,10 +70,6 @@ Drag file here to send to active connections.
 
 <script>
 
-    $(function () {
-        $("#chatWindow").resizable({
-        });
-    });
     console.log(getUrlVars()["peerID"]);
     document.getElementById("rid").value = getUrlVars()["peerID"];
     if (document.getElementById("rid").value != "undefined" && document.getElementById("rid").value != "") {
@@ -81,6 +79,10 @@ Drag file here to send to active connections.
         }, 4000);
         console.log("clicked");
     }
+    $(function () {
+        $("#chatWindow").resizable({
+        });
+    });
 
 
 </script>
