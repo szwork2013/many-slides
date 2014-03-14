@@ -1,26 +1,27 @@
 
 var name;
-var peer = new Peer({
-    // Set API key for cloud server (you don't need this if you're running your
-    // own.
-    key: 'lwjd5qra8257b9',
-
-    // Set highest debug level (log everything!).
-    debug: 3,
-
-    // Set a logging function:
-    logFunction: function () {
-        var copy = Array.prototype.slice.call(arguments).join(' ');
-        console.log(copy);
-    },
-
-    // Use a TURN server for more network support
-    config: {
-        'iceServers': [
-            { url: 'stun:stun.l.google.com:19302' }
-        ]
-    } /* Sample servers, please use appropriate ones */
-});
+var peer = new Peer ({host: 'it-bejga2.dhbw-stuttgart.de', port:9000, debug:true});
+//var peer = new Peer({
+//    // Set API key for cloud server (you don't need this if you're running your
+//    // own.
+//    key: 'lwjd5qra8257b9',
+//
+//    // Set highest debug level (log everything!).
+//    debug: 3,
+//
+//    // Set a logging function:
+//    logFunction: function () {
+//        var copy = Array.prototype.slice.call(arguments).join(' ');
+//        console.log(copy);
+//    },
+//
+//    // Use a TURN server for more network support
+//    config: {
+//        'iceServers': [
+//            { url: 'stun:stun.l.google.com:19302' }
+//        ]
+//    } /* Sample servers, please use appropriate ones */
+//});
 
 var connectedPeers = new Array();
 
