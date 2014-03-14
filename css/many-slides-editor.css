@@ -1,13 +1,17 @@
 #presentation {
+}
+
+.slide {
     position: relative;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
 
 .item {
-    transition: width 100ms, height 100ms, background 100ms;
-}
+    -moz-transition: width 100ms, height 100ms, -moz-background 100ms;
+    -o-transition: width 100ms, height 100ms, -o-background 100ms;
+    -webkit-transition: width 100ms, height 100ms, -webkit-background 100ms;
+    transition: width 100ms, height 100ms, background 100ms
+    }
 
 .item-controls {
     background: #edeff1;
@@ -59,7 +63,7 @@ input[type="text"] {
 .form-control:focus {
     border: 2px solid #1abc9c;
     outline: 0;
+    -moz-box-shadow: none;
     -webkit-box-shadow: none;
-    box-shadow: none;
+    box-shadow: none
 }
-

@@ -12,10 +12,10 @@ app.directive('presentation', function() {
 app.directive('presentationSlides', function() {
     return {
         restrict: 'E',
-        replace: false,
+        replace: true,
         scope: true,
         template:   '<div ng-repeat="slide in presentation.slides" class="slide">' +
-                        '<slide-layers/>' +
+                        '<slide-items></slide-items>' +
                     '</div>'
     };
 });
@@ -90,18 +90,11 @@ app.directive('item', function() {
     var style = 'position: absolute;' +
                 'height: {{item.height}}px;' +
                 'width: {{item.width}}px;' +
-                '-webkit-transform: translate3d(' +
-                    '{{item.location[0]}}px,' +
-                    '{{item.location[1]}}px,' +
-                    '{{item.layer}}px);' +
-                '-moz-transform: translate3d(' +
-                    '{{item.location[0]}}px,' +
-                    '{{item.location[1]}}px,' +
-                    '{{item.layer}}px);' +
-                'transform: translate3d(' +
-                    '{{item.location[0]}}px,' +
-                    '{{item.location[1]}}px,' +
-                    '{{item.layer}}px);' +
+                '-webkit-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                '-moz-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                '-ms-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                '-o-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                'transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
                 'background: {{item.style.background}};' +
                 'border: {{item.style.border}};' +
                 'border-radius: {{item.style.border_radius}}px;';
@@ -115,35 +108,68 @@ app.directive('item', function() {
     };
 });
 
-app.directive('layerItems', function() {
+app.directive('itemControls', function() {
+    function link(scope, element, attrs) {
+        element.on('mousedown', function(event) {
+ //           event.preventDefault();
+            
+            var this_element = $(this);
+            var startX = 0, startY = 0, x = 0, y = 0;
+
+                // TODO CHANGE THIS BEHAVIOUR
+            var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
+            var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
+
+            x = element_x_input.val();
+            y = element_y_input.val();
+
+            startX = event.pageX - x;
+            startY = event.pageY - y;
+            $(document).on('mousemove', mousemove);
+            $(document).on('mouseup', mouseup);
+
+            function mousemove(event) {
+                y = event.pageY - startY;
+                x = event.pageX - startX;
+                element_x_input.val(x).change();
+                element_y_input.val(y).change();
+            }
+
+            function mouseup() {
+                $(document).unbind('mousemove', mousemove);
+                $(document).unbind('mouseup', mouseup);
+            }
+        });
+    }
+    
     return {
+        link: link,
         restrict: 'E',
-        replace: false,
+        replace: true,
         scope: true,
-        template:   '<div ng-repeat="item in layer.items" class="item-wrapper">' +
-                        '<item></item>' +
-                        '<div class="item-controls hidden">' +
-                            '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
-                            '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
-                            '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
-                            '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
-                            '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +                        
-                            '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
-                            '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
-                            '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
-                            '</div>' +
-                    '</div>' 
+        template: '<div class="item-controls hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
+                        '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
+                        '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
+                        '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
+                        '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
+                        '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +                        
+                        '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
+                        '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
+                        '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
+                    '</div>'
     };
 });
 
-app.directive('slideLayers', function() {
+app.directive('slideItems', function() {
+    
     return {
         restrict: 'E',
-        replace: false,
+        replace: true,
         scope: true,
-        template:   '<div ng-repeat="layer in slide.layers" class="layer">' +
-                        '<layer-items></layer-items>' +
-                    '</div>'
+        template:   '<div ng-repeat="item in slide.items" class="item-wrapper" style="position: absolute; z-index: {{item.layer}};">' +
+                        '<item></item>' +
+                        '<item-controls></item-controls>' +
+                    '</div>' 
     };
 });
 
@@ -160,7 +186,7 @@ app.directive('menubar', function() {
                           '</button>' +
                         '</div>' +
                         '<div class="collapse navbar-collapse" id="navbar-collapse-01">' +
-                          '<ul class="nav navbar-nav navbar-left">' +
+                          '<ul class="nav navbar-nav navbar-left    ">' +
                             '<li><a href="#" ng-click="addItem()">Add Item</a></li>' +
                             '<li><a href="#" ng-click="deleteItems()">Delete Items</a></li>' +
                             '<li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>' +

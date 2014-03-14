@@ -5,59 +5,51 @@ app.factory('presentationFactory', function() {
         // grid : [0, 0], //was war der Sinn dafür?
         slides : [
             {
-                position : 0,
-                transition : 0,
-                layers : [
+            position : 0,
+            transition : 0,
+                items : [
                     {
-                        position : 0,
-                        visible : true,
-                        items : [
-                            {
-                                location : [100, 100],
-                                layer : 0, //(Layer.position)
-                                height : 150,
-                                width : 150,
-                                rotation : 0.0,
-                                related_items : [], //Item Array
-                                shape : {},
-                                text : {},
-                                style : {
-                                    background : '#99ea0f',
-                                    border: '',
-                                    border_radius : 100
-                                },
-                                deleted: false
-                            },
-                            {
-                                location : [200, 200],
-                                layer : 1, //(Layer.position)
-                                height : 100,
-                                width: 100,
-                                rotation: 0.0,
-                                related_items : [], //Item Array
-                                shape : {},
-                                text : {},
-                                style : {
-                                    background : '#990f41',
-                                    border: '',
-                                    border_radius : 10
-                                },
-                                deleted: false
-                            }
-                        ],
-                        item_group : {
-//                            location : [0, 0],
-//                            number_of_items : 0,
-//                            layer : 0, //(Layer.position)
-//                            members : [], //Item Array
-//                            height : 100,
-//                            width : 100,
-//                            rotation : 0.0
-                        }
+                        location : [100, 100],
+                        layer : 0,
+                        height : 150,
+                        width : 150,
+                        rotation : 0.0,
+                        related_items : [], //Item Array
+                        shape : {},
+                        text : {},
+                        style : {
+                            background : '#99ea0f',
+                            border: '',
+                            border_radius : 100
+                        },
+                        deleted: false
                     },
-                    {},
-                    {}
-                ]
+                    {
+                        location : [200, 200],
+                        layer : 1,
+                        height : 100,
+                        width: 100,
+                        rotation: 0.0,
+                        related_items : [], //Item Array
+                        shape : {},
+                        text : {},
+                        style : {
+                            background : '#990f41',
+                            border: '',
+                            border_radius : 10
+                        },
+                        deleted: false
+                    }
+                ],
+                item_group : {
+//                  location : [0, 0],
+//                  number_of_items : 0,
+//                  layer : 0, //(Layer.position)
+//                  members : [], //Item Array
+//                  height : 100,
+//                  width : 100,
+//                  rotation : 0.0
+                },
             }
         ]
     };

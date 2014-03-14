@@ -19,7 +19,7 @@ app.controller("contentController", function ($scope, presentationFactory) {
     };
     
     $scope.addItem = function () {
-        $scope.presentation.slides[0].layers[0].items.push({
+        $scope.presentation.slides[0].items.push({
                                 location : [100, 100],
                                 layer : 0, //(Layer.position)
                                 height : 100,
