@@ -1,8 +1,20 @@
+function sendDummyPresentation() {
+    // For each active connection, send the message.
+    eachActiveConnection(function (c, $c) {
+        if (c.label === 'chat') {
+            var message = "{\"flag\": 3, \"content\":\"" + "'<b>this is bold content</b>'" + "\"}";
+            console.log(message);
+            c.send(message);
+        }
+    });
+    $('#messages').append('<div><span class="you">You: </span> dummy send </div>');
+    $('#text').val('');
+    $('#text').focus();
+}
+
 // Function that is run when a message is received.
 // Distinguished between different cases of messages
-
 function onMessageRecieve(c, data) {
-
 
     // Recive new peer ID
     if (data.flag == 0) {
@@ -49,7 +61,15 @@ function onMessageRecieve(c, data) {
             console.log(peer.connections[data.peer][0].peer + " - " + data.peer);
             peer.connections[data.peer][0].metadata.name = data.name;
             console.log(peer.connections[data.peer][0].metadata.name + " - " + data.name);
+
+            updateConnections();
         }
+    }
+
+    else if (data.flag == 3) {
+        console.log("received data");
+        console.log(data);
+        $scope.presentation = data.content;
     }
 }
 
@@ -86,11 +106,30 @@ function eachActiveConnection(fn) {
     });
 }
 
-
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
         vars[key] = value;
     });
     return vars;
+}
+
+// Updates the list of all connections. Removes them and them adds them all sorted new
+function updateConnections() {
+    $('#connections').empty();
+
+    var names = new Array();
+    connectedPeers.forEach(function (entry) {
+        var peerId = (entry);
+        names.push(peer.connections[peerId][0].metadata.name);
+    });
+    names.push(name);
+    names.sort();
+    names.forEach(function (name) {
+
+        $('#connections').append("<div><img class='dot' src='images/dot.png'>" + name + "</div>");
+    });
+
+    $('#amount').empty();
+    $('#amount').append("Connections: " + names.length);
 }

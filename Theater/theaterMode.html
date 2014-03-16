@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en">
 <head>
     <meta charset="utf-8">
 
@@ -23,63 +23,63 @@
         </div>
         <div id="navbar-collapse-01" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#">Placeholder</a></li>
-                <li><a href="#">placeholder</a></li>
                 <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
-                <li><a onclick="shareLink()"> Share Link</a></li>
-                <li><a onclick="alert('not yet implemented!');">E-Mail Link</a></li>
                 <li><a id="pid">peerID</a></li>
                 <li><a id="rid">peerID</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a onclick="alert('not yet implemented!');">Start sharing</a></li>
                 <li><a id="close">Exit</a></li>
             </ul>
         </div>
     </nav>
 </div>
+
+<!--Needs to be removed-->
 <input value="Connect" id="connect" type="button" class="btn btn-block btn-lg btn-primary headerPresentationButton"
        style="display: none">
 
-<div class="col-xs-12 col-gutter-none ng-scope">
-    <!--<div id="wrappers">-->
-    <div id="chatWindows" class="col-md-3 col-gutter-none">
-        <!--<div id="peers">-->
-        <!--Noting here yet-->
-        <!--</div>-->
+<div id="wrapper" class="col-xs-12 col-gutter-none ng-scope">
+    <div id="chatWindow" class="col-md-3 col-gutter-none">
+        <p id="amount">Connections: 0</p>
+
+        <div id="connections" class="col-md-12">
+            <span class="filler">No Audience yet.</span>
+        </div>
+        <p>Chat</p>
+
         <div id="messages" class="col-md-12">
-            <span class="filler">No client is connected yet.</span>
         </div>
 
         <form id="send">
-            <div class="col-md-9 col-gutter-right-none">
+            <div class="col-md-9 col-gutter-none">
                 <input type="text" id="text" placeholder="Enter message" class="form-control">
             </div>
             <div class="col-md-3  ">
                 <input type="submit" value="Send" class="btn  btn-lg btn-primary">
             </div>
         </form>
-
-        <!--<div id="wrap">-->
-        <!--<div id="connections">-->
-        <!--</div>-->
-        <!--<div class="clear"></div>-->
-        <!--</div>-->
     </div>
-    <div id="presentationWindows" class="col-md-9">
+    <div id="presentationWindow" class="col-md-9" ng-bind-html="presentation">
         <p>{{'No presentation ' + 'loaded ... yet!'}}</p>
     </div>
-    <!--</div>-->
 </div>
-
+<div id="loadingWindow">
+    <div class="bubblingG">
+        <span id="bubblingG_1"></span>
+        <span id="bubblingG_2"></span>
+        <span id="bubblingG_3"></span>
+    </div>
+</div>
 </body>
 
 <!-- common imports -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
+<script src="controller/app.js"></script>
+<script src="controller/presentationcontroller.js"></script>
+
 <script src="../scripts/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="../scripts/jquery-ui.js" type="text/javascript"></script>
 <script src="../scripts/less-1.6.3.js" type="text/javascript"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
 
 <!-- other imports -->
 <script type="text/javascript" src="javascript/peer.js"></script>

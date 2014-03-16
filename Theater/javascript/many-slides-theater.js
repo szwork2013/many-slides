@@ -44,15 +44,18 @@ function connect(c) {
         var message = "{\"flag\": 2 , \"send\": 1}";
         c.send (message);
         $('.filler').hide();
+        $('#loadingWindow').hide();
         $('#messages').append(messages);
 
         c.on('data', function (data) {
+            console.log(data);
             data = jQuery.parseJSON(data);
             onMessageRecieve(c, data);
         });
         // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
             $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
+            updateConnections();
 
             if (peer.connections == 'undefined') {
                 $('.filler').show();

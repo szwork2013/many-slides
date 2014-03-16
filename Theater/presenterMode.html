@@ -4,13 +4,11 @@
     <meta charset="utf-8">
     <title>Presenter</title>
 
-    <link href="style/style2.css" rel="stylesheet" type="text/css">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/flat-ui.css">
     <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
 
     <link href="../images/favicon.ico" rel="shortcut icon">
-
 
 </head>
 
@@ -23,34 +21,39 @@
         </div>
         <div id="navbar-collapse-01" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a onclick="sendDummyPresentation">Dummy Präsi</a></li>
-                <li><a href="#">placeholder</a></li>
+                <li><a onclick="sendDummyPresentation()">Dummy Präsi</a></li>
                 <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
                 <li><a onclick="shareLink()"> Share Link</a></li>
                 <li><a onclick="alert('not yet implemented!');">E-Mail Link</a></li>
                 <li><a id="pid">peerID</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a onclick="alert('not yet implemented!');">Start sharing</a></li>
+                <li><a id="toogleSharing" class="switch-off" onclick="toggleSharing();">Start sharing</a></li>
                 <li><a id="close">Exit</a></li>
             </ul>
         </div>
     </nav>
 </div>
-// Needs to be removed
+<!-- Needs to be removed-->
     <input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox"
            style="display: none;">
     <input value="Connect" id="connect" type="button" class="btn  btn-lg btn-primary headerPresentationButton"
            style="display: none;">
 
-<div class="col-xs-12 col-gutter-none ng-scope">
-    <div id="chatWindows" class="col-md-3 col-gutter-none">
+
+
+<div id="wrapper" class="col-xs-12 col-gutter-none ng-scope">
+    <div id="chatWindow" class="col-md-3 col-gutter-none">
+        <p id="amount">Connections: 0</p>
+        <div id="connections" class="col-md-12">
+            <span class="filler">No Audience yet.</span>
+        </div>
+        <p>Chat</p>
         <div id="messages" class="col-md-12">
-            <span class="filler">No client is connected yet.</span>
         </div>
 
         <form id="send">
-            <div class="col-md-9 col-gutter-right-none">
+            <div class="col-md-9 col-gutter-none">
                 <input type="text" id="text" placeholder="Enter message" class="form-control">
             </div>
             <div class="col-md-3  ">
@@ -58,7 +61,7 @@
             </div>
         </form>
     </div>
-    <div id="presentationWindow" class="col-md-9">
+    <div id="presentationWindow" class="col-md-9" ng-bind-html="presentation">
         <p>{{'No presentation ' + 'loaded ... yet!'}}</p>
     </div>
 </div>

@@ -1,8 +1,6 @@
-
-
 var name = "Presenter";
 
-var peer = new Peer ({host: 'it-bejga2.dhbw-stuttgart.de', port:9000, debug:true});
+var peer = new Peer({host: 'it-bejga2.dhbw-stuttgart.de', port: 9000, debug: true});
 //var peer = new Peer({
 //    // Set API key for cloud server (you don't need this if you're running your
 //    // own.
@@ -38,20 +36,22 @@ peer.on('connection', connect);
 function connect(c) {
     // Handle a chat connection.
     if (c.label === 'chat') {
-        var messages = $('<div><em>' + c.metadata.name +" - " +c.peer + ' joined.</em></div>');
+        var messages = $('<div><em>' + c.metadata.name + " - " + c.peer + ' joined.</em></div>');
 
         eachActiveConnection(function (con, $c) {
             if (con.label === 'chat') {
                 var message = "{\"flag\": 0, " +
-                    "\"content\":\""+ c.peer + "\"," +
-                    "\"name\":\""+ c.metadata.name+"\"}";
+                    "\"content\":\"" + c.peer + "\"," +
+                    "\"name\":\"" + c.metadata.name + "\"}";
                 con.send(message);
 //                $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
             }
         });
 
         connectedPeers.push(c.peer);
+        updateConnections();
         // Select connection handler.
+
         $('.filler').hide();
         $('#messages').append(messages);
 
@@ -59,15 +59,17 @@ function connect(c) {
         // If a message is received
         c.on('data', function (data) {
             data = jQuery.parseJSON(data);
-            onMessageRecieve(c,data);
+            onMessageRecieve(c, data);
         });
 
         // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
             $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
+            updateConnections();
 
             if (peer.connections == 'undefined') {
                 $('.filler').show();
+
             }
             delete connectedPeers[c.peer];
         });
@@ -90,8 +92,21 @@ window.onunload = window.onbeforeunload = function (e) {
     }
 };
 
-function shareLink()
-{
+function toggleSharing() {
+    var toggleSharing =  document.getElementById("toogleSharing");
+    if (toggleSharing.attributes.class.value == "switch-on") {
+        toggleSharing.attributes.class.value = "switch-off"
+        toggleSharing.innerHTML = "Start Sharing";
+    }
+    else if (toggleSharing.attributes.class.value == "switch-off") {
+        toggleSharing.attributes.class.value = "switch-on"
+        toggleSharing.innerHTML = "Stop Sharing";
+    }
+}
+
+
+function shareLink() {
     var peerID = document.getElementById("pid").innerHTML;
     window.open("index.html?&peerID=" + peerID);
 }
+
