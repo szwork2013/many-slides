@@ -1,4 +1,5 @@
-app.directive('presentation', function() {
+app.directive('presentation', function () {
+	"use strict";
     return {
         restrict: 'E',
         replace: true,
@@ -7,9 +8,10 @@ app.directive('presentation', function() {
                         '<presentation-slides/>' +
                     '</div>'
     };
-})
+});
 
-app.directive('presentationSlides', function() {
+app.directive('presentationSlides', function () {
+	"use strict";
     return {
         restrict: 'E',
         replace: true,
@@ -20,22 +22,23 @@ app.directive('presentationSlides', function() {
     };
 });
 
-app.directive('item', function() {
+app.directive('item', function () {
+	"use strict";
     function link(scope, element, attrs) {
         var mousemove_fired = false;
         
-        element.on('click', function(event) {
-            if(mousemove_fired) {
+        element.on('click', function (event) {
+            if (mousemove_fired) {
                 mousemove_fired = false;
                 return;
-            }            
+            }
             var this_element = $(this);
             var this_controls = this_element.parent().children('.item-controls');
-            var element_is_selected = this_element.hasClass('selected-object');  
-            var selected_objects = $('.selected-object');
-            var selected_object_controls = selected_objects.parent().children('.item-controls')
+            var element_is_selected = this_element.hasClass('selected-object');
+			var selected_objects = $('.selected-object');
+            var selected_object_controls = selected_objects.parent().children('.item-controls');
             
-            if(element_is_selected) {
+            if (element_is_selected) {
                 this_element.removeClass('selected-object');
                 this_controls.addClass('hidden');
             } else {
@@ -46,15 +49,15 @@ app.directive('item', function() {
             }
         });
         
-        element.on('mousedown', function(event) {
+        element.on('mousedown', function (event) {
             event.preventDefault();
           
             var this_element = $(this);
             var this_controls = this_element.parent().children('.item-controls');
-            var element_is_selected = this_element.hasClass('selected-object'); 
+            var element_is_selected = this_element.hasClass('selected-object');
             var startX = 0, startY = 0, x = 0, y = 0;
             
-            if (element_is_selected) { 
+            if (element_is_selected) {
                 // TODO CHANGE THIS BEHAVIOUR
                 var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
                 var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
@@ -82,7 +85,7 @@ app.directive('item', function() {
             }
         });
         
-        element.on('dblclick', function() {
+        element.on('dblclick', function () {
             event.preventDefault();
         });
     }
@@ -152,7 +155,7 @@ app.directive('itemControls', function() {
                         '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
                         '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
                         '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
-                        '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +                        
+                        '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +
                         '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
                         '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
                         '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
@@ -160,8 +163,8 @@ app.directive('itemControls', function() {
     };
 });
 
-app.directive('slideItems', function() {
-    
+app.directive('slideItems', function () {
+    "use strict";
     return {
         restrict: 'E',
         replace: true,
@@ -169,12 +172,13 @@ app.directive('slideItems', function() {
         template:   '<div ng-repeat="item in slide.items" class="item-wrapper" style="position: absolute; z-index: {{item.layer}};">' +
                         '<item></item>' +
                         '<item-controls></item-controls>' +
-                    '</div>' 
+                    '</div>'
     };
 });
 
-app.directive('menubar', function() {
-    return {
+app.directive('menubar', function () {
+    "use strict";
+	return {
         restrict: 'E',
         replace: true,
         scope: true,
@@ -194,5 +198,5 @@ app.directive('menubar', function() {
                         '</div>' +
                       '</nav>' +
                     '</div>'
-    }
+    };
 });

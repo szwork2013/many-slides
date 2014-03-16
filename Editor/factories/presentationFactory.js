@@ -1,12 +1,13 @@
-app.factory('presentationFactory', function() {
+app.factory('presentationFactory', function () {
+	"use strict";
     var factory = {};
     var presentation = {
         aspect_ratio : [16, 9],
         // grid : [0, 0], //was war der Sinn dafür?
         slides : [
             {
-            position : 0,
-            transition : 0,
+				position : 0,
+				transition : 0,
                 items : [
                     {
                         location : [100, 100],
@@ -49,7 +50,7 @@ app.factory('presentationFactory', function() {
 //                  height : 100,
 //                  width : 100,
 //                  rotation : 0.0
-                },
+                }
             }
         ]
     };
