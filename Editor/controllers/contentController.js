@@ -18,6 +18,10 @@ app.controller("contentController", function ($scope, presentationFactory) {
             return !item.deleted;
         });
     };
+	
+	function say() {
+		alert('woof');
+	}
     
     $scope.addItem = function () {
         $scope.presentation.slides[0].items.push({

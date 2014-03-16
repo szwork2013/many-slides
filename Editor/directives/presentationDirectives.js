@@ -32,19 +32,19 @@ app.directive('item', function () {
                 mousemove_fired = false;
                 return;
             }
-            var this_element = $(this);
-            var this_controls = this_element.parent().children('.item-controls');
-            var element_is_selected = this_element.hasClass('selected-object');
+            var that = $(this);
+            var this_controls = that.parent().children('.item-controls');
+            var element_is_selected = that.hasClass('selected-object');
 			var selected_objects = $('.selected-object');
             var selected_object_controls = selected_objects.parent().children('.item-controls');
             
             if (element_is_selected) {
-                this_element.removeClass('selected-object');
+                that.removeClass('selected-object');
                 this_controls.addClass('hidden');
             } else {
                 selected_objects.removeClass('selected-object');
                 selected_object_controls.addClass('hidden');
-                this_element.addClass('selected-object');
+                that.addClass('selected-object');
                 this_controls.removeClass('hidden');
             }
         });
@@ -52,9 +52,9 @@ app.directive('item', function () {
         element.on('mousedown', function (event) {
             event.preventDefault();
           
-            var this_element = $(this);
-            var this_controls = this_element.parent().children('.item-controls');
-            var element_is_selected = this_element.hasClass('selected-object');
+            var that = $(this);
+            var this_controls = that.parent().children('.item-controls');
+            var element_is_selected = that.hasClass('selected-object');
             var startX = 0, startY = 0, x = 0, y = 0;
             
             if (element_is_selected) {
@@ -100,7 +100,8 @@ app.directive('item', function () {
                 'transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
                 'background: {{item.style.background}};' +
                 'border: {{item.style.border}};' +
-                'border-radius: {{item.style.border_radius}}px;';
+                'border-radius: {{item.style.border_radius}}px;' +
+				'z-index: {{item.layer}}';
     
     return {
         link: link,
@@ -113,10 +114,10 @@ app.directive('item', function () {
 
 app.directive('itemControls', function() {
     function link(scope, element, attrs) {
-        element.on('mousedown', function(event) {
+       /* element.on('mousedown', function(event) {
  //           event.preventDefault();
             
-            var this_element = $(this);
+            var that = $(this);
             var startX = 0, startY = 0, x = 0, y = 0;
 
                 // TODO CHANGE THIS BEHAVIOUR
@@ -142,7 +143,7 @@ app.directive('itemControls', function() {
                 $(document).unbind('mousemove', mousemove);
                 $(document).unbind('mouseup', mouseup);
             }
-        });
+        });*/
     }
     
     return {
@@ -150,7 +151,8 @@ app.directive('itemControls', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template: '<div class="item-controls hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
+        template:   '<div onCcick="alert(2);" class="item-controls hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
+						'<close-button></close-button>' +
                         '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
                         '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
                         '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
@@ -163,13 +165,31 @@ app.directive('itemControls', function() {
     };
 });
 
+app.directive('closeButton', function() {
+	"use strict";
+	function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            var that = $(this);
+			that.parent().addClass('hidden');
+        });
+	}
+	
+    return {
+		link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<span class="fui-cross close-button"></span>'
+    };
+});
+
 app.directive('slideItems', function () {
     "use strict";
     return {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div ng-repeat="item in slide.items" class="item-wrapper" style="position: absolute; z-index: {{item.layer}};">' +
+        template:   '<div ng-repeat="item in slide.items" class="item-wrapper">' +
                         '<item></item>' +
                         '<item-controls></item-controls>' +
                     '</div>'
@@ -200,3 +220,42 @@ app.directive('menubar', function () {
                     '</div>'
     };
 });
+
+// THIS STUFF IS FOR FUTURE REFERENCE!!!
+/*
+ * angular-ui-bootstrap
+ * http://angular-ui.github.io/bootstrap/
+
+ * Version: 0.10.0 - 2014-01-14
+ * License: MIT
+ */
+//angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.alert"]);
+//angular.module("ui.bootstrap.tpls", ["template/alert/alert.html"]);
+//angular.module("ui.bootstrap.alert", [])
+//
+//.controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
+//  $scope.closeable = 'close' in $attrs;
+//}])
+//
+//.directive('alert', function () {
+//  return {
+//    restrict:'EA',
+//    controller:'AlertController',
+//    templateUrl:'template/alert/alert.html',
+//    transclude:true,
+//    replace:true,
+//    scope: {
+//      type: '=',
+//      close: '&'
+//    }
+//  };
+//});
+//
+//angular.module("template/alert/alert.html", []).run(["$templateCache", function($templateCache) {
+//  $templateCache.put("template/alert/alert.html",
+//    "<div class='alert' ng-class='\"alert-\" + (type || \"warning\")'>\n" +
+//    "    <button ng-show='closeable' type='button' class='close' ng-click='close()'>&times;</button>\n" +
+//    "    <div ng-transclude></div>\n" +
+//    "</div>\n" +
+//    "");
+//}]);
