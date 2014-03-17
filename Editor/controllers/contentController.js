@@ -13,16 +13,12 @@ app.controller("contentController", function ($scope, presentationFactory) {
     };
     
     $scope.deleteItems = function () {
-        var items = $scope.presentation.slides[0].layers[0].items;
-        $scope.presentation.slides[0].layers[0].items = _.filter(items, function (item) {
+        var items = $scope.presentation.slides[0].items;
+        $scope.presentation.slides[0].items = _.filter(items, function (item) {
             return !item.deleted;
         });
     };
-	
-	function say() {
-		alert('woof');
-	}
-    
+
     $scope.addItem = function () {
         $scope.presentation.slides[0].items.push({
 			location : [100, 100],

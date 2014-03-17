@@ -161,6 +161,8 @@ app.directive('itemControls', function() {
                         '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
                         '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
                         '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
+                        '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
+                        '<delete-Item-button></delete-Item-button>' +
                     '</div>'
     };
 });
@@ -180,6 +182,27 @@ app.directive('closeButton', function() {
         replace: true,
         scope: true,
         template:   '<span class="fui-cross close-button"></span>'
+    };
+});
+
+app.directive('deleteItemButton', function() {
+	"use strict";
+	function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            var that = $(this);
+            var input = that.parent().find('[ng-model="item.deleted"]');
+            console.log(input);
+            input.val(true).change();
+            scope.deleteItems();
+        });
+	}
+	
+    return {
+		link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<span class="btn btn-block btn-lg btn-primary delete-Item-button">Delete Item</span>'
     };
 });
 
@@ -212,7 +235,6 @@ app.directive('menubar', function () {
                         '<div class="collapse navbar-collapse" id="navbar-collapse-01">' +
                           '<ul class="nav navbar-nav navbar-left    ">' +
                             '<li><a href="#" ng-click="addItem()">Add Item</a></li>' +
-                            '<li><a href="#" ng-click="deleteItems()">Delete Items</a></li>' +
                             '<li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>' +
                            '</ul>' +
                         '</div>' +
@@ -229,33 +251,33 @@ app.directive('menubar', function () {
  * Version: 0.10.0 - 2014-01-14
  * License: MIT
  */
-//angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.alert"]);
-//angular.module("ui.bootstrap.tpls", ["template/alert/alert.html"]);
-//angular.module("ui.bootstrap.alert", [])
-//
-//.controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
-//  $scope.closeable = 'close' in $attrs;
-//}])
-//
-//.directive('alert', function () {
-//  return {
-//    restrict:'EA',
-//    controller:'AlertController',
-//    templateUrl:'template/alert/alert.html',
-//    transclude:true,
-//    replace:true,
-//    scope: {
-//      type: '=',
-//      close: '&'
-//    }
-//  };
-//});
-//
-//angular.module("template/alert/alert.html", []).run(["$templateCache", function($templateCache) {
-//  $templateCache.put("template/alert/alert.html",
-//    "<div class='alert' ng-class='\"alert-\" + (type || \"warning\")'>\n" +
-//    "    <button ng-show='closeable' type='button' class='close' ng-click='close()'>&times;</button>\n" +
-//    "    <div ng-transclude></div>\n" +
-//    "</div>\n" +
-//    "");
-//}]);
+/*angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.alert"]);
+angular.module("ui.bootstrap.tpls", ["template/alert/alert.html"]);
+angular.module("ui.bootstrap.alert", [])
+
+.controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
+  $scope.closeable = 'close' in $attrs;
+}])
+
+.directive('alert', function () {
+  return {
+    restrict:'EA',
+    controller:'AlertController',
+    templateUrl:'template/alert/alert.html',
+    transclude:true,
+    replace:true,
+    scope: {
+      type: '=',
+      close: '&'
+    }
+  };
+});
+
+angular.module("template/alert/alert.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/alert/alert.html",
+    "<div class='alert' ng-class='\"alert-\" + (type || \"warning\")'>\n" +
+    "    <button ng-show='closeable' type='button' class='close' ng-click='close()'>&times;</button>\n" +
+    "    <div ng-transclude></div>\n" +
+    "</div>\n" +
+    "");
+}]);*/
