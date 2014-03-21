@@ -30,77 +30,37 @@ html{
 
 body {
     height: 100%;
-    background: @dark-background;
-    color: #fff;
-    font-family: DroidSans, sans-serif;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
 }
 
 @header-height: 5rem;
 @header-border-thickness: 0.2rem;
-header {
-    background: @medium-background;
-    background: #2d2d30;
-    height: @header-height;
-    width: 100%;
-    z-index: 2;
-    position: fixed;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
-    border-bottom: solid @header-border-thickness @holo-blue;
-    text-align: center;
-    
-    #settings-button {
-        float: right;
-        padding-right: 1.5rem;
-    }
-
-    #actions-button {
-        float: left;
-        padding-left: 1.5rem;
-    }
-
-    #settings-button, #actions-button {
-        display: inline-block;
-        padding: 1.25rem;
-    }
-
-    button {
-        width: 2.5rem;
-        height: 2.5rem;
-        background: url(cog.png);
-        background-size: 2.5rem;
-        border: none;
-        font-family: inherit;
-    }
+#settings-button {
+    float: right;
+    padding-right: 1.5rem;
 }
 
-#settings-button {
-        float: right;
-        padding-right: 1.5rem;
-    }
+#actions-button {
+    float: left;
+    padding-left: 1.5rem;
+}
 
-    #actions-button {
-        float: left;
-        padding-left: 1.5rem;
-    }
+#settings-button, #actions-button {
+    display: inline-block;
+    padding: 1.25rem;
+}
 
-    #settings-button, #actions-button {
-        display: inline-block;
-        padding: 1.25rem;
-    }
+button {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url(cog.png);
+    background-size: 2.5rem;
+    border: none;
+    font-family: inherit;
+}
 
-    button {
-        width: 2.5rem;
-        height: 2.5rem;
-        background: url(cog.png);
-        background-size: 2.5rem;
-        border: none;
-        font-family: inherit;
-    }
-
-#sidebar-left,
-#sidebar-right {
+#sidebar-left {
     height: 100%;
     background: @light-background;
     width: 15rem;
@@ -127,46 +87,18 @@ header {
     }
 }
 
-#sidebar-right {
-    right: 0;
+.sidebar-right {
+    right: -9rem;
     transition: right 500ms;
-    &.hidden {
-        right: -14.9rem;
+    &.sidebar-gone {
+        right: -37.9rem;
     }
 }
 
 #sidebar-left {
     left: 0;
     -webkit-transition: left 500ms;
-    &.hidden {
+    &.sidebar-gone {
         left: -14.9rem;
     }
-}
-
-#content-host {
-    overflow-y: auto;
-    height: 100%;
-    overflow: auto;
-
-    .thumb {
-        margin: 0.65rem;
-        height: 40rem; 
-        border-radius: 0.5rem;
-    }
-}
-
-#small {
-    height: 100%;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    z-index: 0;
-}
-
-#big {
-    margin-top: 5.2rem;
-}
-
-span {
-    display: inline-block;
 }

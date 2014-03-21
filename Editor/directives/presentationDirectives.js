@@ -151,7 +151,7 @@ app.directive('itemControls', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div onclick="alert(2);" class="item-controls hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
+        template:   '<div onclick="alert(2);" class="sidebar-right item-controls sidebar-gone hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
 						'<close-button></close-button>' +
                         '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
                         '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
@@ -220,35 +220,7 @@ app.directive('slideItems', function () {
     };
 });
 
-app.directive('menubar', function () {
-    "use strict";
-	return {
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div class="col-xs-12 col-gutter-none">' +
-                        '<nav class="navbar navbar-inverse navbar-embossed" role="navigation">' +
-                            '<div class="navbar-header">' +
-                                '<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">' +
-                                    '<span class="sr-only">Toggle navigation</span>' +
-                                '</button>' +
-                            '</div>' +
-                            '<div class="collapse navbar-collapse" id="navbar-collapse-01">' +
-                                '<ul class="nav navbar-nav navbar-left">' +
-                                    '<li><a href="#" ng-click="addItem()">Add Item</a></li>' +
-                                    '<li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>' +
-                                '</ul>' +
-                                '<ul class="nav navbar-nav navbar-right">' +
-                                    '<li><a href="#">Add Item</a></li>' +
-                                    '<li><div id="settings-button"><button></button></div></li>' +
-                                '</ul>' +
-                            '</div>' +
-                        '</nav>' +
-                    '</div>'
-    };
-});
-
-// THIS STUFF IS FOR FUTURE REFERENCE!!!
+    // THIS STUFF IS FOR FUTURE REFERENCE!!!
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
