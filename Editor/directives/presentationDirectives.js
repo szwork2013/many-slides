@@ -151,7 +151,7 @@ app.directive('itemControls', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div onCcick="alert(2);" class="item-controls hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
+        template:   '<div onclick="alert(2);" class="item-controls hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
 						'<close-button></close-button>' +
                         '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
                         '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
@@ -193,6 +193,7 @@ app.directive('deleteItemButton', function() {
             var input = that.parent().find('[ng-model="item.deleted"]');
             console.log(input);
             input.val(true).change();
+            console.log(input.parent());
             scope.deleteItems();
         });
 	}
