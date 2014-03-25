@@ -31,53 +31,38 @@
                         <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Add Item</a></li>
                         <li><div id="settings-button" class="navbar-toggle collapsed"><button></button></div></li>
                     </ul>
                 </div>
             </nav>
         </div> 
-    <div class="sidebar-left sidebar-gone">
-        <div class="item" id="load-images">
-            Load Images
-        </div>
-        <div class="item" id="load-audio">
-            Load Audio
-        </div>
-        <div class="item">
-            Third Item
-        </div>
-        <div class="item">
-            Fourth Item
-        </div>
-        <div class="item">
-            Fifth Item
-        </div>
-        <div class="item">
-            Sixth Item
-        </div>
-    </div>
         
-        <div class="sidebar-right sidebar-gone">
-        <div class="item" id="load-images">
-            Load Images
+        <div class="sidebar-left sidebar-gone">
+            <div class="item">
+                Slide 1
+            </div>
+            <div class="item">
+                Slide 2
+            </div>
+            <div class="item">
+                Slide 3
+            </div>
+            <div class="item">
+                Slide 4
+            </div>
+            <div class="item">
+                Slide 5
+            </div>
+            <div class="item">
+                Slide 6
+            </div>
         </div>
-        <div class="item" id="load-audio">
-            Load Audio
+
+        <div ng-repeat="slide in presentation.slides">
+            <div bindonce ng-repeat="item in slide.items">
+                <item-controls></item-controls>
+            </div>
         </div>
-        <div class="item">
-            Third Item
-        </div>
-        <div class="item">
-            Fourth Item
-        </div>
-        <div class="item">
-            Fifth Item
-        </div>
-        <div class="item">
-            Sixth Item
-        </div>
-    </div>
         
         <presentation></presentation>
        
@@ -104,5 +89,6 @@
         <!-- Other scripts -->
         <script src="external-modules/underscore.min.js"></script>
         <script src="external-modules/sliding-menu/main.js"></script>
+        <script src="../scripts/bindonce.min.js"></script>
     </body>
 </html>

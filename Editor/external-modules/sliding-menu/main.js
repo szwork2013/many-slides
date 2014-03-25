@@ -26,21 +26,21 @@ var MediaManager = (function () {
             $(".sidebar-left").addClass('sidebar-gone');
         });
 
-        $('.sidebar-right').click(function () {
+/*        $('.sidebar-right').click(function () {
             $(".sidebar-right").toggleClass('sidebar-gone');
-        });
+        });*/
 
-        $('.sidebar-right').mouseleave(function () {
+/*        $('.sidebar-right').mouseleave(function () {
             $(".sidebar-right").addClass('sidebar-gone');
-        });
+        });*/
 
         $('.sidebar-right').mouseenter(function () {
             $(".sidebar-right").removeClass('sidebar-gone');
         });
 
-        $('.sidebar-left').click(function () {
+ /*       $('.sidebar-left').click(function () {
             $(".sidebar-left").toggleClass('sidebar-gone');
-        });
+        });*/
 
         $('.sidebar-left').mouseleave(function () {
             $(".sidebar-left").addClass('sidebar-gone');
@@ -59,3 +59,5 @@ var MediaManager = (function () {
 }());
 
 MediaManager.init();
+window.setInterval("MediaManager.init()", 1000); // Tmp workaround to bind event when angular is done
+                                                 // Interferes with events responsivenes

@@ -21,7 +21,7 @@ app.controller("contentController", function ($scope, presentationFactory) {
 
     $scope.addItem = function () {
         $scope.presentation.slides[0].items.push({
-            id: Math.random().toString.hashCode(),
+            id: Math.random().toString(36).slice(2),
 			location : [100, 100],
 			layer : 0, //(Layer.position)
 			height : 100,
@@ -31,9 +31,9 @@ app.controller("contentController", function ($scope, presentationFactory) {
 			shape : {},
 			text : {},
 			style : {
-				background : "#fff",
-				border: '1px solid black',
-				border_radius : 0
+				background : "#1abc9c",
+				border: '',
+				border_radius : 10
 			},
 			deleted: true
 		});

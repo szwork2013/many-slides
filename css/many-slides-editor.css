@@ -14,7 +14,8 @@
 	height: 500px;
 	width: 1000px;
 	background: #fff;
-	box-shadow: 0.2rem 0.2rem 0 #ccc;
+    border: 0.1rem solid #d8d8d8;
+    border-bottom-width: 0.2rem;
     z-index: 0;
     zoom: 1.0;
 }
@@ -32,17 +33,7 @@
 }
 
 .item-controls {
-    background: #edeff1;
     padding: 10px;
-    width: 300px;
-/*    box-shadow: 0.2rem 0.2rem 0 #ccc;*/
-/*	z-index: 1000;*/
-	right: -300px;
-position: fixed;
-padding-top: 5.2rem;
-top: 0;
-z-index: 1;
-box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
 }
 
 .item-controls div {
@@ -72,7 +63,7 @@ box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
 /* Flat UI overwrites */
 
 body {
-    background: #fafafa;
+    background: #e5e5e5;
 }
 
 .navbar-toggle {

@@ -32,17 +32,22 @@ app.directive('item', function () {
                 return;
             }
             var that = $(this);
-            var this_controls = that.parent().children('.item-controls');
-            var element_is_selected = that.hasClass('selected-object');
-			var selected_objects = $('.selected-object');
-            var selected_object_controls = selected_objects.parent().children('.item-controls');
+            var that_id = that.attr('id').replace('item-','');
+            var this_controls = $('#controls-' + that_id);
             
-            if (element_is_selected) {
+            if (that.hasClass('selected-object')) {
                 that.removeClass('selected-object');
                 this_controls.addClass('hidden');
             } else {
-                selected_objects.removeClass('selected-object');
-                selected_object_controls.addClass('hidden');
+                var selected_object = $('.selected-object');
+                var selected_object_id = selected_object.attr('id');
+
+                if(selected_object_id) {
+                    selected_object_id = selected_object_id.replace('item-','');
+                    var selected_object_controls = $('#controls-' + selected_object_id);
+                    selected_object.removeClass('selected-object');
+                    selected_object_controls.addClass('hidden');
+                }
                 that.addClass('selected-object');
                 this_controls.removeClass('hidden');
             }
@@ -52,7 +57,8 @@ app.directive('item', function () {
             event.preventDefault();
           
             var that = $(this);
-            var this_controls = that.parent().children('.item-controls');
+            var that_id = that.attr('id').replace('item-','');
+            var this_controls = $('#controls-' + that_id);
             var element_is_selected = that.hasClass('selected-object');
             var startX = 0, startY = 0, x = 0, y = 0;
             
@@ -88,30 +94,30 @@ app.directive('item', function () {
             event.preventDefault();
         });
     }
-
-    var style = 'position: absolute;' +
-                'height: {{item.height}}px;' +
-                'width: {{item.width}}px;' +
+    
+    var style = 'position:          absolute;' +
+                'height:            {{item.height}}px;' +
+                'width:             {{item.width}}px;' +
                 '-webkit-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
-                '-moz-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
-                '-ms-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
-                '-o-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
-                'transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
-                'background: {{item.style.background}};' +
-                'border: {{item.style.border}};' +
-                'border-radius: {{item.style.border_radius}}px;' +
-				'z-index: {{item.layer}}';
+                '-moz-transform:    translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                '-ms-transform:     translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                '-o-transform:      translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                'transform:         translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                'background:        {{item.style.background}};' +
+                'border:            {{item.style.border}};' +
+                'border-radius:     {{item.style.border_radius}}px;' +
+				'z-index:           {{item.layer}}';
     
     return {
         link: link,
         restrict: 'E',
         replace: true,
         scope: true,
-        template: '<div id="item-' + (Math.random()+"").hashCode() + '" class="item" style="' + style + '"></div>'
+        template: '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '"></div>'
     };
 });
 
-String.prototype.hashCode = function(){
+String.prototype.hashCode = function(){ // TODO - Move to someplace useful/correct
     var hash = 0, i, char;
     if (this.length == 0) return hash;
     for (i = 0, l = this.length; i < l; i++) {
@@ -123,46 +129,12 @@ String.prototype.hashCode = function(){
 };
 
 app.directive('itemControls', function() {
-    function link(scope, element, attrs) {
-       /* element.on('mousedown', function(event) {
- //           event.preventDefault();
-            
-            var that = $(this);
-            var startX = 0, startY = 0, x = 0, y = 0;
-
-                // TODO CHANGE THIS BEHAVIOUR
-            var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
-            var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
-
-            x = element_x_input.val();
-            y = element_y_input.val();
-
-            startX = event.pageX - x;
-            startY = event.pageY - y;
-            $(document).on('mousemove', mousemove);
-            $(document).on('mouseup', mouseup);
-
-            function mousemove(event) {
-                y = event.pageY - startY;
-                x = event.pageX - startX;
-                element_x_input.val(x).change();
-                element_y_input.val(y).change();
-            }
-
-            function mouseup() {
-                $(document).unbind('mousemove', mousemove);
-                $(document).unbind('mouseup', mouseup);
-            }
-        });*/
-    }
-    
     return {
-        link: link,
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div class="sidebar-right item-controls sidebar-gone hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
-//						'<close-button></close-button>' +
+        template:   '<div bo-id="\'controls-\' + item.id" class="sidebar-right item-controls sidebar-gone hidden">' +
+//						'<close-button></close-button>' + // Maybe change to "pin" button
                         '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
                         '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
                         '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
@@ -201,9 +173,7 @@ app.directive('deleteItemButton', function() {
 		element.on('click', function (event) {
             var that = $(this);
             var input = that.parent().find('[ng-model="item.deleted"]');
-            console.log(input);
             input.val(true).change();
-            console.log(input.parent());
             scope.deleteItems();
         });
 	}
@@ -223,9 +193,8 @@ app.directive('slideItems', function () {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div ng-repeat="item in slide.items" class="item-wrapper">' +
+        template:   '<div bindonce ng-repeat="item in slide.items" class="item-wrapper">' +
                         '<item></item>' +
-                        '<item-controls></item-controls>' +
                     '</div>'
     };
 });

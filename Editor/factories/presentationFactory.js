@@ -11,7 +11,7 @@ app.factory('presentationFactory', function () {
                 next_item: 2,
                 items : [
                     {
-                        id: 0,
+                        id: 'qq5tdn7u8650cnmi',
                         location : [100, 100],
                         layer : 0,
                         height : 150,
@@ -28,7 +28,7 @@ app.factory('presentationFactory', function () {
                         deleted: false
                     },
                     {
-                        id: 1,
+                        id: '1ejukkddmeefjemi',
                         location : [200, 200],
                         layer : 1,
                         height : 100,
