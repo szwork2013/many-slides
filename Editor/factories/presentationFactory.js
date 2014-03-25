@@ -8,8 +8,10 @@ app.factory('presentationFactory', function () {
             {
 				position : 0,
 				transition : 0,
+                next_item: 2,
                 items : [
                     {
+                        id: 0,
                         location : [100, 100],
                         layer : 0,
                         height : 150,
@@ -26,6 +28,7 @@ app.factory('presentationFactory', function () {
                         deleted: false
                     },
                     {
+                        id: 1,
                         location : [200, 200],
                         layer : 1,
                         height : 100,

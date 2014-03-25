@@ -11,19 +11,19 @@ var MediaManager = (function () {
         });
 
         $('#settings-button').mouseleave(function () {
-            $("#sidebar-right").addClass('sidebar-gone');
+            $(".sidebar-right").addClass('sidebar-gone');
         });
 
         $('#actions-button').click(function () {
-            $("#sidebar-left").toggleClass('sidebar-gone');
+            $(".sidebar-left").toggleClass('sidebar-gone');
         });
 
         $('#actions-button').mouseenter(function () {
-            $("#sidebar-left").removeClass('sidebar-gone');
+            $(".sidebar-left").removeClass('sidebar-gone');
         });
 
         $('#actions-button').mouseleave(function () {
-            $("#sidebar-left").addClass('sidebar-gone');
+            $(".sidebar-left").addClass('sidebar-gone');
         });
 
         $('.sidebar-right').click(function () {
@@ -38,16 +38,16 @@ var MediaManager = (function () {
             $(".sidebar-right").removeClass('sidebar-gone');
         });
 
-        $('#sidebar-left').click(function () {
-            $("#sidebar-left").toggleClass('sidebar-gone');
+        $('.sidebar-left').click(function () {
+            $(".sidebar-left").toggleClass('sidebar-gone');
         });
 
-        $('#sidebar-left').mouseleave(function () {
-            $("#sidebar-left").addClass('sidebar-gone');
+        $('.sidebar-left').mouseleave(function () {
+            $(".sidebar-left").addClass('sidebar-gone');
         });
 
-        $('#sidebar-left').mouseenter(function () {
-            $("#sidebar-left").removeClass('sidebar-gone');
+        $('.sidebar-left').mouseenter(function () {
+            $(".sidebar-left").removeClass('sidebar-gone');
         });
     }
 

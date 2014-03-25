@@ -26,7 +26,6 @@ app.directive('item', function () {
 	"use strict";
     function link(scope, element, attrs) {
         var mousemove_fired = false;
-        
         element.on('click', function (event) {
             if (mousemove_fired) {
                 mousemove_fired = false;
@@ -89,7 +88,7 @@ app.directive('item', function () {
             event.preventDefault();
         });
     }
-    
+
     var style = 'position: absolute;' +
                 'height: {{item.height}}px;' +
                 'width: {{item.width}}px;' +
@@ -108,9 +107,20 @@ app.directive('item', function () {
         restrict: 'E',
         replace: true,
         scope: true,
-        template: '<div class="item" style="' + style + '"></div>'
+        template: '<div id="item-' + (Math.random()+"").hashCode() + '" class="item" style="' + style + '"></div>'
     };
 });
+
+String.prototype.hashCode = function(){
+    var hash = 0, i, char;
+    if (this.length == 0) return hash;
+    for (i = 0, l = this.length; i < l; i++) {
+        char  = this.charCodeAt(i);
+        hash  = ((hash<<5)-hash)+char;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
 
 app.directive('itemControls', function() {
     function link(scope, element, attrs) {
@@ -151,8 +161,8 @@ app.directive('itemControls', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div onclick="alert(2);" class="sidebar-right item-controls sidebar-gone hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
-						'<close-button></close-button>' +
+        template:   '<div class="sidebar-right item-controls sidebar-gone hidden" style="-webkit-transform: translateX(100px)  translateY(100px)">' +
+//						'<close-button></close-button>' +
                         '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
                         '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
                         '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
@@ -167,7 +177,7 @@ app.directive('itemControls', function() {
     };
 });
 
-app.directive('closeButton', function() {
+/*app.directive('closeButton', function() {
 	"use strict";
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
@@ -183,7 +193,7 @@ app.directive('closeButton', function() {
         scope: true,
         template:   '<span class="fui-cross close-button"></span>'
     };
-});
+});*/
 
 app.directive('deleteItemButton', function() {
 	"use strict";

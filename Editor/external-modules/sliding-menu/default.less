@@ -25,7 +25,7 @@
 }
 
 html{
-  height: 100%;
+    height: 100%;
 }
 
 body {
@@ -48,39 +48,60 @@ body {
 
 #settings-button, #actions-button {
     display: inline-block;
-    padding: 1.25rem;
 }
 
 button {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: url(cog.png);
-    background-size: 2.5rem;
+    background: none;
     border: none;
     font-family: inherit;
 }
 
-#sidebar-left {
+.sidebar-left {
     height: 100%;
-    background: @light-background;
+    background: #edeff1;
     width: 15rem;
     position: fixed;
     padding-top: (@header-height + @header-border-thickness);
     top: 0;
     z-index: 1;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0.2rem 0.2rem 0 #ccc;
 
     .item {
         padding: 1rem;
         -webkit-transition: background 500ms, padding 500ms;
-        border-bottom: solid 0.1rem #353535;
         z-index: 2;
         position:relative;
 
         &:hover {
-            background: @holo-blue;
+            background: #1abc9c;
             z-index: 1;
-            box-shadow: inset 0 -0.1rem 2rem 0.4rem rgba(0, 0, 0, 0.3);
+//            box-shadow: inset 0 -0.1rem 2rem 0.4rem rgba(0, 0, 0, 0.3);
+            padding: 1rem 1rem 1rem 2rem;
+        }
+
+    }
+}
+
+.sidebar-right {
+    height: 100%;
+    background: #edeff1;
+    width: 15rem;
+    position: fixed;
+    padding-top: (@header-height + @header-border-thickness);
+    top: 0;
+    z-index: 1;
+    box-shadow: -0.2rem 0.2rem 0 #ccc;
+
+    .item {
+        padding: 1rem;
+        -webkit-transition: background 500ms, padding 500ms;
+        z-index: 2;
+        position:relative;
+
+        &:hover {
+            background: #1abc9c;
+            z-index: 1;
+//            box-shadow: inset 0 -0.1rem 2rem 0.4rem rgba(0, 0, 0, 0.3);
             padding: 1rem 1rem 1rem 2rem;
         }
 
@@ -95,7 +116,7 @@ button {
     }
 }
 
-#sidebar-left {
+.sidebar-left {
     left: 0;
     -webkit-transition: left 500ms;
     &.sidebar-gone {

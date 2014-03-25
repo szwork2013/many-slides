@@ -21,6 +21,7 @@ app.controller("contentController", function ($scope, presentationFactory) {
 
     $scope.addItem = function () {
         $scope.presentation.slides[0].items.push({
+            id: Math.random().toString.hashCode(),
 			location : [100, 100],
 			layer : 0, //(Layer.position)
 			height : 100,
