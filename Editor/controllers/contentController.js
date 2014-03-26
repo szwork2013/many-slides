@@ -26,7 +26,7 @@ app.controller("contentController", function ($scope, presentationFactory) {
 			layer : 0, //(Layer.position)
 			height : 100,
 			width : 150,
-			rotation : 0.0,
+            rotation : 0.0,
 			related_items : [], //Item Array
 			shape : {},
 			text : {},
