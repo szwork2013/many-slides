@@ -38,4 +38,20 @@ app.controller("contentController", function ($scope, presentationFactory) {
 			deleted: false
 		});
     };
+    
+    $scope.addSlide = function () {
+        $scope.presentation.slides.push({
+            position : 4,
+            transition : 0,
+            deleted: true,
+            items : []
+		});
+    };
+    
+    $scope.deleteSlides = function () {
+        var items = $scope.presentation.slides;
+        $scope.presentation.slides = _.filter(slide, function (slide) {
+            return !slide.deleted;
+        });
+    };
 });

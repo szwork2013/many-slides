@@ -3,12 +3,11 @@ app.factory('presentationFactory', function () {
     var factory = {};
     var presentation = {
         aspect_ratio : [16, 9],
-        // grid : [0, 0], //was war der Sinn dafür?
         slides : [
             {
 				position : 0,
 				transition : 0,
-                next_item: 2,
+                deleted: false,
                 items : [
                     {
                         id: 'qq5tdn7u8650cnmi',
@@ -54,6 +53,24 @@ app.factory('presentationFactory', function () {
 //                  width : 100,
 //                  rotation : 0.0
                 }
+            },
+            {
+                position : 1,
+                transition : 0,
+                deleted: true,
+                items : []
+            },
+            {
+                position : 2,
+                transition : 0,
+                deleted: true,
+                items : []
+            },
+            {
+                position : 3,
+                transition : 0,
+                deleted: true,
+                items : []
             }
         ]
     };

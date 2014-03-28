@@ -32,6 +32,15 @@
             transition: width 100ms, height 100ms, background 100ms
 }
 
+.slide-controls .slide-preview {
+    height: 9rem;
+    width: 16rem;
+    background: white;
+    border: 0.1rem solid #d8d8d8;
+    border-bottom-width: 0.2rem;
+    border-radius: 0.5rem;
+}
+
 .item-controls {
     padding: 10px;
 }
