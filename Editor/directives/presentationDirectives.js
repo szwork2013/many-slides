@@ -5,7 +5,7 @@ app.directive('presentation', function () {
         replace: true,
         scope: true,
         template:   '<div id="presentation">' +
-                        '<presentation-slides/>' +
+                        '<presentation-slides><presentation-slides/>' +
                     '</div>'
     };
 });
@@ -116,17 +116,6 @@ app.directive('item', function () {
         template: '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '"></div>'
     };
 });
-
-String.prototype.hashCode = function(){ // TODO - Move to someplace useful/correct
-    var hash = 0, i, char;
-    if (this.length == 0) return hash;
-    for (i = 0, l = this.length; i < l; i++) {
-        char  = this.charCodeAt(i);
-        hash  = ((hash<<5)-hash)+char;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-};
 
 app.directive('itemControls', function() {
     return {
