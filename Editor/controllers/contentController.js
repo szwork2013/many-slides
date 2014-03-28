@@ -35,7 +35,7 @@ app.controller("contentController", function ($scope, presentationFactory) {
 				border: '',
 				border_radius : 10
 			},
-			deleted: true
+			deleted: false
 		});
     };
 });
