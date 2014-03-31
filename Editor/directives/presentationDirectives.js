@@ -164,6 +164,7 @@ app.directive('deleteItemButton', function() {
             var input = that.parent().find('[ng-model="item.deleted"]');
             input.val(true).change();
             scope.deleteItems();
+            input.val('').change(); // Trigger angularjs to see the item is gone
         });
 	}
 	
@@ -172,7 +173,28 @@ app.directive('deleteItemButton', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<span class="btn btn-block btn-lg btn-primary delete-Item-button">Delete Item</span>'
+        template:   '<span class="btn btn-block btn-lg btn-primary delete-item-button">Delete Item</span>'
+    };
+});
+
+app.directive('deleteSlideButton', function() {
+	"use strict";
+	function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            var that = $(this);
+            var input = that.parent().find('[ng-model="slide.deleted"]');
+            input.val(true).change();
+            scope.deleteSlides();
+            input.val('').change(); // Trigger angularjs to see the slide is gone
+        });
+	}
+	
+    return {
+		link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<span class="fui-cross close-button"></span>'
     };
 });
 

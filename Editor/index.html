@@ -43,7 +43,8 @@
         <div class="slide-controls sidebar-left sidebar-gone">
             <div class="wrapper" ng-repeat="slide in presentation.slides">
                 <div class="slide-preview"></div>
-                <div class="slide-delete-button"></div>
+                <input type="text" class="delete-flag hidden" ng-model="slide.deleted">
+                <delete-slide-button></delete-slide-button>
             </div>
         </div>
 

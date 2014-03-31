@@ -33,12 +33,34 @@
 }
 
 .slide-controls .slide-preview {
+    display: inline-block;
     height: 9rem;
     width: 16rem;
     background: white;
     border: 0.1rem solid #d8d8d8;
     border-bottom-width: 0.2rem;
     border-radius: 0.5rem;
+}
+
+.slide-controls span {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+       -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+         -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+    margin: 0 auto;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100rem;
+    right: 2.5rem;
+    border-left: 0.6rem solid transparent;
+}
+
+.slide-controls span:hover {
+    background: #FFF;
+    border-left: 0.6rem solid #FFF;
 }
 
 .item-controls {

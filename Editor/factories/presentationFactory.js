@@ -57,19 +57,19 @@ app.factory('presentationFactory', function () {
             {
                 position : 1,
                 transition : 0,
-                deleted: true,
+                deleted: false,
                 items : []
             },
             {
                 position : 2,
                 transition : 0,
-                deleted: true,
+                deleted: false,
                 items : []
             },
             {
                 position : 3,
                 transition : 0,
-                deleted: true,
+                deleted: false,
                 items : []
             }
         ]

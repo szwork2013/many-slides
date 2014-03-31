@@ -43,14 +43,14 @@ app.controller("contentController", function ($scope, presentationFactory) {
         $scope.presentation.slides.push({
             position : 4,
             transition : 0,
-            deleted: true,
+            deleted: false,
             items : []
 		});
     };
     
-    $scope.deleteSlides = function () {
-        var items = $scope.presentation.slides;
-        $scope.presentation.slides = _.filter(slide, function (slide) {
+    $scope.deleteSlides = function () { //TODO - make work
+        var slides = $scope.presentation.slides;
+        $scope.presentation.slides = _.filter(slides, function (slide) {
             return !slide.deleted;
         });
     };
