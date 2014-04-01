@@ -29,9 +29,20 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse-01">
                     <ul class="nav navbar-nav navbar-left">
                         <li><div id="actions-button" class="navbar-toggle collapsed"><button></button></div></li>
-                        <li><a href="#" ng-click="addItem()">Add Item</a></li>
+                        <li class="dropdown open">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add Item <b class="caret"></b></a>
+                            <span class="dropdown-arrow"></span>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" ng-click="addItem()">Circle</a></li>
+                                <li><a href="#" ng-click="addItem()">Square</a></li>
+                                <li><a href="#" ng-click="addItem()">Rectangle</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" ng-click="addItem()">Heading</a></li>
+                                <li><a href="#" ng-click="addItem()">Textbox</a></li>
+                                <li><a href="#" ng-click="addItem()">Footer</a></li>
+                              </ul>
+                        </li>
                         <li><a href="#" ng-click="addSlide()">Add Slide</a></li>
-                        <li><a href="#" ng-click="deleteSlides()">Delete Slide</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
@@ -41,22 +52,8 @@
             </nav>
         </div> 
         
-        <!-- left sidebar -->
-        <div class="slide-controls sidebar-left sidebar-gone">
-            <div class="wrapper" ng-repeat="slide in presentation.slides">
-                <div class="slide-preview"></div>
-                <input type="text" class="delete-flag hidden" ng-model="slide.deleted">
-                <delete-slide-button></delete-slide-button>
-            </div>
-        </div>
-
-        <!-- right sidebar -->
-        <div ng-repeat="slide in presentation.slides">
-            <div bindonce ng-repeat="item in slide.items">
-                <item-controls></item-controls>
-            </div>
-        </div>
-        
+        <slidebar></slidebar>
+        <item-controlbar></item-controlbar>
         <presentation></presentation>
        
         <!-- Flat UI scripts -->

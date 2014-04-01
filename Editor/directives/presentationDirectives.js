@@ -210,7 +210,37 @@ app.directive('slideItems', function () {
     };
 });
 
-    // THIS STUFF IS FOR FUTURE REFERENCE!!!
+app.directive('slidebar', function() {
+    "use strict";
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div class="slide-controls sidebar-left sidebar-gone">' +
+                        '<div class="wrapper" ng-repeat="slide in presentation.slides">' +
+                            '<div class="slide-preview"></div>' +
+                            '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +
+                            '<delete-slide-button></delete-slide-button>' +
+                        '</div>' +
+                    '</div>'
+    };
+});
+
+app.directive('itemControlbar', function() {
+    "use strict";
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div ng-repeat="slide in presentation.slides">' +
+                        '<div bindonce ng-repeat="item in slide.items">' +
+                            '<item-controls></item-controls>' +
+                        '</div>' +
+                    '</div>'
+    };
+});
+
+// THIS STUFF IS FOR FUTURE REFERENCE!!!
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
