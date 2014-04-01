@@ -1,0 +1,228 @@
+.col-xs-12.col-gutter-none.ng-scope {
+    
+}
+
+#presentation {
+	position: relative; 
+    top: 50%; 
+    -webkit-transform: translateY(-50%);
+       -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+         -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+	margin: 0 auto;
+	height: 500px;
+	width: 1000px;
+	background: #fff;
+    border: 0.1rem solid #d8d8d8;
+    border-bottom-width: 0.2rem;
+    z-index: 0;
+    zoom: 1.0;
+}
+
+.slide {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.item {
+    -webkit-transition: width 100ms, height 100ms, -webkit-background 100ms;
+       -moz-transition: width 100ms, height 100ms, -moz-background 100ms;
+         -o-transition: width 100ms, height 100ms, -o-background 100ms;
+            transition: width 100ms, height 100ms, background 100ms
+}
+
+.slide-controls .slide-preview {
+    display: inline-block;
+    height: 9rem;
+    width: 16rem;
+    background: white;
+    border: 0.1rem solid #d8d8d8;
+    border-bottom-width: 0.2rem;
+    border-radius: 0.5rem;
+}
+
+.slide-controls span {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+       -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+         -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+    margin: 0 auto;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100rem;
+    right: 2.5rem;
+    border-left: 0.6rem solid transparent;
+}
+
+.slide-controls span:hover {
+    background: #FFF;
+    border-left: 0.6rem solid #FFF;
+}
+
+.item-controls {
+    padding: 10px;
+}
+
+.item-controls div {
+    width: auto;
+    overflow: hidden;
+    margin: 10px 0px;
+}
+
+.item-wrapper {
+	width: 0;
+	height: 0;
+}
+
+/* Stateful classes */
+
+.selected-object {
+    outline: 0.25em dashed #7777ff;
+}
+
+/* Bootstrap overwrites */
+
+.col-gutter-none {
+    padding-left: 0; 
+    padding-right: 0;
+}
+
+/* Flat UI overwrites */
+
+body {
+    background: #e5e5e5;
+}
+
+.navbar-toggle {
+    margin: 0;
+}
+
+.navbar {
+    border-radius: 0;
+    margin: 0;
+    z-index: 1000;
+}
+
+input[type="text"] {
+    border: none;
+}
+
+.form-control:focus {
+    border: 2px solid #1abc9c;
+    outline: 0;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none
+}
+/*
+.close-button {
+	position: absolute;
+	right: 10px;
+	z-index: 1001;
+}*/
+
+
+/*
+ * Sliding Menues
+ */
+
+@charset "UTF-8";
+
+@dark-background: #1e1e1e;
+@medium-background: #2d2d30;
+@light-background: #3e3e42;
+@lighter-background: #686868;
+@holo-blue: #33b5e5;
+
+::-webkit-input-placeholder {
+   color: @lighter-background;
+}
+
+*::selection {
+    background: @holo-blue;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+@header-height: 5rem;
+@header-border-thickness: 0.2rem;
+#settings-button {
+    float: right;
+    padding-right: 1.5rem;
+}
+
+#actions-button {
+    float: left;
+    padding-left: 1.5rem;
+}
+
+#settings-button, #actions-button {
+    display: inline-block;
+}
+
+button {
+    background: none;
+    border: none;
+    font-family: inherit;
+}
+
+.sidebar-left,
+.sidebar-right {
+    height: 100%;
+    background: #edeff1;
+    width: 25rem;
+    position: fixed;
+    padding-top: (@header-height + @header-border-thickness);
+    top: 0;
+    z-index: 1;
+    border: 0.1rem solid #d8d8d8;
+    border-bottom-width: 0.2rem;
+
+    .wrapper {
+        padding: 1rem;
+        -webkit-transition: background 500ms, padding 500ms;
+        z-index: 2;
+        position:relative;
+
+        &:hover {
+            background: #1abc9c;
+            z-index: 1;
+//            box-shadow: inset 0 -0.1rem 2rem 0.4rem rgba(0, 0, 0, 0.3);
+            padding: 1rem 1rem 1rem 2rem;
+        }
+
+    }
+}
+
+.sidebar-right {
+    right: 0rem;
+    transition: right 500ms;
+    &.sidebar-gone {
+        right: -23.9rem;
+    }
+}
+
+.sidebar-left {
+    left: 0;
+    -webkit-transition: left 500ms;
+    &.sidebar-gone {
+        left: -24.9rem;
+    }
+} 
