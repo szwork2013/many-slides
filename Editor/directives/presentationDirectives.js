@@ -225,20 +225,20 @@ app.directive('slidebar', function() {
         replace: true,
         scope: true,
         template:   '<div class="slide-controls sidebar-left sidebar-gone">' +
-                        '<div class="btn-toolbar">' +
-                            '<div class="btn-group">' +
-                                '<a class="btn btn-primary" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
+                        '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
+                            '<div class="btn-group col-xs-12 col-gutter-none">' +
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
                                     '<span class="fui-plus"></span>' +
                                 '</a>'+
-                                '<a class="btn btn-primary" href="#"' +
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
                                     tooltip('edit slide') + '>' +
                                     '<span class="fui-new"></span>' +
                                 '</a>' +
-                                '<a class="btn btn-primary" href="#"' +
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
                                     tooltip('lock slide') + '>' +
                                     '<span class="fui-lock"></span>' +
                                 '</a>' +
-                                '<a class="btn btn-primary" href="#"' +
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
                                     tooltip('slide settings') + '>' +
                                     '<span class="fui-gear"></span>' +
                                 '</a>' +
