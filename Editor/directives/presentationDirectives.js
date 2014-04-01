@@ -173,7 +173,7 @@ app.directive('deleteItemButton', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<span class="btn btn-block btn-lg btn-primary delete-item-button">Delete Item</span>'
+        template:   '<span class="btn btn-block btn-lg btn-primary">Delete Item</span>'
     };
 });
 
@@ -194,7 +194,7 @@ app.directive('deleteSlideButton', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<span class="fui-cross close-button"></span>'
+        template:   '<span class="fui-cross close-button delete-slide-button"></span>'
     };
 });
 
@@ -212,11 +212,38 @@ app.directive('slideItems', function () {
 
 app.directive('slidebar', function() {
     "use strict";
+    
+    function tooltip(text) {
+        return  ' data-toggle="tooltip"' +
+                ' data-placement="bottom"' +
+                ' title=""' +
+                ' data-original-title="' + text + '"';
+    }
+    
     return {
         restrict: 'E',
         replace: true,
         scope: true,
         template:   '<div class="slide-controls sidebar-left sidebar-gone">' +
+                        '<div class="btn-toolbar">' +
+                            '<div class="btn-group">' +
+                                '<a class="btn btn-primary" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
+                                    '<span class="fui-plus"></span>' +
+                                '</a>'+
+                                '<a class="btn btn-primary" href="#"' +
+                                    tooltip('edit slide') + '>' +
+                                    '<span class="fui-new"></span>' +
+                                '</a>' +
+                                '<a class="btn btn-primary" href="#"' +
+                                    tooltip('lock slide') + '>' +
+                                    '<span class="fui-lock"></span>' +
+                                '</a>' +
+                                '<a class="btn btn-primary" href="#"' +
+                                    tooltip('slide settings') + '>' +
+                                    '<span class="fui-gear"></span>' +
+                                '</a>' +
+                            '</div>' +
+                          '</div>' +
                         '<div class="wrapper" ng-repeat="slide in presentation.slides">' +
                             '<div class="slide-preview"></div>' +
                             '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +

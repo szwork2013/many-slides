@@ -1,4 +1,4 @@
-app.controller("contentController", function ($scope, presentationFactory) {
+app.controller("contentController", function ($scope, $timeout, presentationFactory) {
 	"use strict";
     $scope.presentation = {};
     
@@ -54,4 +54,6 @@ app.controller("contentController", function ($scope, presentationFactory) {
             return !slide.deleted;
         });
     };
+    
+    $timeout(function(){$("[data-toggle=tooltip]").tooltip();});
 });
