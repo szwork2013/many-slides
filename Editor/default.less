@@ -1,12 +1,10 @@
 @charset "UTF-8";
 @import "external-modules/prefixer.less";
+
 /* many-slides colors */
 
-@dark-background: #1e1e1e;
-@medium-background: #2d2d30;
-@light-background: #3e3e42;
-@lighter-background: #686868;
-@holo-blue: #33b5e5;
+@holo-blue: #33B5E5;
+@body-background: #E5E5E5;
 
 /* Flat UI colors */
 
@@ -50,12 +48,17 @@
 @flat-concrete: #95A5A6;
 @flat-asbestos: #7F8C8D;
 
+/* many-slides parameters */
+@default-border: 0.1rem solid #d8d8d8;
+@border-bottom-width: 0.2rem;
+@item-transition-duration: 100ms;
+
 * {
     margin: 0;
     padding: 0;
 }
 
-html{
+html {
     height: 100%;
 }
 
@@ -63,7 +66,7 @@ body {
     height: 100%;
     overflow: hidden;
     position: relative;
-    background: #e5e5e5;
+    background: @body-background;
 }
 
 #presentation {
@@ -73,9 +76,9 @@ body {
 	margin: 0 auto;
 	height: 500px;
 	width: 1000px;
-	background: #fff;
-    border: 0.1rem solid #d8d8d8;
-    border-bottom-width: 0.2rem;
+	background: #FFFFFF;
+    border: @default-border;
+    border-bottom-width: @border-bottom-width;
     z-index: 0;
     zoom: 1.0;
 }
@@ -86,7 +89,10 @@ body {
 }
 
 .item {
-    .transition(width 100ms, height 100ms, background 100ms);
+    .transition(width @item-transition-duration, 
+                height @item-transition-duration, 
+                background @item-transition-duration
+    );
 }
 
 .slide-controls {
@@ -98,8 +104,8 @@ body {
         height: 9rem;
         width: 16rem;
         background: white;
-        border: 0.1rem solid #d8d8d8;
-        border-bottom-width: 0.2rem;
+        border: @default-border;
+        border-bottom-width: @border-bottom-width;
         .border-radius(0.5rem);
     }
     
@@ -114,18 +120,17 @@ body {
         right: 2.5rem;
         border-left: 0.6rem solid transparent;
         &:hover {
-            background: #FFF;
-            border-left: 0.6rem solid #FFF;
+            background: white;
+            border-left: 0.6rem solid white;
         }
     }   
 }
 
 .item-controls {
-    padding: 10px;
-    div {
+    padding: 1rem;
+    .form-group {
         width: auto;
-        overflow: hidden;
-        margin: 10px 0px;
+        margin: 1rem 0;
         padding-right: 0.5rem;
     }
 }
@@ -177,10 +182,6 @@ input[type="text"] {
 
 
 /* Sliding Menues */
-
-::-webkit-input-placeholder {
-    color: @lighter-background;
-}
 
 *::selection {
     background: @holo-blue;
@@ -234,17 +235,20 @@ button {
     }
 }
 
-.sidebar-right {
-    right: 0rem;
-    border-left: 0.1rem solid #d8d8d8;
-    .transition(right 500ms);
-    .overflow-wrapper {
+.overflow-wrapper {
         position: absolute;
-        margin-top: 53px;
         overflow: auto;
-        width: 24rem;
         top: 0;
         bottom: 0;
+    }
+
+.sidebar-right {
+    right: 0rem;
+    border-left: @default-border;
+    .transition(right 500ms);
+    .overflow-wrapper {
+        margin-top: 53px;
+        width: 24rem;
     }
     &.sidebar-gone {
         right: -24.9rem;
@@ -253,15 +257,11 @@ button {
 
 .sidebar-left {
     left: 0;
-    border-right: 0.1rem solid #d8d8d8;
+    border-right: @default-border;
     .transition(left 500ms);
     .overflow-wrapper {
-        position: absolute;
         margin-top: 88px;
-        overflow: auto;
         width: 25rem;
-        top: 0;
-        bottom: 0;
     }
     &.sidebar-gone {
         left: -24.9rem;
