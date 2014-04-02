@@ -123,17 +123,19 @@ app.directive('itemControls', function() {
         replace: true,
         scope: true,
         template:   '<div bo-id="\'controls-\' + item.id" class="sidebar-right item-controls sidebar-gone hidden">' +
+                        '<div class="overflow-wrapper">' +
 //						'<close-button></close-button>' + // Maybe change to "pin" button
-                        '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
-                        '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
-                        '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
-                        '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
-                        '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +
-                        '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
-                        '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
-                        '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
-                        '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
-                        '<delete-Item-button></delete-Item-button>' +
+                            '<div class="form-group">Width: <input type="text" class="form-control" ng-model="item.width"></div>' +
+                            '<div class="form-group">Height: <input type="text" class="form-control" ng-model="item.height"></div>' +
+                            '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
+                            '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
+                            '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +
+                            '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
+                            '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
+                            '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
+                            '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
+                            '<delete-Item-button></delete-Item-button>' +
+                        '</div>'+
                     '</div>'
     };
 });
@@ -244,10 +246,12 @@ app.directive('slidebar', function() {
                                 '</a>' +
                             '</div>' +
                           '</div>' +
-                        '<div class="wrapper" ng-repeat="slide in presentation.slides">' +
-                            '<div class="slide-preview"></div>' +
-                            '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +
-                            '<delete-slide-button></delete-slide-button>' +
+                        '<div class="overflow-wrapper">' +
+                            '<div class="slide-preview-wrapper" ng-repeat="slide in presentation.slides">' +
+                                '<div class="slide-preview"></div>' +
+                                '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +
+                                '<delete-slide-button></delete-slide-button>' +
+                            '</div>' +
                         '</div>' +
                     '</div>'
     };

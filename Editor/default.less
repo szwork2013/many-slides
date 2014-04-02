@@ -126,6 +126,7 @@ body {
         width: auto;
         overflow: hidden;
         margin: 10px 0px;
+        padding-right: 0.5rem;
     }
 }
 
@@ -216,10 +217,8 @@ button {
     padding-top: (@header-height + @header-border-thickness);
     top: 0;
     z-index: 1;
-    border: 0.1rem solid #d8d8d8;
-    border-bottom-width: 0.2rem;
-
-    .wrapper {
+    
+    .slide-preview-wrapper {
         padding: 1rem;
         .transition(background 500ms, padding 500ms);
         z-index: 2;
@@ -237,15 +236,33 @@ button {
 
 .sidebar-right {
     right: 0rem;
+    border-left: 0.1rem solid #d8d8d8;
     .transition(right 500ms);
+    .overflow-wrapper {
+        position: absolute;
+        margin-top: 53px;
+        overflow: auto;
+        width: 24rem;
+        top: 0;
+        bottom: 0;
+    }
     &.sidebar-gone {
-        right: -23.9rem;
+        right: -24.9rem;
     }
 }
 
 .sidebar-left {
     left: 0;
+    border-right: 0.1rem solid #d8d8d8;
     .transition(left 500ms);
+    .overflow-wrapper {
+        position: absolute;
+        margin-top: 88px;
+        overflow: auto;
+        width: 25rem;
+        top: 0;
+        bottom: 0;
+    }
     &.sidebar-gone {
         left: -24.9rem;
     }
