@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="../css/flat-ui.css">
         
         <!-- custom styling -->
-        <link rel="stylesheet/less" type="text/css" href="external-modules/prefixer.less" />
         <link rel="stylesheet/less" type="text/css" href="default.less" />
         <link rel="stylesheet" href="external-modules/colorpicker/colorpicker.css"/>
         <script src="../scripts/less-1.6.3.js" type="text/javascript"></script>
@@ -34,13 +33,13 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add Item <b class="caret"></b></a>
                             <span class="dropdown-arrow"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="#" ng-click="addItem()">Circle</a></li>
-                                <li><a href="#" ng-click="addItem()">Square</a></li>
-                                <li><a href="#" ng-click="addItem()">Rectangle</a></li>
+                                <li><a href="#" ng-click="addItem('circle')">Circle</a></li>
+                                <li><a href="#" ng-click="addItem('square')">Square</a></li>
+                                <li><a href="#" ng-click="addItem('rectangle')">Rectangle</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" ng-click="addItem()">Heading</a></li>
-                                <li><a href="#" ng-click="addItem()">Textbox</a></li>
-                                <li><a href="#" ng-click="addItem()">Footer</a></li>
+                                <li><a href="#" ng-click="addItem('heading')">Heading</a></li>
+                                <li><a href="#" ng-click="addItem('textbox')">Textbox</a></li>
+                                <li><a href="#" ng-click="addItem('footer')">Footer</a></li>
                               </ul>
                         </li>
                         <li><a href="#" ng-click="addSlide()">Add Slide</a></li>
