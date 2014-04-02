@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+@import "external-modules/prefixer.less";
 /* many-slides colors */
 
 @dark-background: #1e1e1e;
@@ -69,7 +69,7 @@ body {
 #presentation {
 	position: relative; 
     top: 50%; 
-    transform: translateY(-50%);
+    .transform(translateY(-50%));
 	margin: 0 auto;
 	height: 500px;
 	width: 1000px;
@@ -82,11 +82,11 @@ body {
 
 .slide {
     position: relative;
-    transform-style: preserve-3d;
+    .transform-style(preserve-3d);
 }
 
 .item {
-    transition: width 100ms, height 100ms, background 100ms;
+    .transition(width 100ms, height 100ms, background 100ms);
 }
 
 .slide-controls {
@@ -100,17 +100,17 @@ body {
         background: white;
         border: 0.1rem solid #d8d8d8;
         border-bottom-width: 0.2rem;
-        border-radius: 0.5rem;
+        .border-radius(0.5rem);
     }
     
     .delete-slide-button {
         position: absolute;
         top: 50%;
-        transform: translateY(-50%);
+        .transform(translateY(-50%));
         margin: 0 auto;
         height: 3rem;
         width: 3rem;
-        border-radius: 100rem;
+        .border-radius(100rem);
         right: 2.5rem;
         border-left: 0.6rem solid transparent;
         &:hover {
@@ -150,7 +150,7 @@ body {
 /* Flat UI overwrites */
 
 .navbar {
-    border-radius: 0;
+    .border-radius(0);
     margin: 0;
     z-index: 1000;
     .navbar-toggle {
@@ -165,7 +165,7 @@ input[type="text"] {
 .form-control:focus {
     border: 2px solid #1abc9c;
     outline: 0;
-    box-shadow: none
+    .box-shadow(none);
 }
 /*
 .close-button {
@@ -178,7 +178,7 @@ input[type="text"] {
 /* Sliding Menues */
 
 ::-webkit-input-placeholder {
-   color: @lighter-background;
+    color: @lighter-background;
 }
 
 *::selection {
@@ -221,7 +221,7 @@ button {
 
     .wrapper {
         padding: 1rem;
-        transition: background 500ms, padding 500ms;
+        .transition(background 500ms, padding 500ms);
         z-index: 2;
         position:relative;
         display: flex;
@@ -237,7 +237,7 @@ button {
 
 .sidebar-right {
     right: 0rem;
-    transition: right 500ms;
+    .transition(right 500ms);
     &.sidebar-gone {
         right: -23.9rem;
     }
@@ -245,7 +245,7 @@ button {
 
 .sidebar-left {
     left: 0;
-    transition: left 500ms;
+    .transition(left 500ms);
     &.sidebar-gone {
         left: -24.9rem;
     }
