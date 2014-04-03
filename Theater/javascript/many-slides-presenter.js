@@ -109,4 +109,16 @@ function shareLink() {
     var peerID = document.getElementById("pid").innerHTML;
     window.open("index.html?&peerID=" + peerID);
 }
+$('.rsh').draggable({
+    axis: 'y',
+    containment: 'parent',
+    helper: 'clone',
+    drag: function (event, ui) {
+        var height = ui.offset.top;
+        $(this).prev().height(height);
+    }
+});
+$(function() {
+    $( "#chatWindow" ).resizable();
+});
 

@@ -133,3 +133,49 @@ function updateConnections() {
     $('#amount').empty();
     $('#amount').append("Connections: " + names.length);
 }
+
+function toggleConnections()
+{
+    var toggleConnections =  document.getElementById("connections");
+    if (toggleConnections.attributes.class.value == "col-md-12 connections_expanded") {
+        toggleConnections.attributes.class.value = "col-md-12 connections_collapsed";
+    }
+    else if (toggleConnections.attributes.class.value == "col-md-12 connections_collapsed") {
+        toggleConnections.attributes.class.value = "col-md-12 connections_expanded";
+    }
+}
+
+function toggleChat()
+{
+    var toggleChat =  document.getElementById("messages");
+    if (toggleChat.attributes.class.value == "col-md-12 messages_expanded") {
+        toggleChat.attributes.class.value = "col-md-12 messages_collapsed";
+    }
+    else if (toggleChat.attributes.class.value == "col-md-12 messages_collapsed") {
+        toggleChat.attributes.class.value = "col-md-12 messages_expanded";
+    }
+}
+var htmlConnections = "<p id='amount'>Connections: 0</p>" +
+    "<div id='connections' >" +
+    "<span class='filler'>No Audience yet.</span>" +
+    "</div>";
+var htmlChat = "<p id='chat'>Chat</p>" +
+    "<div id='messages'>" +
+    "</div>" +
+    "<form id='send'>" +
+    "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
+    "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
+    "</form>";
+var htmlPresentation = "<div id='presentationWindow'>Presentation</div>";
+
+$(function () {
+    var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
+    $('#layout').w2layout({
+        name: 'layout',
+        panels: [
+            { type: 'main', style: pstyle, content: htmlConnections},
+            { type: 'preview', size: '75%', resizable: true, style: pstyle, content: htmlChat},
+            { type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
+        ]
+    });
+});
