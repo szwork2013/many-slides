@@ -2,27 +2,27 @@ var MediaManager = (function () {
     'use strict';
 
     function bindThemAll() {
-        $('#settings-button').click(function () {
+        $('#item-controls-button').click(function () {
             $(".sidebar-right").toggleClass('sidebar-gone');
         });
 
-        $('#settings-button').mouseenter(function () {
+        $('#item-controls-button').mouseenter(function () {
             $(".sidebar-right").removeClass('sidebar-gone');
         });
 
-        $('#settings-button').mouseleave(function () {
+        $('#item-controls-button').mouseleave(function () {
             $(".sidebar-right").addClass('sidebar-gone');
         });
 
-        $('#actions-button').click(function () {
+        $('#slide-controls-button').click(function () {
             $(".sidebar-left").toggleClass('sidebar-gone');
         });
 
-        $('#actions-button').mouseenter(function () {
+        $('#slide-controls-button').mouseenter(function () {
             $(".sidebar-left").removeClass('sidebar-gone');
         });
 
-        $('#actions-button').mouseleave(function () {
+        $('#slide-controls-button').mouseleave(function () {
             $(".sidebar-left").addClass('sidebar-gone');
         });
 
