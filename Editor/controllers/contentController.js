@@ -20,7 +20,6 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
     };
 
     $scope.addItem = function (shape) {
-        alert('Yo, you choose a frickin\' ' + shape);
         var shapes = {
             'circle': {
                 id: Math.random().toString(36).slice(2),
@@ -46,7 +45,7 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 height : 125,
                 width : 125,
                 rotation : 0.0,
-                related_items : [], //Item Array
+                related_items : [],
                 shape : {},
                 text : {},
                 style : {
@@ -59,11 +58,11 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
             'rectangle': {
                 id: Math.random().toString(36).slice(2),
                 location : [100, 100],
-                layer : 0, //(Layer.position)
+                layer : 0,
                 height : 100,
                 width : 150,
                 rotation : 0.0,
-                related_items : [], //Item Array
+                related_items : [],
                 shape : {},
                 text : {},
                 style : {

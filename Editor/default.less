@@ -49,7 +49,7 @@
 @flat-asbestos: #7F8C8D;
 
 /* many-slides parameters */
-@default-border: 0.1rem solid #d8d8d8;
+@default-border: 0.1rem solid #D8D8D8;
 @border-bottom-width: 0.2rem;
 @item-transition-duration: 100ms;
 
@@ -76,7 +76,7 @@ body {
 	margin: 0 auto;
 	height: 500px;
 	width: 1000px;
-	background: #FFFFFF;
+	background: white;
     border: @default-border;
     border-bottom-width: @border-bottom-width;
     z-index: 0;
@@ -140,10 +140,37 @@ body {
 	height: 0;
 }
 
+.icon-circle {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 1rem;
+    background: @flat-turquoise;
+    border-radius: 100%;
+    border: none;
+}
+
+.icon-square {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 1rem;
+    background: @flat-turquoise;
+    border-radius: 15%;
+    border: none;
+}
+
+.icon-rectangle {
+    height: 1.0rem;
+    width: 1.5rem;
+    margin-right: 1rem;
+    background: @flat-turquoise;
+    border-radius: 15%;
+    border: none;
+}
+
 /* Stateful classes */
 
 .selected-object {
-    outline: 0.25em dashed #7777ff;
+    outline: 0.25em dashed @flat-peter-river;
 }
 
 /* Bootstrap overwrites */
@@ -173,6 +200,7 @@ input[type="text"] {
     outline: 0;
     .box-shadow(none);
 }
+
 /*
 .close-button {
 	position: absolute;
@@ -212,7 +240,7 @@ button {
 .sidebar-left,
 .sidebar-right {
     height: 100%;
-    background: #edeff1;
+    background: @flat-clouds;
     width: 25rem;
     position: fixed;
     padding-top: (@header-height + @header-border-thickness);
@@ -227,7 +255,8 @@ button {
         display: flex;
 
         &:hover {
-            background: #1abc9c;
+            /*background: lighten(@flat-silver, 12%);*/
+            background: lighten(@flat-silver, 12%);
             z-index: 1;
             padding: 1rem 1rem 1rem 2rem;
         }
