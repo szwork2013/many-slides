@@ -38,6 +38,7 @@ app.directive('item', function () {
             if (that.hasClass('selected-object')) {
                 that.removeClass('selected-object');
                 this_controls.addClass('hidden');
+                $('#item-controls-button').addClass('inactive');
             } else {
                 var selected_object = $('.selected-object');
                 var selected_object_id = selected_object.attr('id');
@@ -50,6 +51,7 @@ app.directive('item', function () {
                 }
                 that.addClass('selected-object');
                 this_controls.removeClass('hidden');
+                $('#item-controls-button').removeClass('inactive');
             }
         });
         
@@ -134,7 +136,9 @@ app.directive('itemControls', function() {
                             '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
                             '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
                             '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
-                            '<delete-Item-button></delete-Item-button>' +
+                            '<div class="form-group">' +
+                                '<delete-Item-button></delete-Item-button>' +
+                            '</div>' +
                         '</div>'+
                     '</div>'
     };
