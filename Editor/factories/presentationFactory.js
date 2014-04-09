@@ -3,10 +3,12 @@ app.factory('presentationFactory', function () {
     var factory = {};
     var presentation = {
         aspect_ratio : [16, 9],
+        active_slide : 1,
         slides : [
             {
 				position : 0,
 				transition : 0,
+                active: false,
                 deleted: false,
                 items : [
                     {
@@ -57,19 +59,38 @@ app.factory('presentationFactory', function () {
             {
                 position : 1,
                 transition : 0,
-                deleted: false,
-                items : []
+                deleted: true,
+                active: false,
+                items : [{
+                        id: '1ejujjddmeefjemi',
+                        location : [300, 300],
+                        layer : 1,
+                        height : 100,
+                        width: 100,
+                        rotation: 0.0,
+                        related_items : [], //Item Array
+                        shape : {},
+                        text : {},
+                        style : {
+                            background : '#55bbff',
+                            border: '',
+                            border_radius : 100
+                        },
+                        deleted: false
+                    }]
             },
             {
                 position : 2,
                 transition : 0,
                 deleted: false,
+                active: false,
                 items : []
             },
             {
                 position : 3,
                 transition : 0,
                 deleted: false,
+                active: false,
                 items : []
             }
         ]

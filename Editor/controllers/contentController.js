@@ -13,8 +13,8 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
     };
     
     $scope.deleteItems = function () {
-        var items = $scope.presentation.slides[0].items;
-        $scope.presentation.slides[0].items = _.filter(items, function (item) {
+        var items = $scope.presentation.slides[$scope.presentation.active_slide].items;
+        $scope.presentation.slides[$scope.presentation.active_slide].items = _.filter(items, function (item) {
             return !item.deleted;
         });
     };
@@ -124,7 +124,8 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 deleted: false
             },
         };
-        $scope.presentation.slides[0].items.push(shapes[shape]);
+        
+        $scope.presentation.slides[$scope.presentation.active_slide].items.push(shapes[shape]);
     };
     
     $scope.addSlide = function () {
@@ -136,11 +137,21 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
 		});
     };
     
-    $scope.deleteSlides = function () { //TODO - make work
+    $scope.deleteSlides = function () { //TODO - set new active_slide when active slide was deleted
         var slides = $scope.presentation.slides;
         $scope.presentation.slides = _.filter(slides, function (slide) {
             return !slide.deleted;
         });
+    };
+    
+    $scope.setActiveSlide = function (index) {
+        // TODO - Make better with underscorejs
+        var lenght = $scope.presentation.slides.length;
+        for (var i = 0; i < lenght; i++) {
+            $scope.presentation.slides[i].active = false;   
+        }
+        $scope.presentation.slides[index].active = true;
+        $scope.presentation.active_slide = index;
     };
     
     $timeout(function(){$("[data-toggle=tooltip]").tooltip();});

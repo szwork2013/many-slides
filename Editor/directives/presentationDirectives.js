@@ -16,7 +16,7 @@ app.directive('presentationSlides', function () {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div ng-repeat="slide in presentation.slides" class="slide">' +
+        template:   '<div ng-repeat="slide in presentation.slides | filter:{ active: true }" class="slide">' +
                         '<slide-items></slide-items>' +
                     '</div>'
     };
@@ -282,7 +282,7 @@ app.directive('slidePreview', function() {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div class="slide-preview"></div>'
+        template:   '<div class="slide-preview" ng-Click="setActiveSlide($index)"></div>'
     };
 });
 
