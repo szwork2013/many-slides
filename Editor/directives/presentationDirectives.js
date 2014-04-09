@@ -216,7 +216,7 @@ app.directive('slideItems', function () {
     };
 });
 
-app.directive('slidebar', function() {
+app.directive('slideControlbar', function() {
     "use strict";
     
     function tooltip(text) {
@@ -252,12 +252,37 @@ app.directive('slidebar', function() {
                           '</div>' +
                         '<div class="overflow-wrapper">' +
                             '<div class="slide-preview-wrapper" ng-repeat="slide in presentation.slides">' +
-                                '<div class="slide-preview"></div>' +
+                                '<slide-preview></slide-preview>' +
                                 '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +
                                 '<delete-slide-button></delete-slide-button>' +
                             '</div>' +
                         '</div>' +
                     '</div>'
+    };
+});
+
+app.directive('slidePreview', function() {
+    "use strict";
+    function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            var that = $(this);
+            var selected_slides = $('.selected');
+               
+            if(!that.hasClass('selected')) {
+                if(selected_slides.length != 0) {
+                    selected_slides.removeClass('selected');
+                }
+                that.addClass('selected');
+            }
+        });
+	}
+	
+    return {
+		link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div class="slide-preview"></div>'
     };
 });
 
