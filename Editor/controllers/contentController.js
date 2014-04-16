@@ -154,5 +154,8 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
         $scope.presentation.active_slide = index;
     };
     
-    $timeout(function(){$("[data-toggle=tooltip]").tooltip();});
+    $timeout(function() {
+        $("[data-toggle=tooltip]").tooltip();
+        $scope.setActiveSlide(0);
+    });
 });

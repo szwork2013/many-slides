@@ -59,7 +59,7 @@ app.factory('presentationFactory', function () {
             {
                 position : 1,
                 transition : 0,
-                deleted: true,
+                deleted: false,
                 active: false,
                 items : [{
                         id: '1ejujjddmeefjemi',
