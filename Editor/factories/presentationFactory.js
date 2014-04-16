@@ -20,10 +20,8 @@ app.factory('presentationFactory', function () {
                         rotation : 0.0,
                         related_items : [], //Item Array
                         shape : {},
-                        text : {},
                         style : {
                             background : '#99ea0f',
-                            border: '',
                             border_radius : 100
                         },
                         deleted: false
@@ -37,10 +35,8 @@ app.factory('presentationFactory', function () {
                         rotation: 0.0,
                         related_items : [], //Item Array
                         shape : {},
-                        text : {},
                         style : {
                             background : '#990f41',
-                            border: '',
                             border_radius : 10
                         },
                         deleted: false

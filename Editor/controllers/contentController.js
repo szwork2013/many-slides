@@ -12,13 +12,10 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
         presentationFactory.pushPresentation($scope.presentation);
     };
     
-    $scope.deleteItems = function () {
-        var items = $scope.presentation.slides[$scope.presentation.active_slide].items;
-        $scope.presentation.slides[$scope.presentation.active_slide].items = _.filter(items, function (item) {
-            return !item.deleted;
-        });
+    $scope.showPresentationSettings = function () {
+        alert('Soon!');
     };
-
+    
     $scope.addItem = function (shape) {
         var shapes = {
             'circle': {
@@ -30,9 +27,12 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 rotation : 0.0,
                 related_items : [], //Item Array
                 shape : {},
-                text : {},
+                text : {
+                    align: 'left',
+                    color: '#000000',
+                },
                 style : {
-                    background : "#1abc9c",
+                    background : '#1abc9c',
                     border: '',
                     border_radius : 100
                 },
@@ -47,7 +47,10 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 rotation : 0.0,
                 related_items : [],
                 shape : {},
-                text : {},
+                text : {
+                    align: 'left',
+                    color: '#000000',
+                },
                 style : {
                     background : "#1abc9c",
                     border: '',
@@ -64,7 +67,10 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 rotation : 0.0,
                 related_items : [],
                 shape : {},
-                text : {},
+                text : {
+                    align: 'left',
+                    color: '#000000',
+                },
                 style : {
                     background : "#1abc9c",
                     border: '',
@@ -77,16 +83,18 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 location : [100, 100],
                 layer : 0, //(Layer.position)
                 height : 100,
-                width : 150,
+                width : 750,
                 rotation : 0.0,
                 related_items : [], //Item Array
                 shape : {},
-                text : {},
-                style : {
-                    background : "#1abc9c",
-                    border: '',
-                    border_radius : 10
+                text : {
+                    content : 'Enter heading text',
+                    size: 3.5,
+                    align: 'left',
+                    color: '#000000',
+                    format: 'bold'
                 },
+                style : {},
                 deleted: false
             },
             'textbox': {
@@ -94,38 +102,55 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 location : [100, 100],
                 layer : 0, //(Layer.position)
                 height : 100,
-                width : 150,
+                width : 750,
                 rotation : 0.0,
                 related_items : [], //Item Array
                 shape : {},
-                text : {},
-                style : {
-                    background : "#1abc9c",
-                    border: '',
-                    border_radius : 10
+                text : {
+                    content : 'Enter text',
+                    size: 2.0,
+                    align: 'left',
+                    color: '#000000',
                 },
-                deleted: false
+                style : {},
+                deleted: false  
             },
             'footer': {
                 id: Math.random().toString(36).slice(2),
                 location : [100, 100],
                 layer : 0, //(Layer.position)
                 height : 100,
-                width : 150,
+                width : 750,
                 rotation : 0.0,
                 related_items : [], //Item Array
                 shape : {},
-                text : {},
-                style : {
-                    background : "#1abc9c",
-                    border: '',
-                    border_radius : 10
+                text : {
+                    content : 'Enter footer text',
+                    size: 1.5,
+                    align: 'left',
+                    color: '#000000',
                 },
+                style : {},
                 deleted: false
             },
         };
         
         $scope.presentation.slides[$scope.presentation.active_slide].items.push(shapes[shape]);
+    };
+    
+    $scope.deleteItems = function () {
+        var items = $scope.presentation.slides[$scope.presentation.active_slide].items;
+        $scope.presentation.slides[$scope.presentation.active_slide].items = _.filter(items, function (item) {
+            return !item.deleted;
+        });
+    };
+    
+    $scope.showItemSettings = function () {
+        var item = $('.item.selected-object');
+        if(item) {
+            var item_id = item.attr('id').replace('item-','');
+            $('#controls-' + item_id).removeClass('hidden').removeClass('sidebar-gone');
+        }
     };
     
     $scope.addSlide = function () {
@@ -142,6 +167,10 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
         $scope.presentation.slides = _.filter(slides, function (slide) {
             return !slide.deleted;
         });
+    };
+    
+    $scope.showSlideSettings = function () {
+        alert('Nothing here, yet!');
     };
     
     $scope.setActiveSlide = function (index) {

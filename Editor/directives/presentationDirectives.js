@@ -108,14 +108,20 @@ app.directive('item', function () {
                 'background:        {{item.style.background}};' +
                 'border:            {{item.style.border}};' +
                 'border-radius:     {{item.style.border_radius}}px;' +
-				'z-index:           {{item.layer}}';
+				'z-index:           {{item.layer}};' +
+                'text-align:        {{item.text.align}};' +
+                'font-size:        {{item.text.size}}rem;' +
+                'font-weight:        {{item.text.format}}rem;' +
+                'color:             {{item.text.color}};'
     
     return {
         link: link,
         restrict: 'E',
         replace: true,
         scope: true,
-        template: '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '"></div>'
+        template:   '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
+                        '{{item.text.content}}' +
+                    '</div>'
     };
 });
 
@@ -132,6 +138,11 @@ app.directive('itemControls', function() {
                             '<div class="form-group">Left: <input type="text" class="form-control" ng-model="item.location[0]"></div>' +
                             '<div class="form-group">Top: <input type="text" class="form-control" ng-model="item.location[1]"></div>' +
                             '<div class="form-group">Layer: <input type="text" class="form-control" ng-model="item.layer"></div>' +
+                            '<div class="form-group">Text: <input type="text" class="form-control" ng-model="item.text.content"></div>' +
+                            '<div class="form-group">Text size: <input type="text" class="form-control" ng-model="item.text.size"></div>' +
+                            '<div class="form-group">Text alignment: <input type="text" class="form-control" ng-model="item.text.align"></div>' +
+                            '<div class="form-group">Text color: <input colorpicker type="text" class="form-control" ng-model="item.text.color"></div>' +
+                            '<div class="form-group">Text format: <input type="text" class="form-control" ng-model="item.text.format"></div>' +
                             '<div class="form-group">Color: <input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
                             '<div class="form-group">Border:<input type="text" class="form-control" ng-model="item.style.border"></div>' +
                             '<div class="form-group">Border-Radius:<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
