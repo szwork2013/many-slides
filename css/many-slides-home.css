@@ -1,3 +1,12 @@
 #home-menu {
     background: grey;
 }
+
+.logo-subheading {
+    -webkit-transform: translateX(7.2%);
+    -moz-transform: translateX(7.2%);
+    -ms-transform: translateX(7.2%);
+    -o-transform: translateX(7.2%);
+    transform: translateX(7.2%);
+    margin-top: -1.5rem;   
+}
