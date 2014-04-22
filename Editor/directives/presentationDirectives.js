@@ -216,8 +216,6 @@ app.directive('deleteItemButton', function() {
 		element.on('click', function (event) {
             var that = $(this);
             var input = that.parent().parent().find('[ng-model="item.deleted"]');
-            console.log(that);
-            console.log(input);
             input.val(true).change();
             scope.deleteItems();
             input.val('').change(); // Trigger angularjs to see the item is gone
