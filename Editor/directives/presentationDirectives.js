@@ -22,6 +22,102 @@ app.directive('presentationSlides', function () {
     };
 });
 
+app.directive('itemCorner', function () {
+    "use strict";
+    function link(scope, element, attrs) {
+        var mousemove_fired = false;
+        element.on('click', function (event) {
+            var that, that_id, this_controls;
+            
+            if (mousemove_fired) {
+                mousemove_fired = false;
+                return;
+            }
+            
+            that = $(this);
+            that_id = that.attr('id').replace('item-', '');
+            this_controls = $('#controls-' + that_id);
+            
+            if (that.hasClass('selected-object')) {
+                that.removeClass('selected-object');
+                this_controls.addClass('hidden');
+                $('#item-controls-button').addClass('inactive');
+            } else {
+                var selected_object, selected_object_id, selected_object_controls;
+                selected_object = $('.selected-object');
+                selected_object_id = selected_object.attr('id');
+
+                if (selected_object_id) {
+                    selected_object_id = selected_object_id.replace('item-', '');
+                    selected_object_controls = $('#controls-' + selected_object_id);
+                    selected_object.removeClass('selected-object');
+                    selected_object_controls.addClass('hidden');
+                }
+                that.addClass('selected-object');
+                this_controls.removeClass('hidden');
+                $('#item-controls-button').removeClass('inactive');
+            }
+        });
+        
+        
+        element.on('mousedown', function (event) {
+            event.preventDefault();
+            console.log("draggin");
+            
+            var that, that_id, this_controls, element_is_selected;
+            var startX = 0, startY = 0, x = 0, y = 0;
+            var element_x_input, element_y_input;
+            
+            that = $(this);
+            that_id = that.attr('id').replace('item-', '');
+            this_controls = $('#controls-' + that_id);
+            element_is_selected = that.hasClass('selected-object');
+            
+            if (element_is_selected) {
+                // TODO CHANGE THIS BEHAVIOUR
+                element_x_input = this_controls.find('[ng-model="item.width"]');
+                element_y_input = this_controls.find('[ng-model="item.height"]');
+                
+                x = element_x_input.val();
+                y = element_y_input.val();
+                
+                startX = event.pageX - x;
+                startY = event.pageY - y;
+                $(document).on('mousemove', mousemove);
+                $(document).on('mouseup', mouseup);
+            }
+            
+            function mousemove(event) {
+                mousemove_fired = true;
+                y = event.pageY - startY;
+                x = event.pageX - startX;
+                element_x_input.val(x).change();
+                element_y_input.val(y).change();
+            }
+
+            function mouseup() {
+                $(document).unbind('mousemove', mousemove);
+                $(document).unbind('mouseup', mouseup);
+            }
+        });
+        
+        element.on('dblclick', function () {
+            event.preventDefault();
+        });
+    }
+    
+    return {
+        link: link,
+        restrict: 'E',
+        replace: true,
+        require: ['^position'],
+        scope: {
+            position: '@'
+        },
+        template:   '<div class="item-corner corner-{{position}}"></div>'
+    };
+});
+
 app.directive('item', function () {
 	"use strict";
     function link(scope, element, attrs) {
@@ -31,21 +127,24 @@ app.directive('item', function () {
                 mousemove_fired = false;
                 return;
             }
-            var that = $(this);
-            var that_id = that.attr('id').replace('item-','');
-            var this_controls = $('#controls-' + that_id);
+            var that, that_id, this_controls;
+            
+            that = $(this);
+            that_id = that.attr('id').replace('item-', '');
+            this_controls = $('#controls-' + that_id);
             
             if (that.hasClass('selected-object')) {
                 that.removeClass('selected-object');
                 this_controls.addClass('hidden');
                 $('#item-controls-button').addClass('inactive');
             } else {
-                var selected_object = $('.selected-object');
-                var selected_object_id = selected_object.attr('id');
+                var selected_object, selected_object_id, selected_object_controls;
+                selected_object = $('.selected-object');
+                selected_object_id = selected_object.attr('id');
 
-                if(selected_object_id) {
-                    selected_object_id = selected_object_id.replace('item-','');
-                    var selected_object_controls = $('#controls-' + selected_object_id);
+                if (selected_object_id) {
+                    selected_object_id = selected_object_id.replace('item-', '');
+                    selected_object_controls = $('#controls-' + selected_object_id);
                     selected_object.removeClass('selected-object');
                     selected_object_controls.addClass('hidden');
                 }
@@ -57,17 +156,19 @@ app.directive('item', function () {
         
         element.on('mousedown', function (event) {
             event.preventDefault();
+            var that, that_id, this_controls, element_is_selected;
+            var element_x_input, element_y_input;
           
-            var that = $(this);
-            var that_id = that.attr('id').replace('item-','');
-            var this_controls = $('#controls-' + that_id);
-            var element_is_selected = that.hasClass('selected-object');
+            that = $(this);
+            that_id = that.attr('id').replace('item-', '');
+            this_controls = $('#controls-' + that_id);
+            element_is_selected = that.hasClass('selected-object');
             var startX = 0, startY = 0, x = 0, y = 0;
             
             if (element_is_selected) {
                 // TODO CHANGE THIS BEHAVIOUR
-                var element_x_input = this_controls.find('[ng-model="item.location[0]"]');
-                var element_y_input = this_controls.find('[ng-model="item.location[1]"]');
+                element_x_input = this_controls.find('[ng-model="item.location[0]"]');
+                element_y_input = this_controls.find('[ng-model="item.location[1]"]');
                 
                 x = element_x_input.val();
                 y = element_y_input.val();
@@ -112,7 +213,7 @@ app.directive('item', function () {
                 'text-align:        {{item.text.align}};' +
                 'font-size:         {{item.text.size}}rem;' +
                 'font-weight:       {{item.text.format}};' +
-                'color:             {{item.text.color}};'
+                'color:             {{item.text.color}};';
     
     return {
         link: link,
@@ -120,17 +221,17 @@ app.directive('item', function () {
         replace: true,
         scope: true,
         template:   '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
-                        '<div class="item-corner corner-top-left"></div>' +
-                        '<div class="item-corner corner-bottom-left"></div>' +
-                        '<div class="item-corner corner-bottom-right"></div>' +
-                        '<div class="item-corner corner-top-right"></div>' +
+                        '<item-corner position="top-left"></item-corner>' +
+                        '<item-corner position="bottom-left"></item-corner>' +
+                        '<item-corner position="bottom-right"></item-corner>' +
+                        '<item-corner position="top-right"></item-corner>' +
                         '{{item.text.content}}' +
                     '</div>'
     };
 });
 
-app.directive('itemControls', function() {
-    
+app.directive('itemControls', function () {
+    "use strict";
     function tooltip(text) {
         return  ' data-toggle="tooltip"' +
                 ' data-placement="bottom"' +
@@ -147,7 +248,7 @@ app.directive('itemControls', function() {
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
                                     '<span class="fui-plus"></span>' +
-                                '</a>'+
+                                '</a>' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
                                     tooltip('edit slide') + '>' +
                                     '<span class="fui-new"></span>' +
@@ -164,10 +265,10 @@ app.directive('itemControls', function() {
                           '</div>' +
                         '<div class="overflow-wrapper">' +
                             '<accordion close-others="true">' +
-                                '<accordion-group heading="Position" is-open="true">' + 
+                                '<accordion-group heading="Position" is-open="true">' +
                                     '<div class="form-group">Left<input type="text" class="form-control" ng-model="item.location[0]"></div>' +
                                     '<div class="form-group">Top<input type="text" class="form-control" ng-model="item.location[1]"></div>' +
-                                    '<div class="form-group">Layer<input type="text" class="form-control" ng-model="item.layer"></div>' +                            
+                                    '<div class="form-group">Layer<input type="text" class="form-control" ng-model="item.layer"></div>' +
                                 '</accordion-group>' +
                                 '<accordion-group heading="Size">' +
                                     '<div class="form-group">Width<input type="text" class="form-control" ng-model="item.width"></div>' +
@@ -186,12 +287,12 @@ app.directive('itemControls', function() {
                                     '<div class="form-group">Border-Radius<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
                                 '</accordion-group>' +
                             '</accordion>' +
-//  						'<close-button></close-button>' + // Maybe change to "pin" button
+//                          '<close-button></close-button>' + // Maybe change to "pin" button
                             '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
                             '<div class="form-group">' +
                                 '<delete-Item-button></delete-Item-button>' +
                             '</div>' +
-                        '</div>'+
+                        '</div>' +
                     '</div>'
     };
 });
@@ -214,12 +315,14 @@ app.directive('itemControls', function() {
     };
 });*/
 
-app.directive('deleteItemButton', function() {
+app.directive('deleteItemButton', function () {
 	"use strict";
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
-            var that = $(this);
-            var input = that.parent().parent().find('[ng-model="item.deleted"]');
+            var that, input;
+            
+            that = $(this);
+            input = that.parent().parent().find('[ng-model="item.deleted"]');
             input.val(true).change();
             scope.deleteItems();
             input.val('').change(); // Trigger angularjs to see the item is gone
@@ -235,12 +338,14 @@ app.directive('deleteItemButton', function() {
     };
 });
 
-app.directive('deleteSlideButton', function() {
+app.directive('deleteSlideButton', function () {
 	"use strict";
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
-            var that = $(this);
-            var input = that.parent().find('[ng-model="slide.deleted"]');
+            var that, input;
+            
+            that = $(this);
+            input = that.parent().find('[ng-model="slide.deleted"]');
             input.val(true).change();
             scope.deleteSlides();
             input.val('').change(); // Trigger angularjs to see the slide is gone
@@ -268,7 +373,7 @@ app.directive('slideItems', function () {
     };
 });
 
-app.directive('slideControlbar', function() {
+app.directive('slideControlbar', function () {
     "use strict";
     
     function tooltip(text) {
@@ -287,7 +392,7 @@ app.directive('slideControlbar', function() {
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
                                     '<span class="fui-plus"></span>' +
-                                '</a>'+
+                                '</a>' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
                                     tooltip('edit slide') + '>' +
                                     '<span class="fui-new"></span>' +
@@ -313,15 +418,17 @@ app.directive('slideControlbar', function() {
     };
 });
 
-app.directive('slidePreview', function() {
+app.directive('slidePreview', function () {
     "use strict";
     function link(scope, element, attrs) {
 		element.on('click', function (event) {
-            var that = $(this);
-            var selected_slides = $('.selected');
+            var that, selected_slides;
+            
+            that = $(this);
+            selected_slides = $('.selected');
                
-            if(!that.hasClass('selected')) {
-                if(selected_slides.length != 0) {
+            if (!that.hasClass('selected')) {
+                if (selected_slides.length !== 0) {
                     selected_slides.removeClass('selected');
                 }
                 that.addClass('selected');
@@ -338,7 +445,7 @@ app.directive('slidePreview', function() {
     };
 });
 
-app.directive('itemControlbar', function() {
+app.directive('itemControlbar', function () {
     "use strict";
     return {
         restrict: 'E',
@@ -352,7 +459,7 @@ app.directive('itemControlbar', function() {
     };
 });
 
-app.directive('manySlidesLogo', function() {
+app.directive('manySlidesLogo', function () {
     "use strict";
     
     return {
@@ -360,7 +467,7 @@ app.directive('manySlidesLogo', function() {
         require: ['^logoColor', '^logoSize'],
         scope: {
             logoColor: '@',
-            logoSize: '@', 
+            logoSize: '@'
         },
         replace: true,
         template:   '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{logoSize}}" height="{{logoSize}}" viewBox="-2 -5 105 100">' +
