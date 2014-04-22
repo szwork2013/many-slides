@@ -10,6 +10,7 @@
 
 // turquoise
 @flat-turquoise: #1ABC9C;
+@flat-turquoise-hover: #48c9b0;
 @flat-green-sea: #16A085;
 
 // green
@@ -107,24 +108,21 @@ body {
         border: @default-border;
         border-bottom-width: @border-bottom-width;
         &.selected { border: 0.5rem solid @flat-turquoise; }
-        .border-radius(0.5rem);
+        .border-radius(0.5rem 0 0 0.5rem);
         font-size: 1.5rem;
         color: grey;
+        z-index: 1;
     }
     
     .delete-slide-button {
-        position: absolute;
-        top: 50%;
-        .transform(translateY(-50%));
-        margin: 0 auto;
-        height: 3rem;
-        width: 3rem;
-        .border-radius(100rem);
-        right: 2.5rem;
-        border-left: 0.6rem solid transparent;
+        background: @flat-turquoise;
+        width: 5rem;
+        z-index: 0;
+        .border-radius(0 0.5rem 0.5rem 0);
+        line-height: 9rem;
+        text-align: center;
         &:hover {
-            background: white;
-            border-left: 0.6rem solid white;
+            background: @flat-turquoise-hover;
         }
     }   
 }
@@ -306,18 +304,18 @@ button {
     
     .slide-preview-wrapper {
         padding: 1rem;
-        .transition(background 500ms, padding 500ms);
         z-index: 2;
-        position:relative;
+        position: relative;
         display: flex;
-
-        &:hover {
-            /*background: lighten(@flat-silver, 12%);*/
-            background: lighten(@flat-silver, 12%);
-            z-index: 1;
-            padding: 1rem 1rem 1rem 2rem;
+        .slide-preview {
+            .transition(margin 500ms);
+            margin-left: 0;
         }
-
+        .slide-preview:hover {
+            z-index: 1;
+            margin-left: 1rem;
+        }
+        
     }
 }
 
