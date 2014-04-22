@@ -40,6 +40,25 @@ app.factory('presentationFactory', function () {
                             border_radius : 10
                         },
                         deleted: false
+                    },
+                    {
+                        id: 'ht18q855vq3vunmi',
+                        location : [0, 0],
+                        layer : 0,
+                        height : 100,
+                        width : 1000,
+                        rotation : 0.0,
+                        related_items : [], //Item Array
+                        shape : {},
+                        style : {},
+                        text : {
+                            content : 'Welcome to Many-Slides',
+                            size : 5.5,
+                            align : 'center',
+                            color : '#000000',
+                            format : 'bold'
+                        },
+                        deleted: false
                     }
                 ],
                 item_group : {
@@ -51,43 +70,6 @@ app.factory('presentationFactory', function () {
 //                  width : 100,
 //                  rotation : 0.0
                 }
-            },
-            {
-                position : 1,
-                transition : 0,
-                deleted: false,
-                active: false,
-                items : [{
-                        id: '1ejujjddmeefjemi',
-                        location : [300, 300],
-                        layer : 1,
-                        height : 100,
-                        width: 100,
-                        rotation: 0.0,
-                        related_items : [], //Item Array
-                        shape : {},
-                        text : {},
-                        style : {
-                            background : '#55bbff',
-                            border: '',
-                            border_radius : 100
-                        },
-                        deleted: false
-                    }]
-            },
-            {
-                position : 2,
-                transition : 0,
-                deleted: false,
-                active: false,
-                items : []
-            },
-            {
-                position : 3,
-                transition : 0,
-                deleted: false,
-                active: false,
-                items : []
             }
         ]
     };

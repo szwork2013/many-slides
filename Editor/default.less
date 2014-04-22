@@ -130,11 +130,13 @@ body {
 }
 
 .item-controls {
-    padding: 0.5    rem;
+    a { border-radius: 0; }
+    
+    padding: 0.5rem;
     .form-group {
         width: auto;
         margin: 1rem 0;
-        padding-right: 0.5rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -182,6 +184,28 @@ body {
     padding-left: 0; 
     padding-right: 0;
 }
+
+/* "Soft" Bootstrap overwrites */
+.sidebar-right .panel-body {
+    background: @flat-clouds;
+    padding: 0.5rem;
+}
+
+.sidebar-right .panel-group {
+    margin-bottom: 0.5rem;
+    border: none;
+}
+
+.sidebar-right .panel-group .panel {
+    border: none;
+}
+
+/* Original Bootstrap's CSS depends on empty href attributes to style cursors for several components (pagination, tabs etc.). But in AngularJS adding empty href attributes to link tags will cause unwanted route changes. This is why we need to remove empty href attributes from directive templates and as a result styling is not applied correctly. */
+.nav,
+.pagination,
+.carousel,
+.panel-title a 
+{ cursor: pointer; }
 
 /* Flat UI overwrites */
 
@@ -270,54 +294,29 @@ button {
 }
 
 .overflow-wrapper {
-        position: absolute;
-        padding-right: 0.5rem;
-        overflow: auto;
-        top: 0;
-        bottom: 0;
-    }
+    width: 25rem;
+    margin-top: 88px;
+    position: absolute;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    overflow: auto;
+    top: 0;
+    bottom: 0;
+}
 
 .sidebar-right {
-    right: 0rem;
+    right: 0;
     border-left: @default-border;
-    padding: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
     .transition(right 500ms);
-    .overflow-wrapper {
-        margin-top: 53px;
-        padding-top: 0.5rem;
-        width: 24rem;
-    }
-    &.sidebar-gone {
-        right: -24.9rem;
-    }
+    .overflow-wrapper { padding-top: 0.5rem; }
+    &.sidebar-gone { right: -24.9rem; }
 }
 
 .sidebar-left {
     left: 0;
     border-right: @default-border;
     .transition(left 500ms);
-    .overflow-wrapper {
-        margin-top: 88px;
-        width: 25rem;
-    }
-    &.sidebar-gone {
-        left: -24.9rem;
-    }
+    &.sidebar-gone { left: -24.9rem; }
 }
-
-// "Soft" Bootstrap overwrites
-.sidebar-right .panel-body {
-    background: @flat-clouds;
-    padding: 0.5rem;
-}
-
-.sidebar-right .panel-group {
-    margin-bottom: 0.5rem;
-}
-
-    /* Original Bootstrap's CSS depends on empty href attributes to style cursors for several components (pagination, tabs etc.). But in AngularJS adding empty href attributes to link tags will cause unwanted route changes. This is why we need to remove empty href attributes from directive templates and as a result styling is not applied correctly. */
-.nav,
-.pagination,
-.carousel,
-.panel-title a 
-{ cursor: pointer; }
