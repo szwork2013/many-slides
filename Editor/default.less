@@ -176,6 +176,30 @@ body {
 
 .selected-object {
     outline: 0.6rem dashed @flat-peter-river;
+    @corner-size: 2rem;
+    .item-corner {
+        width: @corner-size;
+        height: @corner-size;
+        position: absolute;
+        background: @flat-peter-river;
+        border-radius: 100%;
+    }
+    .corner-top-left {
+        top: -@corner-size/2;
+        left: -@corner-size/2;
+    }
+    .corner-bottom-left {
+        bottom: -@corner-size/2;
+        left: -@corner-size/2;
+    }
+    .corner-bottom-right {
+        bottom: -@corner-size/2;
+        right: -@corner-size/2;
+    }
+    .corner-top-right {
+        top: -@corner-size/2;
+        right: -@corner-size/2;
+    }
 }
 
 /* Bootstrap overwrites */

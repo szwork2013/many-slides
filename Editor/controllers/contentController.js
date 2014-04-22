@@ -101,7 +101,7 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
                 id: Math.random().toString(36).slice(2),
                 location : [100, 100],
                 layer : 0, //(Layer.position)
-                height : 100,
+                height : 300,
                 width : 750,
                 rotation : 0.0,
                 related_items : [], //Item Array

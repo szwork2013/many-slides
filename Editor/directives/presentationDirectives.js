@@ -120,6 +120,10 @@ app.directive('item', function () {
         replace: true,
         scope: true,
         template:   '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
+                        '<div class="item-corner corner-top-left"></div>' +
+                        '<div class="item-corner corner-bottom-left"></div>' +
+                        '<div class="item-corner corner-bottom-right"></div>' +
+                        '<div class="item-corner corner-top-right"></div>' +
                         '{{item.text.content}}' +
                     '</div>'
     };
