@@ -1,1 +1,1 @@
-var app = angular.module('manySlidesEditor', ['cp', 'pasvaz.bindonce']);
+var app = angular.module('manySlidesEditor', ['cp', 'pasvaz.bindonce', 'ui.bootstrap']);
