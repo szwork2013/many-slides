@@ -82,6 +82,12 @@ $(document).ready(function () {
         e.preventDefault();
         e.stopPropagation();
     }
+
+    // Send a chat message to all active connections.
+    $('#send').submit(function (e) {
+        onMessageSend(e);
+    });
+
 });
 
 // Make sure things clean up properly.

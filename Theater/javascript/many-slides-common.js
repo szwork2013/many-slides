@@ -144,6 +144,14 @@ function toggleConnections()
         toggleConnections.attributes.class.value = "col-md-12 connections_expanded";
     }
 }
+function exitScreen()
+{
+    var r=confirm("Do you really want to close the session?");
+    if (r==true)
+    {
+        window.close();
+    }
+}
 
 function toggleChat()
 {
