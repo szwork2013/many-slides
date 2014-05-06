@@ -54,38 +54,31 @@ li {
   color: #0C6BA1;
   &:extend(.message);
 }
-
-#amount {
-  cursor: pointer;
+#layout_layout_panel_preview
+{
+  overflow: hidden;
 }
-
-#chat {
-  cursor: pointer;
-}
-
 #messages {
   font-size: 14px;
-  //  height: 70%;
-  overflow-y: scroll;
-  height: -moz-calc(100% - (20px + 30px));
-  height: -webkit-calc(100% - (20px + 30px));
-  height: calc(100% - (20px + 30px));
-}
-
-
-#connections {
-  font-size: 14px;
-  overflow-y: scroll;
-  height: auto;
+//  height: auto;
+//  max-height: 100%;
+    overflow-y: auto;
+  display: block;
+//  height: -moz-calc(100% - (20px));
+//  height: -webkit-calc(100% - (20px));
+//  height: calc(100% - (20px));
 }
 
 #send {
-  position: absolute;
-  bottom: 0;
-  display: block;
-  //  height: 10%;
+  height: 30px;
   width: auto;
+  bottom: 0;
 }
+#connections {
+  font-size: 14px;
+  overflow-y: auto;
+}
+
 #text{
 float: left;
 width: auto;
@@ -102,13 +95,6 @@ width: auto;
   border: 5rem black;
 }
 
-#chatWindow {
-  height: 100%;
-  padding-left: 1rem;
-  margin-right: 20px;
-  float: left;
-}
-
 .dot {
   padding-bottom: 2px;
   margin-right: 5px;
@@ -118,7 +104,7 @@ width: auto;
 
 #presentationWindow {
   height: 100%;
-  width: 60%;
+//  width: 60%;
   float: left;
 }
 

@@ -183,7 +183,25 @@ $(function () {
         panels: [
             { type: 'main', style: pstyle, content: htmlConnections},
             { type: 'preview', size: '75%', resizable: true, style: pstyle, content: htmlChat},
-            { type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
-        ]
+            { id: "jo", type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
+        ],
+        onRefresh: function(event) {
+            sidebarHeight();
+        },
+        onResize: function(event) {
+            var myVar=setInterval(function(){sidebarHeight()},3);
+        }
     });
 });
+
+function sidebarHeight()
+{
+    var wrapperChatWindow = $("#layout_layout_panel_preview").height();
+    var sendAreaHeight = $("#send").height();
+    var chatTextdAreaHeight = $("#chat").height();
+    $("#messages").height(wrapperChatWindow - sendAreaHeight - chatTextdAreaHeight - 30);
+
+    var wrapperConnectionsWindow = $("#layout_layout_panel_main").height();
+    var amountTextdAreaHeight = $("#amount").height();
+    $("#connections").height(wrapperConnectionsWindow - amountTextdAreaHeight - 10);
+}

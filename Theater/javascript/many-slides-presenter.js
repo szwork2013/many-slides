@@ -115,6 +115,14 @@ function shareLink() {
     var peerID = document.getElementById("pid").innerHTML;
     window.open("index.html?&peerID=" + peerID);
 }
+function emailLink(){
+    var peerID = document.getElementById("pid").innerHTML;
+    alert(peerID);
+    var subject = "Many Slide Presentation";
+    var body = "Hi there, I would like to share this Many Slide Presentation with you. Just follow the link below  index.html?&peerID=" + peerID + " .";
+    window.location.href = 'mailto:?subject='+subject + '&body=' + body;
+}
+
 $('.rsh').draggable({
     axis: 'y',
     containment: 'parent',
