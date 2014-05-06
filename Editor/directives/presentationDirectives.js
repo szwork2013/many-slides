@@ -25,79 +25,91 @@ app.directive('presentationSlides', function () {
 app.directive('itemCorner', function () {
     "use strict";
     function link(scope, element, attrs) {
-        var mousemove_fired = false;
-        element.on('click', function (event) {
-            var that, that_id, this_controls;
-            
-            if (mousemove_fired) {
-                mousemove_fired = false;
-                return;
-            }
-            
-            that = $(this);
-            that_id = that.attr('id').replace('item-', '');
-            this_controls = $('#controls-' + that_id);
-            
-            if (that.hasClass('selected-object')) {
-                that.removeClass('selected-object');
-                this_controls.addClass('hidden');
-                $('#item-controls-button').addClass('inactive');
-            } else {
-                var selected_object, selected_object_id, selected_object_controls;
-                selected_object = $('.selected-object');
-                selected_object_id = selected_object.attr('id');
-
-                if (selected_object_id) {
-                    selected_object_id = selected_object_id.replace('item-', '');
-                    selected_object_controls = $('#controls-' + selected_object_id);
-                    selected_object.removeClass('selected-object');
-                    selected_object_controls.addClass('hidden');
-                }
-                that.addClass('selected-object');
-                this_controls.removeClass('hidden');
-                $('#item-controls-button').removeClass('inactive');
-            }
-        });
-        
-        
+        console.log('TEST');
         element.on('mousedown', function (event) {
             event.preventDefault();
             console.log("draggin");
             
+            
             var that, that_id, this_controls, element_is_selected;
             var startX = 0, startY = 0, x = 0, y = 0;
-            var element_x_input, element_y_input;
+            var startWidth = 0, startHeight = 0, width = 0, height = 0;
+            var element_x_input, element_y_input, parent;
+            var element_width_input, element_height_input;
             
             that = $(this);
-            that_id = that.attr('id').replace('item-', '');
+            parent = that.parent();
+            parent.addClass('being-resized');
+            that_id = parent.attr('id').replace('item-', '');
             this_controls = $('#controls-' + that_id);
-            element_is_selected = that.hasClass('selected-object');
             
-            if (element_is_selected) {
-                // TODO CHANGE THIS BEHAVIOUR
-                element_x_input = this_controls.find('[ng-model="item.width"]');
-                element_y_input = this_controls.find('[ng-model="item.height"]');
-                
-                x = element_x_input.val();
-                y = element_y_input.val();
-                
+            element_x_input = this_controls.find('[ng-model="item.location[0]"]');
+            element_y_input = this_controls.find('[ng-model="item.location[1]"]');
+            element_width_input  = this_controls.find('[ng-model="item.width"]');
+            element_height_input = this_controls.find('[ng-model="item.height"]');
+
+            width  = element_width_input.val();
+            height = element_height_input.val();
+            x = element_x_input.val();
+            y = element_y_input.val();
+
+            if (that.hasClass('corner-top-right')) {
+                startWidth  = event.pageX - width;
+                startHeight = event.pageY - height;
+                startY = event.pageY - y;
+            } else if (that.hasClass('corner-top-left')) {
+                startWidth  = event.pageX - width;
+                startHeight = event.pageY - height;
                 startX = event.pageX - x;
                 startY = event.pageY - y;
-                $(document).on('mousemove', mousemove);
-                $(document).on('mouseup', mouseup);
+            } else if (that.hasClass('corner-bottom-left')) {
+                startWidth  = width;
+                startHeight = event.pageY - height;
+                startX = event.pageX - x;
+                var oldX = event.pageX;
+            } else {
+                startWidth  = event.pageX - width;
+                startHeight = event.pageY - height;
             }
             
+            $(document).on('mousemove', mousemove);
+            $(document).on('mouseup', mouseup);
+            
             function mousemove(event) {
-                mousemove_fired = true;
-                y = event.pageY - startY;
-                x = event.pageX - startX;
-                element_x_input.val(x).change();
-                element_y_input.val(y).change();
+                if (that.hasClass('corner-top-right')) {
+          /*          element_width_input.val(width).change();
+                    element_height_input.val(height).change();
+                } else if (that.hasClass('corner-top-left')) {
+                    x = event.pageX - startX;
+                    y = event.pageY - startY;
+                    width  = event.pageX - startWidth;
+                    height = event.pageY - startHeight;
+                    element_width_input.val(width).change();
+                    element_height_input.val(height).change();
+                    element_x_input.val(x).change();
+                    element_y_input.val(y).change();
+             */   } else if (that.hasClass('corner-bottom-left')) {
+                    height = event.pageY - startHeight;
+                    element_height_input.val(height).change();
+                    
+                    width  = 1*startWidth + (oldX - event.pageX);
+                    element_width_input.val(width).change();
+                    
+                    x = event.pageX - startX;
+                    element_x_input.val(x).change();
+                } else {
+                    width  = event.pageX - startWidth;
+                    height = event.pageY - startHeight;
+               
+                    element_width_input.val(width).change();
+                    element_height_input.val(height).change();
+                }
             }
 
             function mouseup() {
                 $(document).unbind('mousemove', mousemove);
                 $(document).unbind('mouseup', mouseup);
+                parent.removeClass('being-resized');
             }
         });
         
@@ -107,14 +119,14 @@ app.directive('itemCorner', function () {
     }
     
     return {
-        link: link,
         restrict: 'E',
-        replace: true,
-        require: ['^position'],
+        //require: ['^cornerPosition'],  // NOT INCLUDED SINCE IT THROWS ERRORS WHEN USES IN CONJUNCTION WITH THE 'link' ATTRIBUTE!
         scope: {
-            position: '@'
+            cornerPosition: '@',
         },
-        template:   '<div class="item-corner corner-{{position}}"></div>'
+        replace: true,
+        link: link,
+        template:   '<div class="item-corner corner-{{cornerPosition}}"></div>'
     };
 });
 
@@ -157,15 +169,16 @@ app.directive('item', function () {
         element.on('mousedown', function (event) {
             event.preventDefault();
             var that, that_id, this_controls, element_is_selected;
-            var element_x_input, element_y_input;
+            var element_is_being_resized, element_x_input, element_y_input;
           
             that = $(this);
             that_id = that.attr('id').replace('item-', '');
             this_controls = $('#controls-' + that_id);
             element_is_selected = that.hasClass('selected-object');
+            element_is_being_resized =  that.hasClass('being-resized');
             var startX = 0, startY = 0, x = 0, y = 0;
             
-            if (element_is_selected) {
+            if (element_is_selected && !element_is_being_resized) {
                 // TODO CHANGE THIS BEHAVIOUR
                 element_x_input = this_controls.find('[ng-model="item.location[0]"]');
                 element_y_input = this_controls.find('[ng-model="item.location[1]"]');
@@ -208,7 +221,7 @@ app.directive('item', function () {
                 'transform:         translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
                 'background:        {{item.style.background}};' +
                 'border:            {{item.style.border}};' +
-                'border-radius:     {{item.style.border_radius}}px;' +
+                'border-radius:     {{item.style.border_radius}}%;' +
 				'z-index:           {{item.layer}};' +
                 'text-align:        {{item.text.align}};' +
                 'font-size:         {{item.text.size}}rem;' +
@@ -221,10 +234,10 @@ app.directive('item', function () {
         replace: true,
         scope: true,
         template:   '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
-                        '<item-corner position="top-left"></item-corner>' +
-                        '<item-corner position="bottom-left"></item-corner>' +
-                        '<item-corner position="bottom-right"></item-corner>' +
-                        '<item-corner position="top-right"></item-corner>' +
+                        '<item-corner corner-position="top-left"></item-corner>' +
+                        '<item-corner corner-position="bottom-left"></item-corner>' +
+                        '<item-corner corner-position="bottom-right"></item-corner>' +
+                        '<item-corner corner-position="top-right"></item-corner>' +
                         '{{item.text.content}}' +
                     '</div>'
     };
