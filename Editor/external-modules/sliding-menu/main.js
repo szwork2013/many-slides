@@ -59,5 +59,5 @@ var MediaManager = (function () {
 }());
 
 MediaManager.init();
-window.setInterval("MediaManager.init()", 1000); // Tmp workaround to bind event when angular is done
+//window.setInterval("MediaManager.init()", 1000); // Tmp workaround to bind event when angular is done
                                                  // Interferes with events responsivenes

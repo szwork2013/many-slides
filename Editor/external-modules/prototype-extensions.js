@@ -1,4 +1,5 @@
-String.prototype.hashCode = function(){ // TODO - Move to someplace useful/correct
+// Return generated hashCode from given String
+String.prototype.hashCode = function(){
     var hash = 0, i, char;
     if (this.length == 0) return hash;
     for (i = 0, l = this.length; i < l; i++) {

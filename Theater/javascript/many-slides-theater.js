@@ -1,4 +1,3 @@
-
 var name;
 var peer = new Peer ({host: 'it-bejga2.dhbw-stuttgart.de', port:9000, debug:true});
 //var peer = new Peer({
@@ -38,7 +37,7 @@ function connect(c) {
     // Handle a chat connection.
     if (c.label === 'chat') {
         console.log(peer);
-//        var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
+//      var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
 
         connectedPeers.push(c.peer);
         var message = "{\"flag\": 2 , \"send\": 1}";
@@ -52,6 +51,7 @@ function connect(c) {
             data = jQuery.parseJSON(data);
             onMessageRecieve(c, data);
         });
+        
         // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
             $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
@@ -67,15 +67,27 @@ function connect(c) {
 
 $(document).ready(function () {
     name = getUrlVars()["name"];
-
+    
+    // TODO - is never used, therefore remove if not needed anymore
     function doNothing(e) {
         e.preventDefault();
         e.stopPropagation();
     }
-
-    // Connect to a peer
-    $('#connect').click(function () {
-        requestedPeer = $('#rid').val();
+    
+    $("#chatWindow").resizable();
+    
+    // Send a chat message to all active connections.
+    $('#send').submit(function (e) {
+        onMessageSend(e);
+    });
+    
+    $('#startButton').click(function () {
+        var username = $('#nameInput').val();
+        var hostId = $('#peerIdInput').val();
+        saveUsername(username);
+        saveHostId(hostId);
+        
+        requestedPeer = hostId;
         if (!connectedPeers[requestedPeer]) {
             // Create new chat connection.
             var c = peer.connect(requestedPeer, {
@@ -83,7 +95,7 @@ $(document).ready(function () {
                 serialization: 'none',
                 reliable: false,
                 metadata: {
-                    name: getUrlVars()["name"],
+                    name: username,
                     message: 'hi i want to chat with you!'
                 }
             });
@@ -97,18 +109,47 @@ $(document).ready(function () {
         connectedPeers[requestedPeer] = 1;
     });
 
-    // Send a chat message to all active connections.
-    $('#send').submit(function (e) {
-        onMessageSend(e);
-    });
-
 });
+
+function saveHostId(id) {
+    if (!id) {
+      console.log('Error: No host id specified');
+      return;
+    }
+
+    chrome.storage.sync.set({'hostId': id}, function() {
+        console.log('Settings saved');
+    });
+}
+
+function loadHostId() {
+    chrome.storage.sync.get('hostId', function (obj) {
+        console.log(obj['hostId']);
+    });
+}
+
+function saveUsername(name) {
+    if (!name) {
+      name = 'Anonymus';
+    }
+
+    chrome.storage.sync.set({'username': name}, function() {
+        console.log('Settings saved');
+    });
+}
+
+function loadUsername() {
+    chrome.storage.sync.get('username', function (obj) {
+        console.log(obj['username']);
+    });
+}
 
 
 // Make sure things clean up properly.
-
 window.onunload = window.onbeforeunload = function (e) {
-    if (!!peer && !peer.destroyed) {
+    if (!!peer && !peer.destroyed) { // TODO - WTF?? Are you askigng if peer does not not exist AND peer ist not destroyed?
         peer.destroy();
     }
+    // Proposal:
+    // try{ peer.destroy(); } catch {}
 };

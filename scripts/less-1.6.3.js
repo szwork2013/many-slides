@@ -6986,8 +6986,8 @@ less.logLevel = typeof(less.logLevel) != 'undefined' ? less.logLevel : logLevel.
 // doesn't start loading before the stylesheets are parsed.
 // Setting this to `true` can result in flickering.
 //
-less.async = less.async || false;
-less.fileAsync = less.fileAsync || false;
+less.async = true;
+less.fileAsync = true;
 
 // Interval between watch polls
 less.poll = less.poll || (isFileProtocol ? 1000 : 1500);

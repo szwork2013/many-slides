@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" ng-app xmlns="http://www.w3.org/1999/html">
+<html lang="en" ng-app ng-csp xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>Presenter</title>
 
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css" >
     <link rel="stylesheet" href="../css/flat-ui.css">
     <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
 
     <link href="../images/favicon.ico" rel="shortcut icon">
-
 </head>
 
 <body>
@@ -21,25 +20,22 @@
         </div>
         <div id="navbar-collapse-01" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a onclick="sendDummyPresentation()">Dummy Präsi</a></li>
-                <li><a onclick="shareLink()"> Share Link</a></li>
-                <li><a onclick="emailLink()">E-Mail Link</a></li>
+                <li><a id="sendDummyPresentation">Dummy Präsi</a></li>
+                <li><a id="CopyPeerIdToClipboard">Copy ID to Clipboard</a></li>
+                <li><a id="emailLink">E-Mail Link</a></li>
                 <li><a id="pid">peerID</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
-                <li><a id="toogleSharing" class="switch-off" onclick="toggleSharing();">Start sharing</a></li>
-                <li><a id="close" onclick="exitScreen()">Exit</a></li>
+                <li><a id="toogleSharing" class="switch-off">Start sharing</a></li>
             </ul>
         </div>
     </nav>
 </div>
+    
 <!-- Needs to be removed-->
-<input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox"
-       style="display: none;">
-<input value="Connect" id="connect" type="button" class="btn  btn-lg btn-primary headerPresentationButton"
-       style="display: none;">
-
+<input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox" style="display: none;">
+<input value="Connect" id="connect" type="button" class="btn  btn-lg btn-primary headerPresentationButton" style="display: none;">
 
 <div id="wrapper" class="col-xs-12 col-gutter-none ng-scope">
     <div id="layout" style="width: 100%; height: 100%;"></div>
@@ -50,25 +46,14 @@
 <script src="../scripts/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="../scripts/jquery-ui.js" type="text/javascript"></script>
 <script src="../scripts/less-1.6.3.js" type="text/javascript"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+<script src="../scripts/angular.js"></script>
 
 <!-- other imports -->
-<script type="text/javascript" src="javascript/peer.js"></script>
-<script type="text/javascript" src="javascript/many-slides-common.js"></script>
-<script type="text/javascript" src="javascript/many-slides-presenter.js"></script>
+<script src="javascript/peer.js"></script>
+<script src="javascript/many-slides-common.js"></script>
+<script src="javascript/many-slides-presenter.js"></script>
 
+<link rel="stylesheet" type="text/css" href="style/w2ui-1.3.min.css"/>
+<script src="javascript/w2ui-1.3.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.3.min.css"/>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://w2ui.com/src/w2ui-1.3.min.js"></script>
-
-
-<script>
-//    $('#send').submit(function (e) {
-//        onMessageSend(e);
-//    });
-
-
-
-</script>
 </html>

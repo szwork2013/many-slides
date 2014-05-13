@@ -44,7 +44,7 @@ function connect(c) {
                     "\"content\":\"" + c.peer + "\"," +
                     "\"name\":\"" + c.metadata.name + "\"}";
                 con.send(message);
-//                $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
+//              $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
             }
         });
 
@@ -78,24 +78,55 @@ function connect(c) {
 
 $(document).ready(function () {
 
+    // TODO - is never used, therefore remove if not needed anymore
     function doNothing(e) {
         e.preventDefault();
         e.stopPropagation();
     }
+    
+    $('.rsh').draggable({
+        axis: 'y',
+        containment: 'parent',
+        helper: 'clone',
+        drag: (function (event, ui) {
+            var height = ui.offset.top;
+            $(this).prev().height(height);
+        })
+    });
+
+    $("#chatWindow").resizable();
+
+    // Button event bindings
+    $('#sendDummyPresentation').click(function () {
+        sendDummyPresentation();
+    });
+
+    $('#CopyPeerIdToClipboard').click(function () {
+        copyPeerIdToClipboard();
+    });
+
+    $('#emailLink').click(function () {
+        emailLink();
+    });
+
+    $('#toogleSharing').click(function () {
+        toogleSharing();
+    });
 
     // Send a chat message to all active connections.
     $('#send').submit(function (e) {
         onMessageSend(e);
     });
-
 });
 
 // Make sure things clean up properly.
-
+// TODO - Make sure if this is really needed, since chrome apps do not support window.onunload and window.onbeforeunload
 window.onunload = window.onbeforeunload = function (e) {
-    if (!!peer && !peer.destroyed) {
+    if (!!peer && !peer.destroyed) { // TODO - WTF?? Are you askigng if peer does not not exist AND peer ist not destroyed?
         peer.destroy();
     }
+    // Proposal:
+    // try{ peer.destroy(); } catch {}
 };
 
 function toggleSharing() {
@@ -110,29 +141,32 @@ function toggleSharing() {
     }
 }
 
-
-function shareLink() {
+function copyPeerIdToClipboard() {
     var peerID = document.getElementById("pid").innerHTML;
-    window.open("index.html?&peerID=" + peerID);
+    console.log(peerID);
+    copyToClipboard(peerID);
 }
+
+// TODO - Maybe relocate this to somewhere else als external module
+function copyToClipboard( text ){
+    var copyDiv = document.createElement('div');
+    copyDiv.contentEditable = true;
+    document.body.appendChild(copyDiv);
+    copyDiv.innerHTML = text;
+    copyDiv.unselectable = "off";
+    copyDiv.focus();
+    document.execCommand('SelectAll');
+    document.execCommand("Copy", false, null);
+    document.body.removeChild(copyDiv);
+}
+
 function emailLink(){
     var peerID = document.getElementById("pid").innerHTML;
-    alert(peerID);
-    var subject = "Many Slide Presentation";
-    var body = "Hi there, I would like to share this Many Slide Presentation with you. Just follow the link below  index.html?&peerID=" + peerID + " .";
-    window.location.href = 'mailto:?subject='+subject + '&body=' + body;
+    var subject = encodeURIComponent("Many Slide Presentation");
+    var body = "PeerID = " + encodeURIComponent(peerID);
+    body = encodeURIComponent(body);
+    var mailToStr = "mailto:?Subject=" + subject + "&Body=" + body;
+    console.log(mailToStr);
+    tmpMailWindow = window.open(mailToStr);
+    // TODO - find a way to close the opened mailto window/tab or use mailto in a different manner 
 }
-
-$('.rsh').draggable({
-    axis: 'y',
-    containment: 'parent',
-    helper: 'clone',
-    drag: function (event, ui) {
-        var height = ui.offset.top;
-        $(this).prev().height(height);
-    }
-});
-$(function() {
-    $( "#chatWindow" ).resizable();
-});
-
