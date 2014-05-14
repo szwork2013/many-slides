@@ -170,3 +170,38 @@ function emailLink(){
     tmpMailWindow = window.open(mailToStr);
     // TODO - find a way to close the opened mailto window/tab or use mailto in a different manner 
 }
+
+
+// LAYOUT STUFF
+
+var htmlConnections = "<p id='amount'>Connections: 0</p>" +
+    "<div id='connections' >" +
+    "<span class='filler'>No Audience yet.</span>" +
+    "</div>";
+var htmlChat = "<p id='chat'>Chat</p>" +
+    "<div id='messages'>" +
+    "</div>" +
+    "<form id='send'>" +
+    "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
+    "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
+    "</form>";
+var htmlPresentation =  '<div id="presentationWindow">' +
+    '</div>';
+
+$(function () {
+    var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
+    $('#layout').w2layout({
+        name: 'layout',
+        panels: [
+            { type: 'main', style: pstyle, content: htmlConnections},
+            { type: 'preview', size: '75%', resizable: true, style: pstyle, content: htmlChat},
+            { id: "jo", type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
+        ],
+        onRefresh: function(event) {
+            sidebarHeight();
+        },
+        onResize: function(event) {
+            var myVar = setInterval(function(){sidebarHeight()},3);
+        }
+    });
+});

@@ -111,6 +111,54 @@ $(document).ready(function () {
 
 });
 
+// LAYOUT STUFF
+
+var htmlConnections = "<p id='amount'>Connections: 0</p>" +
+    "<div id='connections' >" +
+    "<span class='filler'>No Audience yet.</span>" +
+    "</div>";
+var htmlChat = "<p id='chat'>Chat</p>" +
+    "<div id='messages'>" +
+    "</div>" +
+    "<form id='send'>" +
+    "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
+    "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
+    "</form>";
+var htmlPresentation =  '<div id="presentationWindow">' +
+    '<div id="mainWrapper">' +
+    '<form id="introForm">' +
+    '<h1 class="demo-section-title"> Welcome to Many Slides</h1>' +
+    '<h3 class="demo-section-title">To start the show enter you name and the ID of the presentation</h3>' +
+    '<input id="nameInput" class="form-control introFormTextBox" placeholder="Name" >' +
+    '<br>' +
+    '<input id="peerIdInput" class="form-control introFormTextBox" placeholder="ID">' +
+    '<br>' +
+    '<input id="startButton" type="button" class="btn btn-block btn-lg btn-primary introFormButton" value="Start">' +
+    '</form>' +
+    '</div>' +
+    '</div>';
+
+$(function () {
+    var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
+    $('#layout').w2layout({
+        name: 'layout',
+        panels: [
+            { type: 'main', style: pstyle, content: htmlConnections},
+            { type: 'preview', size: '75%', resizable: true, style: pstyle, content: htmlChat},
+            { id: "jo", type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
+        ],
+        onRefresh: function(event) {
+            sidebarHeight();
+        },
+        onResize: function(event) {
+            var myVar = setInterval(function(){sidebarHeight()},3);
+        }
+    });
+});
+
+
+// CHROME APP STUFF
+
 function saveHostId(id) {
     if (!id) {
       console.log('Error: No host id specified');
