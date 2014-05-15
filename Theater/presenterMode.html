@@ -1,85 +1,94 @@
-<!DOCTYPE html>
-<html lang="en" ng-app ng-csp xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="utf-8">
-    <title>Presenter</title>
+<html ng-app="manySlidesTheater" ng-csp lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Presenter</title>
+        <link rel="shortcut icon" href="../images/favicon.ico">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta name="description" content="Description.">
 
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../style/flat-ui.css">
-    <link rel="stylesheet/less" type="text/css" href="style/toastr.less"/>
-    <link rel="stylesheet" type="text/css" href="style/w2ui-1.3.min.css"/>
+        <!-- bootstrapping -->
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../style/flat-ui.css">
 
-    <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
+        <link rel="stylesheet" href="style/w2ui-1.3.min.css"/>
+        <link rel="stylesheet" href="style/style2.css" >
+        <link rel="stylesheet/less" type="text/css" href="../style/many-slides-common.less" />
+        <link rel="stylesheet/less" type="text/css" href="style/toastr.less"/>
+        <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
+        <script src="../scripts/less/less.js"></script>
+    </head>
 
-    <link href="../images/favicon.ico" rel="shortcut icon">
-</head>
-
-<body>
-<div class="col-xs-12 col-gutter-none ng-scope">
-    <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
-        <div class="navbar-header">
-            <button data-target="#navbar-collapse-01" data-toggle="collapse" class="navbar-toggle" type="button"><span
-                    class="sr-only">Toggle navigation</span></button>
-        </div>
-        <div id="navbar-collapse-01" class="collapse navbar-collapse">
-
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-                    <span class="dropdown-arrow"></span>
-                    <ul class="dropdown-menu">
-                        <li><a id="sendDummyPresentation">Dummy Präsi</a></li>
-                        <li><a id="CopyPeerIdToClipboard">Copy ID to Clipboard</a></li>
-                        <li><a id="emailLink">E-Mail Link</a></li>
-                        <li><a id="pid">peerID</a></li>
+    <body ng-controller="presenterController">
+        <div class="col-xs-12 col-gutter-none ng-scope">
+            <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
+                <div class="navbar-header">
+                    <button data-target="#navbar-collapse-01" data-toggle="collapse" class="navbar-toggle" type="button"><span
+                            class="sr-only">Toggle navigation</span></button>
+                </div>
+                <div id="navbar-collapse-01" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                            <span class="dropdown-arrow"></span>
+                            <ul class="dropdown-menu">
+                                <li><a id="sendDummyPresentation">Dummy Präsi</a></li>
+                                <li><a id="CopyPeerIdToClipboard">Copy ID to Clipboard</a></li>
+                                <li><a id="emailLink">E-Mail Link</a></li>
+                                <li><a id="pid">peerID</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                </li>
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
-                <li><a id="toogleSharing" class="switch-off">Start sharing</a></li>
-            </ul>
+                    
+                    <ul class="nav navbar-nav center-logo">
+                        <many-slides-logo logo-color="#fff" logo-size="53px"></many-slides-logo>
+                    </ul>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
+                        <li><a id="toogleSharing" class="switch-off">Start sharing</a></li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </nav>
-</div>
 
-<!-- Needs to be removed-->
-<input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox"
-       style="display: none;">
-<input value="Connect" id="connect" type="button" class="btn  btn-lg btn-primary headerPresentationButton"
-       style="display: none;">
+        <!-- Needs to be removed-->
+        <input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox"
+               style="display: none;">
+        <input value="Connect" id="connect" type="button" class="btn  btn-lg btn-primary headerPresentationButton"
+               style="display: none;">
 
-<div id="wrapper" class="col-xs-12 col-gutter-none ng-scope">
-    <div id="layout" style="width: 100%; height: 100%;"></div>
-</div>
-</body>
+        <div id="wrapper" class="col-xs-12 col-gutter-none ng-scope">
+            <div id="layout" style="width: 100%; height: 100%;"></div>
+        </div>
+    </body>
+    
+    <!-- Flat UI scripts -->
+    <script src="../scripts/jquery/jquery.js"></script>
+    <script src="../scripts/jquery/jquery-ui.js"></script>
+    <script src="../scripts/jquery/jquery.ui.touch-punch.min.js"></script>
+    <script src="../scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="../scripts/bootstrap/bootstrap-select.js"></script>
+    <script src="../scripts/bootstrap/bootstrap-switch.js"></script>
+    <script src="../scripts/flatui/flatui-checkbox.js"></script>
+    <script src="../scripts/flatui/flatui-radio.js"></script>
+    <script src="../scripts/jquery/jquery.placeholder.js"></script>
+    <script src="../scripts/jquery/jquery.tagsinput.js"></script>
 
-
-
-<!-- Flat UI scripts -->
-<script src="../scripts/jquery/jquery.js"></script>
-<script src="../scripts/jquery/jquery-ui.js"></script>
-<script src="../scripts/jquery/jquery.ui.touch-punch.min.js"></script>
-<script src="../scripts/bootstrap/bootstrap.min.js"></script>
-<script src="../scripts/bootstrap/bootstrap-select.js"></script>
-<script src="../scripts/bootstrap/bootstrap-switch.js"></script>
-<script src="../scripts/flatui/flatui-checkbox.js"></script>
-<script src="../scripts/flatui/flatui-radio.js"></script>
-<script src="../scripts/jquery/jquery.tagsinput.js"></script>
-<script src="../scripts/jquery/jquery.placeholder.js"></script>
-
-
-<!-- common imports -->
-<script src="../scripts/less/less.js" type="text/javascript"></script>
-<script src="../scripts/angular/angular.js"></script>
-
-<!-- other imports -->
-<script src="../scripts/peer/peer.js"></script>
-<script src="../scripts/toaster/toastr.js"></script>
-<script src="javascript/many-slides-common.js"></script>
-<script src="javascript/many-slides-presenter.js"></script>
-
-<script src="../scripts/w2ui/w2ui.min.js"></script>
-
+    <!-- Other Imports -->
+    <script src="../scripts/peer/peer.js"></script>
+    <script src="../scripts/toaster/toastr.js"></script>
+    <script src="javascript/many-slides-common.js"></script>
+    <script src="javascript/many-slides-presenter.js"></script>
+    <script src="../scripts/w2ui/w2ui.min.js"></script>
+    
+    <!-- Angular Main -->
+    <script src="../scripts/angular/angular.js"></script>
+    <script src="app.js"></script>
+    <!-- External Angular Modules -->
+    <script src="../scripts/bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- Angular Controllers -->
+    <script src="controllers/presenterController.js"></script>
+    <!-- Angular Directives -->
+    <script src="directives/commonDirectives.js"></script>
+    <script src="directives/theaterDirectives.js"></script>
 </html>
