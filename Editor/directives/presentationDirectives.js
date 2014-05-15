@@ -30,7 +30,6 @@ app.directive('itemCorner', function () {
             event.preventDefault();
             console.log("draggin");
             
-            
             var that, that_id, this_controls, element_is_selected;
             var startX = 0, startY = 0, x = 0, y = 0;
             var startWidth = 0, startHeight = 0, width = 0, height = 0;
@@ -55,13 +54,18 @@ app.directive('itemCorner', function () {
 
             if (that.hasClass('corner-top-right')) {
                 startWidth  = event.pageX - width;
-                startHeight = event.pageY - height;
+                startHeight = height;
                 startY = event.pageY - y;
+                var oldY = event.pageY;
             } else if (that.hasClass('corner-top-left')) {
-                startWidth  = event.pageX - width;
-                startHeight = event.pageY - height;
-                startX = event.pageX - x;
+                startHeight = height;
+                startWidth  = width;
+                
                 startY = event.pageY - y;
+                startX = event.pageX - x;
+                
+                var oldX = event.pageX;
+                var oldY = event.pageY;
             } else if (that.hasClass('corner-bottom-left')) {
                 startWidth  = width;
                 startHeight = event.pageY - height;
@@ -77,18 +81,28 @@ app.directive('itemCorner', function () {
             
             function mousemove(event) {
                 if (that.hasClass('corner-top-right')) {
-          /*          element_width_input.val(width).change();
-                    element_height_input.val(height).change();
-                } else if (that.hasClass('corner-top-left')) {
-                    x = event.pageX - startX;
-                    y = event.pageY - startY;
                     width  = event.pageX - startWidth;
-                    height = event.pageY - startHeight;
                     element_width_input.val(width).change();
+               
+                    height  = 1*startHeight + (oldY- event.pageY);
                     element_height_input.val(height).change();
-                    element_x_input.val(x).change();
+                    
+                    y = event.pageY - startY;
                     element_y_input.val(y).change();
-             */   } else if (that.hasClass('corner-bottom-left')) {
+                } else if (that.hasClass('corner-top-left')) {
+
+                    height  = 1*startHeight + (oldY- event.pageY);
+                    element_height_input.val(height).change();
+                    
+                    y = event.pageY - startY;
+                    element_y_input.val(y).change();
+                    width  = 1*startWidth + (oldX - event.pageX);
+                    element_width_input.val(width).change();
+                    
+                    x = event.pageX - startX;
+                    element_x_input.val(x).change();
+                    
+                } else if (that.hasClass('corner-bottom-left')) {
                     height = event.pageY - startHeight;
                     element_height_input.val(height).change();
                     
@@ -120,7 +134,7 @@ app.directive('itemCorner', function () {
     
     return {
         restrict: 'E',
-        //require: ['^cornerPosition'],  // NOT INCLUDED SINCE IT THROWS ERRORS WHEN USES IN CONJUNCTION WITH THE 'link' ATTRIBUTE!
+        //require: ['^cornerPosition'],  // NOT INCLUDED SINCE IT THROWS ERRORS WHEN USED IN CONJUNCTION WITH THE 'link' ATTRIBUTE!
         scope: {
             cornerPosition: '@',
         },
