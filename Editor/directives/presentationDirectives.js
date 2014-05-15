@@ -188,12 +188,13 @@ app.directive('item', function () {
             that = $(this);
             that_id = that.attr('id').replace('item-', '');
             this_controls = $('#controls-' + that_id);
+            
             element_is_selected = that.hasClass('selected-object');
             element_is_being_resized =  that.hasClass('being-resized');
+            
             var startX = 0, startY = 0, x = 0, y = 0;
             
             if (element_is_selected && !element_is_being_resized) {
-                // TODO CHANGE THIS BEHAVIOUR
                 element_x_input = this_controls.find('[ng-model="item.location[0]"]');
                 element_y_input = this_controls.find('[ng-model="item.location[1]"]');
                 
@@ -270,7 +271,7 @@ app.directive('itemControls', function () {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div bo-id="\'controls-\' + item.id" class="sidebar-right item-controls sidebar-gone hidden">' +
+        template:   '<div bo-id="\'controls-\' + item.id" masl-sidebar-right class="sidebar-right item-controls sidebar-gone hidden">' +
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
@@ -396,7 +397,7 @@ app.directive('slideControlbar', function () {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<div class="slide-controls sidebar-left sidebar-gone">' +
+        template:   '<div masl-sidebar-left class="slide-controls sidebar-left sidebar-gone">' +
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
@@ -487,6 +488,94 @@ app.directive('manySlidesLogo', function () {
                             '<path d="M95.917,23.335l-36.33-1.657c-2.356-0.107-4.357,1.718-4.465,4.08l-2.683,58.764c-0.108,2.359,1.72,4.359,4.078,4.467   l36.33,1.658c2.358,0.106,4.358-1.721,4.468-4.078l2.68-58.766C100.103,25.443,98.276,23.442,95.917,23.335z M82.318,57.349   l-0.205,13.374l-6.634-11.944L64.861,62.76l6.942-10.719L58.43,46.528l13.675-0.911l-1.424-15.475l8.37,12.914l9.7-4.798   l-6.839,11.332l11.892,7.81L82.318,57.349z" transform="translate(0.5590000152587891,-5.225001335144043)" fill="{{logoColor}}"></path>' +
                         '</g>' +
                     '</svg>'
+    };
+});
+
+app.directive('itemControlsButton', function () {
+    "use strict";
+    
+     function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            $(".sidebar-right").toggleClass('sidebar-gone');
+        });
+         
+         element.on('mouseenter', function (event) {
+            $(".sidebar-right").removeClass('sidebar-gone');
+        });
+         
+         element.on('mouseleave', function (event) {
+            $(".sidebar-right").addClass('sidebar-gone');
+        });
+	}
+    
+    return {
+        link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div id="item-controls-button" class="fui-new inactive"><button></button></div>'
+    };
+});
+
+app.directive('slideControlsButton', function () {
+    "use strict";
+    
+     function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            $(".sidebar-left").toggleClass('sidebar-gone');
+        });
+         
+         element.on('mouseenter', function (event) {
+            $(".sidebar-left").removeClass('sidebar-gone');
+        });
+         
+         element.on('mouseleave', function (event) {
+            $(".sidebar-left").addClass('sidebar-gone');
+        });
+	}
+    
+    return {
+        link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div id="slide-controls-button" class="navbar-toggle collapsed"><button></button></div>'
+    };
+});
+
+app.directive('maslSidebarRight', function () {
+    "use strict";
+    
+     function link(scope, element, attrs) {
+        element.on('mouseenter', function (event) {
+            element.removeClass('sidebar-gone');
+        });
+	}
+    return {
+        link: link,
+        restrict: 'A',
+        replace: false,
+        scope: true,
+    };
+});
+
+app.directive('maslSidebarLeft', function () {
+    "use strict";
+    
+     function link(scope, element, attrs) {
+        element.on('mouseenter', function (event) {
+            element.removeClass('sidebar-gone');
+        });
+         
+        element.on('mouseleave', function (event) {
+            element.addClass('sidebar-gone');
+        });
+	}
+    return {
+        link: link,
+        restrict: 'A',
+        replace: false,
+        scope: true,
     };
 });
 
