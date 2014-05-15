@@ -13,7 +13,7 @@ app.controller("contentController", function ($scope, $timeout, presentationFact
     };
     
     $scope.showPresentationSettings = function () {
-        alert('Soon!');
+        alert('Nothing here, yet!');
     };
     
     $scope.addItem = function (shape) {
