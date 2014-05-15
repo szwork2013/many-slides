@@ -324,24 +324,6 @@ app.directive('itemControls', function () {
     };
 });
 
-/*app.directive('closeButton', function() {
-	"use strict";
-	function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            var that = $(this);
-			that.parent().addClass('hidden');
-        });
-	}
-	
-    return {
-		link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<span class="fui-cross close-button"></span>'
-    };
-});*/
-
 app.directive('deleteItemButton', function () {
 	"use strict";
 	function link(scope, element, attrs) {
