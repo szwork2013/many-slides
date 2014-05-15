@@ -1,5 +1,5 @@
 var name;
-var peer = new Peer ({host: 'it-bejga2.dhbw-stuttgart.de', port:9000, debug:true});
+var peer = new Peer({host: 'it-bejga2.dhbw-stuttgart.de', port: 9000, debug: true});
 //var peer = new Peer({
 //    // Set API key for cloud server (you don't need this if you're running your
 //    // own.
@@ -41,9 +41,8 @@ function connect(c) {
 
         connectedPeers.push(c.peer);
         var message = "{\"flag\": 2 , \"send\": 1}";
-        c.send (message);
+        c.send(message);
         $('.filler').hide();
-        $('#loadingWindow').hide();
         $('#messages').append(messages);
 
         c.on('data', function (data) {
@@ -51,7 +50,7 @@ function connect(c) {
             data = jQuery.parseJSON(data);
             onMessageRecieve(c, data);
         });
-        
+
         // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
             $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
@@ -64,6 +63,8 @@ function connect(c) {
         });
     }
 }
+
+
 // LAYOUT STUFF
 
 var htmlConnections = "<p id='amount'>Connections: 0</p>" +
@@ -77,7 +78,7 @@ var htmlChat = "<p id='chat'>Chat</p>" +
     "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
     "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
     "</form>";
-var htmlPresentation =  '<div id="presentationWindow">' +
+var htmlPresentation = '<div id="presentationWindow">' +
     '<div id="mainWrapper">' +
     '<form id="introForm">' +
     '<h1 class="demo-section-title"> Welcome to Many Slides</h1>' +
@@ -98,27 +99,69 @@ $(function () {
         panels: [
             { type: 'main', style: pstyle, content: htmlConnections},
             { type: 'preview', size: '75%', resizable: true, style: pstyle, content: htmlChat},
-            { id: "jo", type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
+            { type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
         ],
-        onRefresh: function(event) {
+        onRefresh: function (event) {
             sidebarHeight();
         },
-        onResize: function(event) {
-            var myVar = setInterval(function(){sidebarHeight()},3);
+        onResize: function (event) {
+            var myVar = setInterval(function () {
+                sidebarHeight()
+            }, 3);
         }
     });
 });
+
+function onStartButtonClick()
+{
+    var username = $('#nameInput').val();
+    var hostId = $('#peerIdInput').val();
+    saveUsername(username);
+    saveHostId(hostId);
+    console.log(username);
+    if (typeof username !== 'undefined' && username !== ''
+        && typeof hostId !== 'undefined' && hostId !== '') {
+        $('#mainWrapper').html("");
+
+        requestedPeer = hostId;
+        if (!connectedPeers[requestedPeer]) {
+            // Create new chat connection.
+            var c = peer.connect(requestedPeer, {
+                label: 'chat',
+                serialization: 'none',
+                reliable: false,
+                metadata: {
+                    name: username,
+                    message: 'hi i want to chat with you!'
+                }
+            });
+            c.on('open', function () {
+                connect(c);
+            });
+            c.on('error', function (err) {
+                alert(err);
+            });
+        }
+        connectedPeers[requestedPeer] = 1;
+        toastr.info("done");
+    }
+    else
+    {
+        toastr.options = {"positionClass" :"toast-bottom-full-width" }
+        toastr.error("Please enter a name and an ID");
+    }
+}
 
 
 // CHROME APP STUFF
 
 function saveHostId(id) {
     if (!id) {
-      console.log('Error: No host id specified');
-      return;
+        console.log('Error: No host id specified');
+        return;
     }
 
-    chrome.storage.sync.set({'hostId': id}, function() {
+    chrome.storage.sync.set({'hostId': id}, function () {
         console.log('Settings saved');
     });
 }
@@ -131,10 +174,10 @@ function loadHostId() {
 
 function saveUsername(name) {
     if (!name) {
-      name = 'Anonymus';
+        name = 'Anonymus';
     }
 
-    chrome.storage.sync.set({'username': name}, function() {
+    chrome.storage.sync.set({'username': name}, function () {
         console.log('Settings saved');
     });
 }
@@ -157,46 +200,22 @@ window.onunload = window.onbeforeunload = function (e) {
 
 $(document).ready(function () {
     name = getUrlVars()["name"];
-    
+
     // TODO - is never used, therefore remove if not needed anymore
     function doNothing(e) {
         e.preventDefault();
         e.stopPropagation();
     }
-    
+
     $("#chatWindow").resizable();
-    
+
     // Send a chat message to all active connections.
     $('#send').submit(function (e) {
         onMessageSend(e);
     });
-    
-    $('#startButton').click(function () {
-        var username = $('#nameInput').val();
-        var hostId = $('#peerIdInput').val();
-        saveUsername(username);
-        saveHostId(hostId);
-        
-        requestedPeer = hostId;
-        if (!connectedPeers[requestedPeer]) {
-            // Create new chat connection.
-            var c = peer.connect(requestedPeer, {
-                label: 'chat',
-                serialization: 'none',
-                reliable: false,
-                metadata: {
-                    name: username,
-                    message: 'hi i want to chat with you!'
-                }
-            });
-            c.on('open', function () {
-                connect(c);
-            });
-            c.on('error', function (err) {
-                alert(err);
-            });
-        }
-        connectedPeers[requestedPeer] = 1;
-    });
 
+    $('#startButton').click(function () {
+        onStartButtonClick();
+
+        });
 });

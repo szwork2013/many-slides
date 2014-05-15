@@ -75,18 +75,26 @@ function onMessageRecieve(c, data) {
 
 function onMessageSend(e) {
     e.preventDefault();
-    // For each active connection, send the message.
-    var msg = $('#text').val();
-    eachActiveConnection(function (c, $c) {
-        if (c.label === 'chat') {
-            var message = "{\"flag\": 1, \"content\":\"" + msg + "\"}";
-            console.log(message);
-            c.send(message);
-        }
-    });
-    $('#messages').append('<div><span class="you">You: </span>' + msg + '</div>');
-    $('#text').val('');
-    $('#text').focus();
+    if (!jQuery.isEmptyObject(peer.connections))
+    {
+
+        // For each active connection, send the message.
+        var msg = $('#text').val();
+        eachActiveConnection(function (c, $c) {
+            if (c.label === 'chat') {
+                var message = "{\"flag\": 1, \"content\":\"" + msg + "\"}";
+                console.log(message);
+                c.send(message);
+            }
+        });
+        $('#messages').append('<div><span class="you">You: </span>' + msg + '</div>');
+        $('#text').val('');
+        $('#text').focus();
+    }
+    else
+    {
+        toastr.info("Unable to send message, no members in chat yet.");
+    }
 }
 // Goes through each active peer and calls FN on its connections.
 function eachActiveConnection(fn) {
@@ -135,9 +143,8 @@ function updateConnections() {
 }
 
 // NOT USED
-function toggleConnections()
-{
-    var toggleConnections =  document.getElementById("connections");
+function toggleConnections() {
+    var toggleConnections = document.getElementById("connections");
     if (toggleConnections.attributes.class.value == "col-md-12 connections_expanded") {
         toggleConnections.attributes.class.value = "col-md-12 connections_collapsed";
     }
@@ -147,7 +154,7 @@ function toggleConnections()
 }
 // NOT USED
 function toggleChat() {
-    var toggleChat =  document.getElementById("messages");
+    var toggleChat = document.getElementById("messages");
     if (toggleChat.attributes.class.value == "col-md-12 messages_expanded") {
         toggleChat.attributes.class.value = "col-md-12 messages_collapsed";
     }
@@ -157,8 +164,7 @@ function toggleChat() {
 }
 
 
-function sidebarHeight()
-{
+function sidebarHeight() {
     var wrapperChatWindow = $("#layout_layout_panel_preview").height();
     var sendAreaHeight = $("#send").height();
     var chatTextdAreaHeight = $("#chat").height();

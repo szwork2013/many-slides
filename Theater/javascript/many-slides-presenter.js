@@ -76,48 +76,7 @@ function connect(c) {
     }
 }
 
-$(document).ready(function () {
 
-    // TODO - is never used, therefore remove if not needed anymore
-    function doNothing(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    
-    $('.rsh').draggable({
-        axis: 'y',
-        containment: 'parent',
-        helper: 'clone',
-        drag: (function (event, ui) {
-            var height = ui.offset.top;
-            $(this).prev().height(height);
-        })
-    });
-
-    $("#chatWindow").resizable();
-
-    // Button event bindings
-    $('#sendDummyPresentation').click(function () {
-        sendDummyPresentation();
-    });
-
-    $('#CopyPeerIdToClipboard').click(function () {
-        copyPeerIdToClipboard();
-    });
-
-    $('#emailLink').click(function () {
-        emailLink();
-    });
-
-    $('#toogleSharing').click(function () {
-        toogleSharing();
-    });
-
-    // Send a chat message to all active connections.
-    $('#send').submit(function (e) {
-        onMessageSend(e);
-    });
-});
 
 // Make sure things clean up properly.
 // TODO - Make sure if this is really needed, since chrome apps do not support window.onunload and window.onbeforeunload
@@ -203,5 +162,48 @@ $(function () {
         onResize: function(event) {
             var myVar = setInterval(function(){sidebarHeight()},3);
         }
+    });
+});
+
+$(document).ready(function () {
+
+//    // TODO - is never used, therefore remove if not needed anymore
+//    function doNothing(e) {
+//        e.preventDefault();
+//        e.stopPropagation();
+//    }
+
+    $('.rsh').draggable({
+        axis: 'y',
+        containment: 'parent',
+        helper: 'clone',
+        drag: (function (event, ui) {
+            var height = ui.offset.top;
+            $(this).prev().height(height);
+        })
+    });
+
+    $("#chatWindow").resizable();
+
+    // Button event bindings
+    $('#sendDummyPresentation').click(function () {
+        sendDummyPresentation();
+    });
+
+    $('#CopyPeerIdToClipboard').click(function () {
+        copyPeerIdToClipboard();
+    });
+
+    $('#emailLink').click(function () {
+        emailLink();
+    });
+
+    $('#toogleSharing').click(function () {
+        toogleSharing();
+    });
+
+    // Send a chat message to all active connections.
+    $('#send').submit(function (e) {
+        onMessageSend(e);
     });
 });
