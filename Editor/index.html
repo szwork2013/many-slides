@@ -1,4 +1,4 @@
-<html ng-app="manySlidesEditor" ng-csp>
+<html ng-app="manySlidesEditor" ng-csp lang="en">
     <head>
         <meta charset="utf-8">
         <title>Many Slides Editor</title>
@@ -9,7 +9,7 @@
         
         <!-- bootstrapping -->
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
-        <link rel="stylesheet" href="../css/flat-ui.css">
+        <link rel="stylesheet" href="../style/flat-ui.css">
         
         <!-- custom styling -->
         <script sr="less_options.js"></script>
@@ -81,21 +81,27 @@
         <script src="../scripts/bootstrap/bootstrap-switch.js"></script>
         <script src="../scripts/flatui/flatui-checkbox.js"></script>
         <script src="../scripts/flatui/flatui-radio.js"></script>
-        <script src="../scripts/jquery/jquery.tagsinput.js"></script>
         <script src="../scripts/jquery/jquery.placeholder.js"></script>
+        <script src="../scripts/jquery/jquery.tagsinput.js"></script>
 
-        <!-- Angular scripts -->
+        <!-- Angular Main -->
         <script src="../scripts/angular/angular.js"></script>
         <script src="app.js"></script>
+        <!-- External Angular Modules -->
         <script src="external-modules/colorpicker/bootstrap-colorpicker-module.js"></script>
         <script src="../scripts/bootstrap/ui-bootstrap-tpls.js"></script>
+        <!-- Angular Controllers -->
         <script src="controllers/contentController.js"></script>
+        <!-- Angular Directives -->
         <script src="directives/presentationDirectives.js"></script>
+        <script src="directives/commonDirectives.js"></script>
+        <script src="directives/itemDirectives.js"></script>
+        <!-- Angular Factories -->
         <script src="factories/presentationFactory.js"></script>
         
         <!-- Other scripts -->
-        <script src="../scripts/underscore/underscore.min.js"></script>
         <script src="external-modules/prototype-extensions.js"></script>
+        <script src="../scripts/underscore/underscore.min.js"></script>
         <script src="../scripts/bindonce/bindonce.min.js"></script>
     </body>
 </html>
