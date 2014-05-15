@@ -64,53 +64,6 @@ function connect(c) {
         });
     }
 }
-
-$(document).ready(function () {
-    name = getUrlVars()["name"];
-    
-    // TODO - is never used, therefore remove if not needed anymore
-    function doNothing(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    
-    $("#chatWindow").resizable();
-    
-    // Send a chat message to all active connections.
-    $('#send').submit(function (e) {
-        onMessageSend(e);
-    });
-    
-    $('#startButton').click(function () {
-        var username = $('#nameInput').val();
-        var hostId = $('#peerIdInput').val();
-        saveUsername(username);
-        saveHostId(hostId);
-        
-        requestedPeer = hostId;
-        if (!connectedPeers[requestedPeer]) {
-            // Create new chat connection.
-            var c = peer.connect(requestedPeer, {
-                label: 'chat',
-                serialization: 'none',
-                reliable: false,
-                metadata: {
-                    name: username,
-                    message: 'hi i want to chat with you!'
-                }
-            });
-            c.on('open', function () {
-                connect(c);
-            });
-            c.on('error', function (err) {
-                alert(err);
-            });
-        }
-        connectedPeers[requestedPeer] = 1;
-    });
-
-});
-
 // LAYOUT STUFF
 
 var htmlConnections = "<p id='amount'>Connections: 0</p>" +
@@ -201,3 +154,49 @@ window.onunload = window.onbeforeunload = function (e) {
     // Proposal:
     // try{ peer.destroy(); } catch {}
 };
+
+$(document).ready(function () {
+    name = getUrlVars()["name"];
+    
+    // TODO - is never used, therefore remove if not needed anymore
+    function doNothing(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    $("#chatWindow").resizable();
+    
+    // Send a chat message to all active connections.
+    $('#send').submit(function (e) {
+        onMessageSend(e);
+    });
+    
+    $('#startButton').click(function () {
+        var username = $('#nameInput').val();
+        var hostId = $('#peerIdInput').val();
+        saveUsername(username);
+        saveHostId(hostId);
+        
+        requestedPeer = hostId;
+        if (!connectedPeers[requestedPeer]) {
+            // Create new chat connection.
+            var c = peer.connect(requestedPeer, {
+                label: 'chat',
+                serialization: 'none',
+                reliable: false,
+                metadata: {
+                    name: username,
+                    message: 'hi i want to chat with you!'
+                }
+            });
+            c.on('open', function () {
+                connect(c);
+            });
+            c.on('error', function (err) {
+                alert(err);
+            });
+        }
+        connectedPeers[requestedPeer] = 1;
+    });
+
+});
