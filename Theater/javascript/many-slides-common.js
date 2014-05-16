@@ -69,6 +69,7 @@ function onMessageRecieve(c, data) {
     else if (data.flag == 3) {
         console.log("received data");
         console.log(data);
+        $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
         $scope.presentation = data.content;
     }
 }
@@ -142,26 +143,6 @@ function updateConnections() {
     $('#amount').append("Connections: " + names.length);
 }
 
-// NOT USED
-function toggleConnections() {
-    var toggleConnections = document.getElementById("connections");
-    if (toggleConnections.attributes.class.value == "col-md-12 connections_expanded") {
-        toggleConnections.attributes.class.value = "col-md-12 connections_collapsed";
-    }
-    else if (toggleConnections.attributes.class.value == "col-md-12 connections_collapsed") {
-        toggleConnections.attributes.class.value = "col-md-12 connections_expanded";
-    }
-}
-// NOT USED
-function toggleChat() {
-    var toggleChat = document.getElementById("messages");
-    if (toggleChat.attributes.class.value == "col-md-12 messages_expanded") {
-        toggleChat.attributes.class.value = "col-md-12 messages_collapsed";
-    }
-    else if (toggleChat.attributes.class.value == "col-md-12 messages_collapsed") {
-        toggleChat.attributes.class.value = "col-md-12 messages_expanded";
-    }
-}
 
 
 function sidebarHeight() {

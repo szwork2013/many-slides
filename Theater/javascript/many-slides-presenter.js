@@ -88,18 +88,6 @@ window.onunload = window.onbeforeunload = function (e) {
     // try{ peer.destroy(); } catch {}
 };
 
-function toggleSharing() {
-    var toggleSharing =  document.getElementById("toogleSharing");
-    if (toggleSharing.attributes.class.value == "switch-on") {
-        toggleSharing.attributes.class.value = "switch-off"
-        toggleSharing.innerHTML = "Start Sharing";
-    }
-    else if (toggleSharing.attributes.class.value == "switch-off") {
-        toggleSharing.attributes.class.value = "switch-on"
-        toggleSharing.innerHTML = "Stop Sharing";
-    }
-}
-
 function copyPeerIdToClipboard() {
     var peerID = document.getElementById("pid").innerHTML;
     console.log(peerID);
@@ -154,7 +142,7 @@ $(function () {
         panels: [
             { type: 'main', style: pstyle, content: htmlConnections},
             { type: 'preview', size: '75%', resizable: true, style: pstyle, content: htmlChat},
-            { id: "jo", type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
+            { type: 'right', size: '75%', resizable: true, style: pstyle, content: htmlPresentation }
         ],
         onRefresh: function(event) {
             sidebarHeight();
