@@ -89,6 +89,7 @@ var htmlPresentation = '<div id="presentationWindow">' +
     '<br>' +
     '<input id="startButton" type="button" class="btn btn-block btn-lg btn-primary introFormButton" value="Start">' +
     '</form>' +
+    '<presentation></presentation>' +
     '</div>' +
     '</div>';
 
@@ -121,7 +122,7 @@ function onStartButtonClick()
     console.log(username);
     if (typeof username !== 'undefined' && username !== ''
         && typeof hostId !== 'undefined' && hostId !== '') {
-        $('#mainWrapper').html("");
+        $('#introForm').hide();
 
         requestedPeer = hostId;
         if (!connectedPeers[requestedPeer]) {
