@@ -85,6 +85,7 @@ app.directive('item', function () {
             var startX = 0, startY = 0, x = 0, y = 0;
             
             if (element_is_selected && !element_is_being_resized) {
+                that.addClass('being-moved');
                 element_x_input = this_controls.find('[ng-model="item.location[0]"]');
                 element_y_input = this_controls.find('[ng-model="item.location[1]"]');
                 
@@ -108,6 +109,7 @@ app.directive('item', function () {
             function mouseup() {
                 $(document).unbind('mousemove', mousemove);
                 $(document).unbind('mouseup', mouseup);
+                that.removeClass('being-moved');
             }
         });
         

@@ -350,8 +350,22 @@
     -webkit-transition: @arg1 , @arg2, @arg3;
     -moz-transition: @arg1 , @arg2, @arg3;
     -o-transition: @arg1 , @arg2, @arg3;
-    -ms-transition: @arg1 , @arg2;
-    transition: @arg1 , @arg2;
+    -ms-transition: @arg1 , @arg2, @arg3;
+    transition: @arg1 , @arg2, @arg3;
+}
+.transition(@arg1, @arg2, @arg3, @arg4) {
+    -webkit-transition: @arg1 , @arg2, @arg3, @arg4;
+    -moz-transition: @arg1 , @arg2, @arg3, @arg4;
+    -o-transition: @arg1 , @arg2, @arg3, @arg4;
+    -ms-transition: @arg1 , @arg2, @arg3, @arg4;
+    transition: @arg1 , @arg2, @arg3, @arg4;
+}
+.transition(@arg1, @arg2, @arg3, @arg4, @arg5) {
+    -webkit-transition: @arg1 , @arg2, @arg3, @arg4, @arg5;
+    -moz-transition: @arg1 , @arg2, @arg3, @arg4, @arg5;
+    -o-transition: @arg1 , @arg2, @arg3, @arg4, @arg5;
+    -ms-transition: @arg1 , @arg2, @arg3, @arg4, @arg5;
+    transition: @arg1 , @arg2, @arg3, @arg4, @arg5;
 }
 .transition-delay(@delay:0) {
     -webkit-transition-delay: @delay;
