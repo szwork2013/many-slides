@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+.slide-controls {
+    
+    a { border-radius: 0; }
+    
+    .slide-preview {
+        display: inline-block;
+        height: 9rem;
+        width: 16rem;
+        background: white;
+        border: @default-border;
+        border-bottom-width: @border-bottom-width;
+        &.selected { border: 0.5rem solid @flat-turquoise; }
+        border-radius: 0.5rem 0 0 0.5rem;
+        font-size: 1.5rem;
+        color: grey;
+        z-index: 1;
+    }
+    
+    .delete-slide-button {
+        color: white;
+        background: @flat-turquoise;
+        width: 5rem;
+        z-index: 0;
+        border-radius: 0 0.5rem 0.5rem 0;
+        line-height: 9rem;
+        text-align: center;
+        &:hover {
+            background: @flat-turquoise-hover;
+        }
+    }   
+}
+
+.item-controls {
+    a { border-radius: 0; }
+    
+    padding: 0.5rem;
+    .form-group {
+        width: auto;
+        margin: 1rem 0;
+        font-size: 1.5rem;
+    }
+}
+
+
+.sidebar-left,
+.sidebar-right {
+    height: 100%;
+    background: @flat-clouds;
+    width: 25rem;
+    position: fixed;
+    padding-top: (@header-height + @header-border-thickness);
+    top: 0;
+    z-index: 1;
+    
+    .slide-preview-wrapper {
+        padding: 1rem;
+        z-index: 2;
+        position: relative;
+        display: flex;
+        .slide-preview {
+            transition: margin 500ms;
+            margin-left: 0;
+        }
+        .slide-preview:hover {
+            z-index: 1;
+            margin-left: 1rem;
+        }
+        
+    }
+}
+
+.overflow-wrapper {
+    width: 25rem;
+    margin-top: 88px;
+    position: absolute;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    overflow: auto;
+    top: 0;
+    bottom: 0;
+}
+
+.sidebar-right {
+    right: 0;
+    border-left: @default-border;
+    padding-left: 0;
+    padding-right: 0;
+    transition: right 500ms;
+    .overflow-wrapper { padding-top: 0.5rem; }
+    &.sidebar-gone { right: -24.9rem; }
+}
+
+.sidebar-left {
+    left: 0;
+    border-right: @default-border;
+    transition: left 500ms;
+    &.sidebar-gone { left: -24.9rem; }
+}
+
+/* "Soft" Bootstrap overwrites */
+.sidebar-right .panel-body {
+    background: @flat-clouds;
+    padding: 0.5rem;
+}
+
+.sidebar-right .panel-group {
+    margin-bottom: 0.5rem;
+    border: none;
+}
+
+.sidebar-right .panel-group .panel {
+    border: none;
+}
