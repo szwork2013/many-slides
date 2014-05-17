@@ -326,7 +326,6 @@ app.directive('slideControlsButton', function () {
 });
 
 
-
 // THIS STUFF IS FOR FUTURE REFERENCE!!!
 /*
  * angular-ui-bootstrap
