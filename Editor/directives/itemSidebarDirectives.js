@@ -116,3 +116,29 @@ app.directive('deleteItemButton', function () {
         template:   '<span class="btn btn-block btn-lg btn-primary">Delete Item</span>'
     };
 });
+
+app.directive('itemControlsButton', function () {
+    "use strict";
+    
+     function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            $(".sidebar-right").toggleClass('sidebar-gone');
+        });
+         
+         element.on('mouseenter', function (event) {
+            $(".sidebar-right").removeClass('sidebar-gone');
+        });
+         
+         element.on('mouseleave', function (event) {
+            $(".sidebar-right").addClass('sidebar-gone');
+        });
+	}
+    
+    return {
+        link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div id="item-controls-button" class="fui-new inactive"><button></button></div>'
+    };
+});

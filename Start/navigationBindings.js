@@ -13,6 +13,8 @@ $('#editor-btn').click(function () {
             left: Math.round((screenWidth-width)/2),
             top: Math.round((screenHeight-height)/2)
         }
+    }, function(win) {
+        win.contentWindow.launchData = launchData;
     });
 });
 
@@ -31,6 +33,8 @@ $('#presenter-btn').click(function () {
             left: Math.round((screenWidth-width)/2),
             top: Math.round((screenHeight-height)/2)
         }
+    }, function(win) {
+        win.contentWindow.launchData = launchData;
     });
 });
 
@@ -49,5 +53,7 @@ $('#theater-btn').click(function () {
             left: Math.round((screenWidth-width)/2),
             top: Math.round((screenHeight-height)/2)
         }
+    }, function(win) {
+        win.contentWindow.launchData = launchData;
     });
 });

@@ -272,60 +272,6 @@ app.directive('itemCorner', function () {
     };
 });
 
-
-app.directive('itemControlsButton', function () {
-    "use strict";
-    
-     function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            $(".sidebar-right").toggleClass('sidebar-gone');
-        });
-         
-         element.on('mouseenter', function (event) {
-            $(".sidebar-right").removeClass('sidebar-gone');
-        });
-         
-         element.on('mouseleave', function (event) {
-            $(".sidebar-right").addClass('sidebar-gone');
-        });
-	}
-    
-    return {
-        link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div id="item-controls-button" class="fui-new inactive"><button></button></div>'
-    };
-});
-
-app.directive('slideControlsButton', function () {
-    "use strict";
-    
-     function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            $(".sidebar-left").toggleClass('sidebar-gone');
-        });
-         
-         element.on('mouseenter', function (event) {
-            $(".sidebar-left").removeClass('sidebar-gone');
-        });
-         
-         element.on('mouseleave', function (event) {
-            $(".sidebar-left").addClass('sidebar-gone');
-        });
-	}
-    
-    return {
-        link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div id="slide-controls-button" class="navbar-toggle collapsed"><button></button></div>'
-    };
-});
-
-
 // THIS STUFF IS FOR FUTURE REFERENCE!!!
 /*
  * angular-ui-bootstrap

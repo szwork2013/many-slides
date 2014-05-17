@@ -112,3 +112,29 @@ app.directive('deleteSlideButton', function () {
         template:   '<span class="fui-cross close-button delete-slide-button"></span>'
     };
 });
+
+app.directive('slideControlsButton', function () {
+    "use strict";
+    
+     function link(scope, element, attrs) {
+		element.on('click', function (event) {
+            $(".sidebar-left").toggleClass('sidebar-gone');
+        });
+         
+         element.on('mouseenter', function (event) {
+            $(".sidebar-left").removeClass('sidebar-gone');
+        });
+         
+         element.on('mouseleave', function (event) {
+            $(".sidebar-left").addClass('sidebar-gone');
+        });
+	}
+    
+    return {
+        link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        template:   '<div id="slide-controls-button" class="navbar-toggle collapsed"><button></button></div>'
+    };
+});
