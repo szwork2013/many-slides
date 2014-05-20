@@ -113,17 +113,19 @@ $(function () {
     });
 });
 
-function onStartButtonClick()
-{
+function onStartButtonClick() {
     var username = $('#nameInput').val();
     var hostId = $('#peerIdInput').val();
-    saveUsername(username);
-    saveHostId(hostId);
-    console.log(username);
-    if (typeof username !== 'undefined' && username !== ''
-        && typeof hostId !== 'undefined' && hostId !== '') {
+//    setUsername(username);
+//    setHostId(hostId);
+//    console.log(username);
+//    if (typeof username !== 'undefined' && username !== ''
+    if (typeof hostId !== 'undefined' && hostId !== '') {
+        if (typeof username !== 'undefined' || username !== '') {
+            toastr.info("No username was set. Your are now Anonymus.");
+            username = 'Anonymus';
+        }
         $('#introForm').hide();
-
         requestedPeer = hostId;
         if (!connectedPeers[requestedPeer]) {
             // Create new chat connection.
@@ -146,17 +148,17 @@ function onStartButtonClick()
         connectedPeers[requestedPeer] = 1;
         toastr.info("done");
     }
-    else
-    {
-        toastr.options = {"positionClass" :"toast-bottom-full-width" }
-        toastr.error("Please enter a name and an ID");
+    else {
+        toastr.options = {"positionClass": "toast-bottom-full-width" }
+        toastr.error("Please enter an ID.");
     }
 }
 
 
 // CHROME APP STUFF
+// THEY DON'T WORK....
 
-function saveHostId(id) {
+function setHostId(id) {
     if (!id) {
         console.log('Error: No host id specified');
         return;
@@ -167,13 +169,13 @@ function saveHostId(id) {
     });
 }
 
-function loadHostId() {
+function getHostId() {
     chrome.storage.sync.get('hostId', function (obj) {
         console.log(obj['hostId']);
     });
 }
 
-function saveUsername(name) {
+function setUsername(name) {
     if (!name) {
         name = 'Anonymus';
     }
@@ -183,7 +185,7 @@ function saveUsername(name) {
     });
 }
 
-function loadUsername() {
+function getUsername() {
     chrome.storage.sync.get('username', function (obj) {
         console.log(obj['username']);
     });
@@ -202,12 +204,6 @@ window.onunload = window.onbeforeunload = function (e) {
 $(document).ready(function () {
     name = getUrlVars()["name"];
 
-    // TODO - is never used, therefore remove if not needed anymore
-    function doNothing(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
     $("#chatWindow").resizable();
 
     // Send a chat message to all active connections.
@@ -217,6 +213,5 @@ $(document).ready(function () {
 
     $('#startButton').click(function () {
         onStartButtonClick();
-
-        });
+    });
 });
