@@ -1,10 +1,81 @@
 @charset "UTF-8";
-@import "../style/prefixer.less";
+@import "../../bootstrap/css/bootstrap.css";
+@import "../../style/flat-ui.css";
+    
+/* many-slides colors */
+
+@holo-blue: #33B5E5;
+@body-background: #E5E5E5;
+
+/* Flat UI colors */
+
+// turquoise
+@flat-turquoise: #1ABC9C;
+@flat-turquoise-hover: #48c9b0;
+@flat-green-sea: #16A085;
+
+// green
+@flat-emerald: #2ECC71;
+@flat-nephritis: #27AE60;
+
+// blue
+@flat-peter-river: #3498DB;
+@flat-belize-hole: #2980B9;
+
+// purple
+@flat-amethyst: #9B59B6;
+@flat-wisteria: #8E44AD;
+
+// black
+@flat-wet-asphalt: #34495E;
+@flat-midnight-blue: #2C3E50;
+
+// yellow
+@flat-sun-flower: #F1C40F;
+@flat-orange: #F39C12;
+
+// orange
+@flat-carrot: #E67E22;
+@flat-pumkin: #D35400;
+
+// red
+@flat-alizarin: #E74C3C;
+@flat-pomgrenade: #C0392B;
+
+// white
+@flat-clouds: #ECF0F1;
+@flat-silver: #BDC3C7;
+
+// grey
+@flat-concrete: #95A5A6;
+@flat-asbestos: #7F8C8D;
+
+/* many-slides parameters */
+@default-border: 0.1rem solid #D8D8D8;
+@border-bottom-width: 0.2rem;
+@item-transition-duration: 100ms;
+
+/* Generic Defaults */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+/* Original Bootstrap's CSS depends on empty href attributes to style cursors for several components (pagination, tabs etc.). But in AngularJS adding empty href attributes to link tags will cause unwanted route changes. This is why we need to remove empty href attributes from directive templates and as a result styling is not applied correctly. */
+.nav,
+.pagination,
+.carousel,
+.panel-title a 
+{ cursor: pointer; }
 
 /* Flat UI overwrites */
 
 .navbar {
-    .border-radius(0);
+    border-radius: 0;
     margin: 0;
     z-index: 1000;
     .navbar-toggle {
@@ -14,4 +85,21 @@
         position: absolute;
         right: 48.5%;
     }
+}
+
+input[type="text"] {
+    border: none;
+}
+
+.form-control:focus {
+    border: 2px solid @flat-turquoise;
+    outline: 0;
+    box-shadow: none;
+}
+
+/* Bootstrap overwrites */
+
+.col-gutter-none {
+    padding-left: 0; 
+    padding-right: 0;
 }

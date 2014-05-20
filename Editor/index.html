@@ -4,17 +4,11 @@
         <title>Many Slides Editor</title>
         <link rel="shortcut icon" href="../images/favicon.ico">
         <meta name="viewport" content="width=device-width, user-scalable=no">
-        <meta name="description" content="Description.">
+        <meta name="description" content="Here you can create completely fresh or edit your existing presentations!">
         <meta name="author" content="Sebasian M. Reuter">
         
-        <!-- bootstrapping -->
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
-        <link rel="stylesheet" href="../style/flat-ui.css">
-        
-        <!-- custom styling -->
         <script sr="less_options.js"></script>
-        <link rel="stylesheet/less" type="text/css" href="default.less" />
-        <link rel="stylesheet" href="external-modules/colorpicker/colorpicker.css"/>
+        <link rel="stylesheet/less" type="text/css" href="style/default.less" />
         <script src="../scripts/less/less.js"></script>
     </head>
     
@@ -60,6 +54,7 @@
                         <many-slides-logo logo-color="#fff" logo-size="53px"></many-slides-logo>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" ng-click="printPresentation()">Print it!</a></li>
                         <li><a href="https://github.com/Gambloide/many-slides" target="_blank">GitHub</a></li>
                         <li><span class="fui-new"></span></li>
                         <li><item-controls-button></item-controls-button></li>
@@ -93,11 +88,12 @@
         <!-- Angular Controllers -->
         <script src="controllers/contentController.js"></script>
         <!-- Angular Directives -->
+        <script src="directives/slidesSidebarDirectives.js"></script>
         <script src="directives/presentationDirectives.js"></script>
+        <script src="directives/itemSidebarDirectives.js"></script>
         <script src="directives/commonDirectives.js"></script>
-        <script src="directives/itemDirectives.js"></script>
         <!-- Angular Factories -->
-        <script src="factories/presentationFactory.js"></script>
+        <!-- temporary empty -->
         
         <!-- Other scripts -->
         <script src="external-modules/prototype-extensions.js"></script>
