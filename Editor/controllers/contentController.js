@@ -1,5 +1,5 @@
-app.controller("contentController", function ($scope, $timeout) {
-	"use strict";
+app.controller('contentController', function ($scope, $timeout) {
+	'use strict';
     $scope.presentation = {};
     
     var chosenEntry = null;
@@ -10,16 +10,19 @@ app.controller("contentController", function ($scope, $timeout) {
     
     init();
     
-    // Private functions
+    /* --- Private functions --- */
     
+    // Stuff that should be done when this controller is created
     function init() {
         loadInitialFile(launchData);
     }
 
+    // Simple error Handler
     function errorHandler(e) {
         console.error(e);
     }
 
+    // Logs the file path to a given entry in the console
     function displayEntryData(theEntry) {
         if (theEntry.isFile) {
             chrome.fileSystem.getDisplayPath(theEntry, function (path) {
@@ -28,8 +31,10 @@ app.controller("contentController", function ($scope, $timeout) {
         } else {
             filePath = theEntry.fullPath;
         }
+        console.log('filepath: ' + filePath);
     }
 
+    // Reads in the file from the given file entry
     function readAsText(fileEntry, callback) {
         fileEntry.file(function (file) {
             var reader = new FileReader();
@@ -43,6 +48,7 @@ app.controller("contentController", function ($scope, $timeout) {
         });
     }
 
+    // Writes the given blob to the given writable file entry
     function writeFileEntry(writableEntry, opt_blob, callback) {
         if (!writableEntry) {
             fileStatus = 'Nothing selected';
@@ -72,6 +78,7 @@ app.controller("contentController", function ($scope, $timeout) {
         }, errorHandler);
     }
 
+    // Waits for systems IO to be free
     function waitForIO(writer, callback) {
         // set a watchdog to avoid eventual locking:
         var start = Date.now();
@@ -82,8 +89,8 @@ app.controller("contentController", function ($scope, $timeout) {
                 return;
             }
             if (writer.readyState === writer.WRITING) {
-                console.error("Write operation taking too long, aborting!" +
-                    " (current writer readyState is " + writer.readyState + ")");
+                console.error('Write operation taking too long, aborting!' +
+                    ' (current writer readyState is ' + writer.readyState + ')');
                 writer.abort();
             } else {
                 callback();
@@ -92,21 +99,20 @@ app.controller("contentController", function ($scope, $timeout) {
         setTimeout(reentrant, 100);
     }
 
+    // Loades the file from the given file entry
     function loadFileEntry(_chosenEntry) {
         chosenEntry = _chosenEntry;
         chosenEntry.file(function (file) {
             readAsText(chosenEntry, function (result) {
                 fileContent = result.toString();
-
                 $scope.$apply(function () {
                     $scope.presentation = JSON.parse(fileContent);
                 });
             });
-            // Update display.
-            displayEntryData(chosenEntry);
         });
     }
 
+    // Tries to load the most recent file
     function loadInitialFile(launchData) {
         if (launchData && launchData.items && launchData.items[0]) {
             loadFileEntry(launchData.items[0].entry);
@@ -117,7 +123,7 @@ app.controller("contentController", function ($scope, $timeout) {
                     // if an entry was retained earlier, see if it can be restored
                     chrome.fileSystem.isRestorable(items.chosenFile, function (bIsRestorable) {
                         // the entry is still there, load the content
-                        console.info("Restoring " + items.chosenFile);
+                        console.info('Restoring ' + items.chosenFile);
                             chrome.fileSystem.restoreEntry(items.chosenFile, function (chosenEntry) {
                             if (chosenEntry && chosenEntry.isFile) {
                                 loadFileEntry(chosenEntry);
@@ -129,14 +135,16 @@ app.controller("contentController", function ($scope, $timeout) {
         }
     }
     
-    // Scope functions
+    /* --- Scope functions --- */
 
+    // corresponds to 'open file'
     $scope.loadFile = function () {
         var accepts = [{
             mimeTypes: ['text/*'],
             extensions: ['txt', 'json']
         }];
         
+        // opens file explorer to choose a file
         chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function (theEntry) {
             if (!theEntry) {
                 fileStatus = 'No file selected';
@@ -148,7 +156,7 @@ app.controller("contentController", function ($scope, $timeout) {
         });
     };
     
-    // corresponds to 'save as'
+    // corresponds to 'save file as'
     $scope.saveFile = function () {
         var config = {
             type: 'saveFile',
@@ -165,10 +173,13 @@ app.controller("contentController", function ($scope, $timeout) {
         });
     };
     
+    // TODO - Implement presentation settings
     $scope.showPresentationSettings = function () {
-        alert('Nothing here, yet!');
+        console.info('Nothing here, yet!');
     };
     
+    // Adds a fresh item to the active slide
+    // TODO - Let icon appear at the center of the slide
     $scope.addItem = function (shape) {
         var shapes = {
             'circle': {
@@ -291,6 +302,7 @@ app.controller("contentController", function ($scope, $timeout) {
         $scope.presentation.slides[$scope.presentation.active_slide].items.push(shapes[shape]);
     };
     
+    // Deletes all items on the active slide that are flagged for deletion
     $scope.deleteItems = function () {
         var items = $scope.presentation.slides[$scope.presentation.active_slide].items;
         $scope.presentation.slides[$scope.presentation.active_slide].items = _.filter(items, function (item) {
@@ -298,6 +310,7 @@ app.controller("contentController", function ($scope, $timeout) {
         });
     };
     
+    // Tries to open the selected items control panel
     $scope.showItemSettings = function () {
         var item = $('.item.selected-object');
         if (item) {
@@ -306,28 +319,32 @@ app.controller("contentController", function ($scope, $timeout) {
         }
     };
     
+    // Adds an empty slide to the end of the presentation
     $scope.addSlide = function () {
         $scope.presentation.slides.push({
-            position : 4,
             transition : 0,
             deleted: false,
             items : []
 		});
     };
     
-    $scope.deleteSlides = function () { //TODO - set new active_slide when active slide was deleted
+    // Deletes all slides that are flagged for deletion
+    // TODO - set new active_slide when active slide was deleted
+    $scope.deleteSlides = function () { 
         var slides = $scope.presentation.slides;
         $scope.presentation.slides = _.filter(slides, function (slide) {
             return !slide.deleted;
         });
     };
     
+    // TODO - Implement slide settings
     $scope.showSlideSettings = function () {
-        alert('Nothing here, yet!');
+        console.info('Nothing here, yet!');
     };
     
+    // Sets the slide at the given index active
+    // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
-        // TODO - Make better with underscorejs
         var lenght = $scope.presentation.slides.length;
         var i;
         for (i = 0; i < lenght; i++) {
@@ -337,6 +354,8 @@ app.controller("contentController", function ($scope, $timeout) {
         $scope.presentation.active_slide = index;
     };
     
+    // Tooltip activation after they have been created by angular
+    // May be moved into the correpsonding directives, maybe
     $timeout(function () {
         $("[data-toggle=tooltip]").tooltip();
     });
