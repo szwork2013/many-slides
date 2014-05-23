@@ -163,6 +163,7 @@ app.directive('itemCorner', function () {
             var startWidth = 0, startHeight = 0, width = 0, height = 0;
             var element_x_input, element_y_input, parent;
             var element_width_input, element_height_input;
+            var oldX, oldY;
             
             that = $(this);
             parent = that.parent();
@@ -184,7 +185,7 @@ app.directive('itemCorner', function () {
                 startWidth  = event.pageX - width;
                 startHeight = height;
                 startY = event.pageY - y;
-                var oldY = event.pageY;
+                oldY = event.pageY;
             } else if (that.hasClass('corner-top-left')) {
                 startHeight = height;
                 startWidth  = width;
@@ -192,13 +193,13 @@ app.directive('itemCorner', function () {
                 startY = event.pageY - y;
                 startX = event.pageX - x;
                 
-                var oldX = event.pageX;
-                var oldY = event.pageY;
+                oldX = event.pageX;
+                oldY = event.pageY;
             } else if (that.hasClass('corner-bottom-left')) {
                 startWidth  = width;
                 startHeight = event.pageY - height;
                 startX = event.pageX - x;
-                var oldX = event.pageX;
+                oldX = event.pageX;
             } else {
                 startWidth  = event.pageX - width;
                 startHeight = event.pageY - height;
@@ -212,19 +213,19 @@ app.directive('itemCorner', function () {
                     width  = event.pageX - startWidth;
                     element_width_input.val(width).change();
                
-                    height  = 1*startHeight + (oldY- event.pageY);
+                    height  = 1 * startHeight + (oldY - event.pageY);
                     element_height_input.val(height).change();
                     
                     y = event.pageY - startY;
                     element_y_input.val(y).change();
                 } else if (that.hasClass('corner-top-left')) {
 
-                    height  = 1*startHeight + (oldY- event.pageY);
+                    height  = 1 * startHeight + (oldY - event.pageY);
                     element_height_input.val(height).change();
                     
                     y = event.pageY - startY;
                     element_y_input.val(y).change();
-                    width  = 1*startWidth + (oldX - event.pageX);
+                    width  = 1 * startWidth + (oldX - event.pageX);
                     element_width_input.val(width).change();
                     
                     x = event.pageX - startX;
@@ -234,7 +235,7 @@ app.directive('itemCorner', function () {
                     height = event.pageY - startHeight;
                     element_height_input.val(height).change();
                     
-                    width  = 1*startWidth + (oldX - event.pageX);
+                    width  = 1 * startWidth + (oldX - event.pageX);
                     element_width_input.val(width).change();
                     
                     x = event.pageX - startX;
@@ -264,7 +265,7 @@ app.directive('itemCorner', function () {
         restrict: 'E',
         //require: ['^cornerPosition'],  // NOT INCLUDED SINCE IT THROWS ERRORS WHEN USED IN CONJUNCTION WITH THE 'link' ATTRIBUTE!
         scope: {
-            cornerPosition: '@',
+            cornerPosition: '@'
         },
         replace: true,
         link: link,

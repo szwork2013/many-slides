@@ -46,7 +46,7 @@ app.directive('slideControlbar', function () {
 app.directive('maslSidebarLeft', function () {
     "use strict";
     
-     function link(scope, element, attrs) {
+    function link(scope, element, attrs) {
         element.on('mouseenter', function (event) {
             element.removeClass('sidebar-gone');
         });
@@ -59,7 +59,7 @@ app.directive('maslSidebarLeft', function () {
         link: link,
         restrict: 'A',
         replace: false,
-        scope: true,
+        scope: true
     };
 });
 
@@ -116,16 +116,16 @@ app.directive('deleteSlideButton', function () {
 app.directive('slideControlsButton', function () {
     "use strict";
     
-     function link(scope, element, attrs) {
+    function link(scope, element, attrs) {
 		element.on('click', function (event) {
             $(".sidebar-left").toggleClass('sidebar-gone');
         });
          
-         element.on('mouseenter', function (event) {
+        element.on('mouseenter', function (event) {
             $(".sidebar-left").removeClass('sidebar-gone');
         });
          
-         element.on('mouseleave', function (event) {
+        element.on('mouseleave', function (event) {
             $(".sidebar-left").addClass('sidebar-gone');
         });
 	}

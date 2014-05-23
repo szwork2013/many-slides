@@ -81,7 +81,7 @@ app.directive('itemControls', function () {
 app.directive('maslSidebarRight', function () {
     "use strict";
     
-     function link(scope, element, attrs) {
+    function link(scope, element, attrs) {
         element.on('mouseenter', function (event) {
             element.removeClass('sidebar-gone');
         });
@@ -90,7 +90,7 @@ app.directive('maslSidebarRight', function () {
         link: link,
         restrict: 'A',
         replace: false,
-        scope: true,
+        scope: true
     };
 });
 
@@ -120,16 +120,16 @@ app.directive('deleteItemButton', function () {
 app.directive('itemControlsButton', function () {
     "use strict";
     
-     function link(scope, element, attrs) {
+    function link(scope, element, attrs) {
 		element.on('click', function (event) {
             $(".sidebar-right").toggleClass('sidebar-gone');
         });
          
-         element.on('mouseenter', function (event) {
+        element.on('mouseenter', function (event) {
             $(".sidebar-right").removeClass('sidebar-gone');
         });
          
-         element.on('mouseleave', function (event) {
+        element.on('mouseleave', function (event) {
             $(".sidebar-right").addClass('sidebar-gone');
         });
 	}

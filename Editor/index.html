@@ -25,6 +25,15 @@
                     <ul class="nav navbar-nav navbar-left">
                         <li><slide-controls-button></slide-controls-button></li>
                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">File<b class="caret"></b></a>
+                            <span class="dropdown-arrow"></span>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" ng-click="loadFile()">Open</a></li>
+                                <li><a href="#" ng-click="saveFile()">Save</a></li>
+                                <li><a href="#" ng-click="saveFile()">Save as</a></li>
+                              </ul>
+                        </li>
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add Item <b class="caret"></b></a>
                             <span class="dropdown-arrow"></span>
                             <ul class="dropdown-menu">
@@ -54,7 +63,6 @@
                         <many-slides-logo logo-color="#fff" logo-size="53px"></many-slides-logo>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" ng-click="printPresentation()">Print it!</a></li>
                         <li><a href="https://github.com/Gambloide/many-slides" target="_blank">GitHub</a></li>
                         <li><span class="fui-new"></span></li>
                         <li><item-controls-button></item-controls-button></li>
