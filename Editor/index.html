@@ -13,7 +13,7 @@
     </head>
     
     <!-- top menu -->
-    <body ng-controller="contentController">
+    <body ng-controller="contentCtrl">
         <div class="col-xs-12 col-gutter-none">
             <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
                 <div class="navbar-header">
@@ -63,14 +63,14 @@
                         <many-slides-logo logo-color="#fff" logo-size="53px"></many-slides-logo>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://github.com/Gambloide/many-slides" target="_blank">GitHub</a></li>
+                        <li ng-controller="ModalDemoCtrl"><a href="#" ng-click="open('lg')">About</a></li>
                         <li><span class="fui-new"></span></li>
                         <li><item-controls-button></item-controls-button></li>
                     </ul>
                 </div>
             </nav>
         </div> 
-
+        
         <slide-controlbar></slide-controlbar>
         <item-controlbar></item-controlbar>
         <presentation></presentation>
@@ -92,9 +92,10 @@
         <script src="app.js"></script>
         <!-- External Angular Modules -->
         <script src="external-modules/colorpicker/bootstrap-colorpicker-module.js"></script>
-        <script src="../scripts/bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="../scripts/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <!-- Angular Controllers -->
         <script src="controllers/contentController.js"></script>
+        <script src="controllers/modalController.js"></script>
         <!-- Angular Directives -->
         <script src="directives/slidesSidebarDirectives.js"></script>
         <script src="directives/presentationDirectives.js"></script>

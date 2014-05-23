@@ -1,4 +1,4 @@
-app.controller('contentController', function ($scope, $timeout) {
+app.controller('contentCtrl', function ($scope, $timeout) {
 	'use strict';
     $scope.presentation = {};
     
