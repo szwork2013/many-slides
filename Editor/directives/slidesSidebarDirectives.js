@@ -15,7 +15,8 @@ app.directive('slideControlbar', function () {
         template:   '<div masl-sidebar-left class="slide-controls sidebar-left sidebar-gone">' +
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               
+                                    tooltip('add slide') + '>' +
                                     '<span class="fui-plus"></span>' +
                                 '</a>' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
@@ -55,6 +56,7 @@ app.directive('maslSidebarLeft', function () {
             element.addClass('sidebar-gone');
         });
 	}
+    
     return {
         link: link,
         restrict: 'A',
@@ -70,7 +72,7 @@ app.directive('slidePreview', function () {
             var that, selected_slides;
             
             that = $(this);
-            selected_slides = $('.selected');
+            selected_slides = $('.slide-preview.selected');
                
             if (!that.hasClass('selected')) {
                 if (selected_slides.length !== 0) {

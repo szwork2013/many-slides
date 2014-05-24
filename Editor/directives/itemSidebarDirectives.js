@@ -4,6 +4,7 @@ app.directive('itemControlbar', function () {
         restrict: 'E',
         replace: true,
         scope: true,
+        // Bindonce attribute is important for itemControls directive
         template:   '<div ng-repeat="slide in presentation.slides">' +
                         '<div bindonce ng-repeat="item in slide.items">' +
                             '<item-controls></item-controls>' +
@@ -21,59 +22,92 @@ app.directive('itemControls', function () {
                 ' data-original-title="' + text + '"';
     }
     
+    function textControl(name, model) {
+        return  '<div class="form-group">' + name +
+                    '<input type="text" class="form-control" ' +
+                    'ng-model="' + model + '" >' +
+                '</div>';
+    }
+    
+    function colorControl(name, model) {
+        return  '<div class="form-group">' + name +
+                    '<input colorpicker type="text" class="form-control" ' +
+                    'ng-model="' + model + '" >' +
+                '</div>';
+    }
+    
+    function link(scope, element, attrs) {
+        $(this).ready(function () {
+            $(this).find("[data-toggle=tooltip]").tooltip();
+        });
+    }
+    
     return {
         restrict: 'E',
         replace: true,
         scope: true,
+        link: link,
+        // bo-id gets the id from the model and then removes the watcher (the id should not change anymore)
         template:   '<div bo-id="\'controls-\' + item.id" masl-sidebar-right class="sidebar-right item-controls sidebar-gone hidden">' +
+        
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +                                               
+                                    tooltip('placeholder') + '>' +
                                     '<span class="fui-plus"></span>' +
                                 '</a>' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('edit slide') + '>' +
+                                    tooltip('placeholder') + '>' +
                                     '<span class="fui-new"></span>' +
                                 '</a>' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('lock slide') + '>' +
+                                    tooltip('lock item') + '>' +
                                     '<span class="fui-lock"></span>' +
                                 '</a>' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('slide settings') + '>' +
+                                    tooltip('placeholder') + '>' +
                                     '<span class="fui-gear"></span>' +
                                 '</a>' +
                             '</div>' +
                           '</div>' +
-                        '<div class="overflow-wrapper">' +
-                            '<accordion close-others="true">' +
-                                '<accordion-group heading="Position" is-open="true">' +
-                                    '<div class="form-group">Left<input type="text" class="form-control" ng-model="item.location[0]"></div>' +
-                                    '<div class="form-group">Top<input type="text" class="form-control" ng-model="item.location[1]"></div>' +
-                                    '<div class="form-group">Layer<input type="text" class="form-control" ng-model="item.layer"></div>' +
+        
+                        /* The ng-controller="AccordionDemoCtrl" should be kept an eye on
+                         * as it may interfere with the contentCtrl scope */
+                        '<div class="overflow-wrapper" ng-controller="AccordionDemoCtrl">' +
+                            '<accordion close-others="oneAtATime">' +
+                                '<accordion-group heading="Position" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">' +
+                                    textControl('Left', 'item.location[0]') +
+                                    textControl('Top', 'item.location[1]') +
+                                    textControl('Layer', 'item.layer') +
                                 '</accordion-group>' +
+        
                                 '<accordion-group heading="Size">' +
-                                    '<div class="form-group">Width<input type="text" class="form-control" ng-model="item.width"></div>' +
-                                    '<div class="form-group">Height<input type="text" class="form-control" ng-model="item.height"></div>' +
+                                    textControl('Width', 'item.width') +
+                                    textControl('Height', 'item.height') +
                                 '</accordion-group>' +
+        
                                 '<accordion-group heading="Text">' +
-                                    '<div class="form-group">Content<input type="text" class="form-control" ng-model="item.text.content"></div>' +
-                                    '<div class="form-group">Size<input type="text" class="form-control" ng-model="item.text.size"></div>' +
-                                    '<div class="form-group">Alignment<input type="text" class="form-control" ng-model="item.text.align"></div>' +
-                                    '<div class="form-group">Color<input colorpicker type="text" class="form-control" ng-model="item.text.color"></div>' +
-                                    '<div class="form-group">Format<input type="text" class="form-control" ng-model="item.text.format"></div>' +
+                                    textControl('Content', 'tem.text.content') +
+                                    textControl('Size', 'item.text.size') +
+                                    textControl('Alignment', 'item.text.align') +
+                                    colorControl('Color', 'item.text.color') +
+                                    textControl('Format', 'item.text.format') +
                                 '</accordion-group>' +
+        
                                 '<accordion-group heading="Other">' +
-                                    '<div class="form-group">Color<input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
-                                    '<div class="form-group">Border<input type="text" class="form-control" ng-model="item.style.border"></div>' +
-                                    '<div class="form-group">Border-Radius<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
+                                    colorControl('Color', 'item.style.background') +
+                                    textControl('Border', 'item.style.border') +
+                                    textControl('Border-Radius', 'item.style.border_radius') +
                                 '</accordion-group>' +
                             '</accordion>' +
+        
                             '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
+        
                             '<div class="form-group">' +
                                 '<delete-Item-button></delete-Item-button>' +
                             '</div>' +
                         '</div>' +
+        
                     '</div>'
     };
 });
@@ -103,8 +137,9 @@ app.directive('deleteItemButton', function () {
             that = $(this);
             input = that.parent().parent().find('[ng-model="item.deleted"]');
             input.val(true).change();
-            scope.deleteItems();
-            input.val('').change(); // Trigger angularjs to see the item is gone
+            scope.$apply(function () {
+                scope.deleteItems();
+            });
         });
 	}
 	
