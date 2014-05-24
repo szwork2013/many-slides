@@ -39,8 +39,7 @@ app.directive('item', function () {
 	"use strict";
     function link(scope, element, attrs) {
         element.on('click', function (event) {
-            var that, that_id, that_controls;
-            that = $(this);
+            var that = $(this);
 
             // If the element has been moved dont fire click event (would unselect) 
             if (that.hasClass('being-moved')) {
@@ -49,22 +48,22 @@ app.directive('item', function () {
             }
             
             // Get controls for this item
-            that_id = that.attr('id').replace('item-', '');
-            that_controls = $('#controls-' + that_id);
+            var item_id = that.attr('id').replace('item-', '');
+            var item_controls = $('#controls-' + item_id);
             
             // The already selected item was clicked
             if (that.hasClass('selected-object')) {
                 that.removeClass('selected-object');
-                that_controls.addClass('sidebar-gone');
-                that_controls.addClass('hidden');
+                item_controls.addClass('sidebar-gone');
+                item_controls.addClass('hidden');
                 $('#item-controls-button').addClass('inactive');
                 
             // A previously unselected item has been clicked
             } else {
-                var old_item, old_item_id, old_item_controls, old_item_controls_were_visible;
+                var old_item_controls, reopen_controls;
                 
-                old_item = $('.selected-object');
-                old_item_id = old_item.attr('id');
+                var old_item = $('.selected-object');
+                var old_item_id = old_item.attr('id');
 
                 // If there is a previously selected item, unselect it and clean up
                 if (old_item_id) {
@@ -72,8 +71,7 @@ app.directive('item', function () {
                     
                     old_item_controls = $('#controls-' + old_item_id);
                     
-                    old_item_controls_were_visible = 
-                        !(old_item_controls.hasClass('hidden') || 
+                    reopen_controls = !(old_item_controls.hasClass('hidden') ||
                           old_item_controls.hasClass('sidebar-gone'));
                     old_item_controls.addClass('sidebar-gone');
                     old_item_controls.addClass('hidden');
@@ -83,9 +81,9 @@ app.directive('item', function () {
                 
                 // Select clicked item and show controls if they were open for the previous item
                 that.addClass('selected-object');
-                that_controls.removeClass('hidden');
-                if(old_item_controls_were_visible) {
-                    that_controls.removeClass('sidebar-gone');
+                item_controls.removeClass('hidden');
+                if (reopen_controls) {
+                    item_controls.removeClass('sidebar-gone');
                 }
                 
                 // Enable the control panel toggle
@@ -95,18 +93,17 @@ app.directive('item', function () {
         
         element.on('mousedown', function (event) {
             event.preventDefault();
-            var that, that_id, that_controls;
-            var start_x, start_y, new_x, new_y;
+            var start_x, start_y, x, y;
             var x_input, y_input;
           
-            that = $(this);
-            that_id = that.attr('id').replace('item-', '');
-            that_controls = $('#controls-' + that_id);
+            var that = $(this);
+            var item_id = that.attr('id').replace('item-', '');
+            var item_controls = $('#controls-' + item_id);
             
             // If the item is selected and not being resized, move it
             if (that.hasClass('selected-object') && !that.hasClass('being-resized')) {
-                x_input = that_controls.find('[ng-model="item.location[0]"]');
-                y_input = that_controls.find('[ng-model="item.location[1]"]');
+                x_input = item_controls.find('[ng-model="item.location[0]"]');
+                y_input = item_controls.find('[ng-model="item.location[1]"]');
                 
                 start_x = event.pageX - x_input.val();
                 start_y = event.pageY - y_input.val();
@@ -118,11 +115,11 @@ app.directive('item', function () {
             function mousemove(event) {
                 that.addClass('being-moved');
                 
-                new_x = event.pageX - start_x;
-                new_y = event.pageY - start_y;
+                x = event.pageX - start_x;
+                y = event.pageY - start_y;
                 
-                x_input.val(new_x).change();
-                y_input.val(new_y).change();
+                x_input.val(x).change();
+                y_input.val(y).change();
             }
 
             function mouseup() {
@@ -174,99 +171,118 @@ app.directive('itemCorner', function () {
         element.on('mousedown', function (event) {
             event.preventDefault();
             
-            var that, that_id, that_controls;
-            var startX = 0, startY = 0, x = 0, y = 0;
-            var startWidth = 0, startHeight = 0, width = 0, height = 0;
-            var x_input, element_y_input, parent;
-            var element_width_input, element_height_input;
-            var oldX, oldY;
+            var start_width, start_height;
+            var width, height;
+            var start_x, start_y;
+            var old_x, old_y;
+            var x, y;
             
-            that = $(this);
-            parent = that.parent();
+            var that = $(this);
+
+            // Get item this corner belongs to
+            var parent = that.parent();
+            
+            // Add being resized flag to prevent move of item on mousemove
             parent.addClass('being-resized');
-            that_id = parent.attr('id').replace('item-', '');
-            that_controls = $('#controls-' + that_id);
             
-            x_input = that_controls.find('[ng-model="item.location[0]"]');
-            element_y_input = that_controls.find('[ng-model="item.location[1]"]');
-            element_width_input  = that_controls.find('[ng-model="item.width"]');
-            element_height_input = that_controls.find('[ng-model="item.height"]');
+            // Get controls for this item
+            var item_id = parent.attr('id').replace('item-', '');
+            var item_controls = $('#controls-' + item_id);
+            
+            // Get input fields from controls
+            var x_input = item_controls.find('[ng-model="item.location[0]"]');
+            var y_input = item_controls.find('[ng-model="item.location[1]"]');
+            var width_input  = item_controls.find('[ng-model="item.width"]');
+            var height_input = item_controls.find('[ng-model="item.height"]');
 
-            width  = element_width_input.val();
-            height = element_height_input.val();
-            x = x_input.val();
-            y = element_y_input.val();
-
+            // Set needed variables to needed values and bind needed function
             if (that.hasClass('corner-top-right')) {
-                startWidth  = event.pageX - width;
-                startHeight = height;
-                startY = event.pageY - y;
-                oldY = event.pageY;
-            } else if (that.hasClass('corner-top-left')) {
-                startHeight = height;
-                startWidth  = width;
+                start_width  = event.pageX - width_input.val();
+                start_height = height_input.val();
                 
-                startY = event.pageY - y;
-                startX = event.pageX - x;
+                start_y = event.pageY - y_input.val();
+                old_y   = event.pageY;
                 
-                oldX = event.pageX;
-                oldY = event.pageY;
-            } else if (that.hasClass('corner-bottom-left')) {
-                startWidth  = width;
-                startHeight = event.pageY - height;
-                startX = event.pageX - x;
-                oldX = event.pageX;
-            } else {
-                startWidth  = event.pageX - width;
-                startHeight = event.pageY - height;
+                $(document).on('mousemove', resizeFromTopRight);
             }
             
-            $(document).on('mousemove', mousemove);
+            else if (that.hasClass('corner-top-left')) {
+                start_width  = width_input.val();
+                start_height = height_input.val();
+                
+                start_y = event.pageY - y_input.val();
+                start_x = event.pageX - x_input.val();
+                
+                old_x = event.pageX;
+                old_y = event.pageY;
+                
+                $(document).on('mousemove', resizeFromTopLeft);
+            }
+            
+            else if (that.hasClass('corner-bottom-left')) {
+                start_width  = width_input.val();
+                start_height = event.pageY - height_input.val();
+                
+                start_x = event.pageX - x_input.val();
+                old_x   = event.pageX;
+                
+                $(document).on('mousemove', resizeFromBottomLeft);
+            }
+            
+            else { // bottom right
+                start_width  = event.pageX - width_input.val();
+                start_height = event.pageY - height_input.val();
+                
+                $(document).on('mousemove', resizeFromBottomRight);
+            }
+            
             $(document).on('mouseup', mouseup);
             
-            function mousemove(event) {
-                if (that.hasClass('corner-top-right')) {
-                    width  = event.pageX - startWidth;
-                    element_width_input.val(width).change();
-               
-                    height  = 1 * startHeight + (oldY - event.pageY);
-                    element_height_input.val(height).change();
-                    
-                    y = event.pageY - startY;
-                    element_y_input.val(y).change();
-                } else if (that.hasClass('corner-top-left')) {
+            function resizeFromTopRight(event) {
+                width  = event.pageX - start_width;
+                height = start_height / 1 + (old_y - event.pageY);
+                y      = event.pageY - start_y;
 
-                    height  = 1 * startHeight + (oldY - event.pageY);
-                    element_height_input.val(height).change();
-                    
-                    y = event.pageY - startY;
-                    element_y_input.val(y).change();
-                    width  = 1 * startWidth + (oldX - event.pageX);
-                    element_width_input.val(width).change();
-                    
-                    x = event.pageX - startX;
-                    x_input.val(x).change();
-                    
-                } else if (that.hasClass('corner-bottom-left')) {
-                    height = event.pageY - startHeight;
-                    element_height_input.val(height).change();
-                    
-                    width  = 1 * startWidth + (oldX - event.pageX);
-                    element_width_input.val(width).change();
-                    
-                    x = event.pageX - startX;
-                    x_input.val(x).change();
-                } else {
-                    width  = event.pageX - startWidth;
-                    height = event.pageY - startHeight;
-               
-                    element_width_input.val(width).change();
-                    element_height_input.val(height).change();
-                }
+                width_input.val(width).change();
+                height_input.val(height).change();
+                y_input.val(y).change();
             }
+            
+            function resizeFromTopLeft(event) {
+                width  = start_width / 1 + (old_x - event.pageX);
+                height = start_height / 1 + (old_y - event.pageY);
+                x = event.pageX - start_x;
+                y = event.pageY - start_y;
 
+                width_input.val(width).change();
+                height_input.val(height).change();
+                x_input.val(x).change();
+                y_input.val(y).change();
+            }
+            
+            function resizeFromBottomLeft(event) {
+                width  = start_width / 1 + (old_x - event.pageX);
+                height = event.pageY - start_height;
+                x      = event.pageX - start_x;
+
+                width_input.val(width).change();
+                height_input.val(height).change();
+                x_input.val(x).change();
+            }
+            
+            function resizeFromBottomRight(event) {
+                width  = event.pageX - start_width;
+                height = event.pageY - start_height;
+
+                width_input.val(width).change();
+                height_input.val(height).change();
+            }
+            
             function mouseup() {
-                $(document).unbind('mousemove', mousemove);
+                $(document).unbind('mousemove', resizeFromTopRight);
+                $(document).unbind('mousemove', resizeFromTopLeft);
+                $(document).unbind('mousemove', resizeFromBottomLeft);
+                $(document).unbind('mousemove', resizeFromBottomRight);
                 $(document).unbind('mouseup', mouseup);
                 parent.removeClass('being-resized');
             }
