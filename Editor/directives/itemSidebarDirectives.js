@@ -52,7 +52,7 @@ app.directive('itemControls', function () {
         
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +                                               
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
                                     tooltip('placeholder') + '>' +
                                     '<span class="fui-plus"></span>' +
                                 '</a>' +

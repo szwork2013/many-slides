@@ -15,7 +15,7 @@ app.directive('slideControlbar', function () {
         template:   '<div masl-sidebar-left class="slide-controls sidebar-left sidebar-gone">' +
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               
+                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +
                                     tooltip('add slide') + '>' +
                                     '<span class="fui-plus"></span>' +
                                 '</a>' +
