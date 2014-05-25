@@ -1,5 +1,5 @@
-var ModalDemoCtrl = function ($scope, $modal, $log) {
-    $scope.open = function (size) {
+app.controller('modalCtrl', function ($scope, $modal, $log) {
+	$scope.open = function (size) {
         var manifest = chrome.runtime.getManifest();
         var github_url = 'https://github.com/Gambloide/many-slides';
         var nounproject_url = 'http://thenounproject.com/';
@@ -20,21 +20,11 @@ var ModalDemoCtrl = function ($scope, $modal, $log) {
                         '<div class="modal-footer">' +
                             '<button class="btn btn-primary" ng-click="ok()">Got it!</button>' +
                         '</div>',
-            controller: ModalInstanceCtrl,
-            size: size
+            size: size,
+            controller: function ($scope, $modalInstance) {
+							$scope.ok = function () { $modalInstance.close(); };
+							$scope.cancel = function () { $modalInstance.dismiss('cancel'); };
+						}
         });
     };
-};
-
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
-
-var ModalInstanceCtrl = function ($scope, $modalInstance) {
-    $scope.ok = function () {
-        $modalInstance.close();
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-};
+});

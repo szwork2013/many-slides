@@ -1,8 +1,8 @@
-function AccordionDemoCtrl($scope) {
-    $scope.oneAtATime = true;
+app.controller('accordionCtrl', function ($scope) {
+	$scope.oneAtATime = true;
 
-    $scope.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
-}
+	$scope.status = {
+		isFirstOpen: true,
+		isFirstDisabled: false
+	};
+});

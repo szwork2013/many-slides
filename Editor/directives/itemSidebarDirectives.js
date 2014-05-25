@@ -73,7 +73,7 @@ app.directive('maslItemControls', function () {
         
                         /* The ng-controller="AccordionDemoCtrl" should be kept an eye on
                          * as it may interfere with the contentCtrl scope */
-                        '<div class="overflow-wrapper" ng-controller="AccordionDemoCtrl">' +
+                        '<div class="overflow-wrapper" ng-controller="accordionCtrl">' +
                             '<accordion close-others="oneAtATime">' +
                                 '<accordion-group heading="Position" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">' +
                                     textControl('Left', 'item.location[0]') +
