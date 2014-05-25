@@ -87,7 +87,7 @@ app.directive('itemControls', function () {
                                 '</accordion-group>' +
         
                                 '<accordion-group heading="Text">' +
-                                    textControl('Content', 'tem.text.content') +
+                                    textControl('Content', 'item.text.content') +
                                     textControl('Size', 'item.text.size') +
                                     textControl('Alignment', 'item.text.align') +
                                     colorControl('Color', 'item.text.color') +
