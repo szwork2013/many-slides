@@ -1,4 +1,4 @@
-app.directive('presentation', function () {
+app.directive('maslPresentation', function () {
 	"use strict";
     return {
         restrict: 'E',

@@ -1,4 +1,4 @@
-app.directive('slideControlbar', function () {
+app.directive('maslSlideControlbar', function () {
     "use strict";
     
     function tooltip(text) {
@@ -35,9 +35,9 @@ app.directive('slideControlbar', function () {
                           '</div>' +
                         '<div class="overflow-wrapper">' +
                             '<div class="slide-preview-wrapper" ng-repeat="slide in presentation.slides">' +
-                                '<slide-preview></slide-preview>' +
+                                '<masl-slide-preview></masl-slide-preview>' +
                                 '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +
-                                '<delete-slide-button></delete-slide-button>' +
+                                '<masl-delete-slide-button></masl-delete-slide-button>' +
                             '</div>' +
                         '</div>' +
                     '</div>'
@@ -65,7 +65,7 @@ app.directive('maslSidebarLeft', function () {
     };
 });
 
-app.directive('slidePreview', function () {
+app.directive('maslSlidePreview', function () {
     "use strict";
     function link(scope, element, attrs) {
 		element.on('click', function (event) {
@@ -92,7 +92,7 @@ app.directive('slidePreview', function () {
     };
 });
 
-app.directive('deleteSlideButton', function () {
+app.directive('maslDeleteSlideButton', function () {
 	"use strict";
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
@@ -115,7 +115,7 @@ app.directive('deleteSlideButton', function () {
     };
 });
 
-app.directive('slideControlsButton', function () {
+app.directive('maslSlideControlsButton', function () {
     "use strict";
     
     function link(scope, element, attrs) {

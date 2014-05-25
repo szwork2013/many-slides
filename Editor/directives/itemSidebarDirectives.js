@@ -1,4 +1,4 @@
-app.directive('itemControlbar', function () {
+app.directive('maslItemControlbar', function () {
     "use strict";
     return {
         restrict: 'E',
@@ -7,13 +7,13 @@ app.directive('itemControlbar', function () {
         // Bindonce attribute is important for itemControls directive
         template:   '<div ng-repeat="slide in presentation.slides">' +
                         '<div bindonce ng-repeat="item in slide.items">' +
-                            '<item-controls></item-controls>' +
+                            '<masl-item-controls></masl-item-controls>' +
                         '</div>' +
                     '</div>'
     };
 });
 
-app.directive('itemControls', function () {
+app.directive('maslItemControls', function () {
     "use strict";
     function tooltip(text) {
         return  ' data-toggle="tooltip"' +
@@ -104,7 +104,7 @@ app.directive('itemControls', function () {
                             '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
         
                             '<div class="form-group">' +
-                                '<delete-Item-button></delete-Item-button>' +
+                                '<masl-delete-Item-button></masl-delete-Item-button>' +
                             '</div>' +
                         '</div>' +
         
@@ -128,7 +128,7 @@ app.directive('maslSidebarRight', function () {
     };
 });
 
-app.directive('deleteItemButton', function () {
+app.directive('maslDeleteItemButton', function () {
 	"use strict";
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
@@ -152,7 +152,7 @@ app.directive('deleteItemButton', function () {
     };
 });
 
-app.directive('itemControlsButton', function () {
+app.directive('maslItemControlsButton', function () {
     "use strict";
     
     function link(scope, element, attrs) {

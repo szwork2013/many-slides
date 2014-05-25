@@ -23,7 +23,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-01">
                     <ul class="nav navbar-nav navbar-left">
-                        <li><slide-controls-button></slide-controls-button></li>
+                        <li><masl-slide-controls-button></masl-slide-controls-button></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">File<b class="caret"></b></a>
                             <span class="dropdown-arrow"></span>
@@ -60,20 +60,20 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav center-logo">
-                        <many-slides-logo logo-color="#fff" logo-size="53px"></many-slides-logo>
+                        <masl-logo logo-color="#fff" logo-size="53px"></masl-logo>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-controller="ModalDemoCtrl"><a href="#" ng-click="open('lg')">About</a></li>
                         <li><span class="fui-new"></span></li>
-                        <li><item-controls-button></item-controls-button></li>
+                        <li><masl-item-controls-button></masl-item-controls-button></li>
                     </ul>
                 </div>
             </nav>
         </div> 
         
-        <slide-controlbar></slide-controlbar>
-        <item-controlbar></item-controlbar>
-        <presentation></presentation>
+        <masl-slide-controlbar></masl-slide-controlbar>
+        <masl-item-controlbar></masl-item-controlbar>
+        <masl-presentation></masl-presentation>
         
         <!-- Flat UI scripts -->
         <script src="../scripts/jquery/jquery.js"></script>
