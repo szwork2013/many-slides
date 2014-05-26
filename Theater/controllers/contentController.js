@@ -140,7 +140,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     /* --- Scope functions --- */
 
 	$scope.parsePresentation = function (element) {
-		foo = JSON.parse($(element).val());
+		var foo = JSON.parse($(element).val());
 		console.log(foo);
 		$scope.presentation = foo;
 	}
@@ -374,6 +374,8 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     // Sets the slide at the given index active
     // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
+        console.log(index);
+        index = index /1;
         var lenght = $scope.presentation.slides.length;
         var i;
         for (i = 0; i < lenght; i++) {

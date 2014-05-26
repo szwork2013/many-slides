@@ -73,6 +73,7 @@ function onMessageRecieve(c, data) {
         console.log("received data");
         console.log(data);
         $('#presentation-content').val(JSON.stringify(data.content)).change();
+        $('#BLUBB').val(1).change();
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
 
     }
