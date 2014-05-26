@@ -133,6 +133,10 @@ var htmlChat = "<p id='chat'>Chat</p>" +
     "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
     "</form>";
 var htmlPresentation =  '<div id="presentationWindow">' +
+    '<div id="presentationControlls">'+
+    '<span class="fui-arrow-left"></span>'+
+    '<span class="fui-arrow-right"></span>'+
+    '</div>'+
     '</div>';
 
 $(function () {

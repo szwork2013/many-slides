@@ -47,7 +47,7 @@ function onMessageRecieve(c, data) {
 
     // Recieve normal text message
     else if (data.flag == 1) {
-        $('#messages').append('<div><span class="peer">' + c.metadata.name + " - " + c.peer + '</span><em>: ' + data.content + '</em></div>');
+        $('#messages').append('<div><span class="peer">' + c.metadata.name + '</span><em>: ' + data.content + '</em></div>');
     }
 
     // Send name or request names of other peer
