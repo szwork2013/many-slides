@@ -139,20 +139,20 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     
     /* --- Scope functions --- */
 
-	$scope.parsePresentation = function (element) {
-		var foo = JSON.parse($(element).val());
+	$scope.parsePresentation = function () {
+		var foo = $scope.presentationInputVaule;
 		console.log(foo);
-		$scope.presentation = foo;
+		$scope.presentation = JSON.parse(foo);
 	}
 	
     $scope.previousSlide = function () {
-
         var index = $scope.presentation.active_slide;
         if( index > 0)
         {
             $scope.setActiveSlide(index - 1);
         }
     };
+	
     $scope.nextSlide = function () {
         var length = $scope.presentation.slides.length;
         var index = $scope.presentation.active_slide;
@@ -371,12 +371,18 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         console.info('Nothing here, yet!');
     };
     
+	$scope.setActiveSlideFromInput = function () {
+		var foo = $scope.activeSlideInputValue;
+		$scope.setActiveSlide(foo/1);
+	}
+	
     // Sets the slide at the given index active
     // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
-        console.log(index);
-        index = index /1;
         var lenght = $scope.presentation.slides.length;
+		if (lenght < index) {
+			return;
+		}
         var i;
         for (i = 0; i < lenght; i++) {
             $scope.presentation.slides[i].active = false;

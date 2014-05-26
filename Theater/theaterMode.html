@@ -15,8 +15,8 @@
     </head>
 
     <body ng-controller="contentCtrl">
-    <input id="presentation-content" type="text" ng-change="parsePresentation(this)">
-    <input id="BLUBB" type="text" ng-change="setActiveSlide(1)">
+    <input id="presentation-content" type="text" ng-change="parsePresentation()" ng-model="presentationInputVaule">
+    <input id="BLUBB" type="text" ng-change="setActiveSlideFromInput()" ng-model="activeSlideInputValue">
         <div class="col-xs-12 col-gutter-none ng-scope">
             <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
                 <div class="navbar-header">
