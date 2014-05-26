@@ -1,4 +1,4 @@
-app.directive('manySlidesLogo', function () {
+app.directive('maslLogo', function () {
     "use strict";
     
     return {

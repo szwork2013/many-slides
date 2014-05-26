@@ -137,6 +137,10 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     
     /* --- Scope functions --- */
 
+	$scope.printPresentation = function () {
+		console.log($scope.presentation);
+	};
+	
     // corresponds to 'open file'
     $scope.loadFile = function () {
         var accepts = [{

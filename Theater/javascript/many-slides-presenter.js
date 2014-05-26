@@ -137,6 +137,7 @@ var htmlPresentation =  '<div id="presentationWindow">' +
     '<span class="fui-arrow-left"></span>'+
     '<span class="fui-arrow-right"></span>'+
     '</div>'+
+	'<masl-presentation></masl-presentation>' +
     '</div>';
 
 $(function () {

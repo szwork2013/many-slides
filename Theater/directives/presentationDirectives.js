@@ -1,16 +1,16 @@
-app.directive('presentation', function () {
+app.directive('maslPresentation', function () {
 	"use strict";
     return {
         restrict: 'E',
         replace: true,
         scope: true,
         template:   '<div id="presentation">' +
-                        '<presentation-slides><presentation-slides/>' +
+                        '<active-slide><active-slide/>' +
                     '</div>'
     };
 });
 
-app.directive('presentationSlides', function () {
+app.directive('activeSlide', function () {
 	"use strict";
     return {
         restrict: 'E',
@@ -22,306 +22,290 @@ app.directive('presentationSlides', function () {
     };
 });
 
-app.directive('itemControls', function () {
-    "use strict";
-    function tooltip(text) {
-        return  ' data-toggle="tooltip"' +
-                ' data-placement="bottom"' +
-                ' title=""' +
-                ' data-original-title="' + text + '"';
-    }
-    
-    return {
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div bo-id="\'controls-\' + item.id" masl-sidebar-right class="sidebar-right item-controls sidebar-gone hidden">' +
-                        '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
-                            '<div class="btn-group col-xs-12 col-gutter-none">' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
-                                    '<span class="fui-plus"></span>' +
-                                '</a>' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('edit slide') + '>' +
-                                    '<span class="fui-new"></span>' +
-                                '</a>' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('lock slide') + '>' +
-                                    '<span class="fui-lock"></span>' +
-                                '</a>' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('slide settings') + '>' +
-                                    '<span class="fui-gear"></span>' +
-                                '</a>' +
-                            '</div>' +
-                          '</div>' +
-                        '<div class="overflow-wrapper">' +
-                            '<accordion close-others="true">' +
-                                '<accordion-group heading="Position" is-open="true">' +
-                                    '<div class="form-group">Left<input type="text" class="form-control" ng-model="item.location[0]"></div>' +
-                                    '<div class="form-group">Top<input type="text" class="form-control" ng-model="item.location[1]"></div>' +
-                                    '<div class="form-group">Layer<input type="text" class="form-control" ng-model="item.layer"></div>' +
-                                '</accordion-group>' +
-                                '<accordion-group heading="Size">' +
-                                    '<div class="form-group">Width<input type="text" class="form-control" ng-model="item.width"></div>' +
-                                    '<div class="form-group">Height<input type="text" class="form-control" ng-model="item.height"></div>' +
-                                '</accordion-group>' +
-                                '<accordion-group heading="Text">' +
-                                    '<div class="form-group">Content<input type="text" class="form-control" ng-model="item.text.content"></div>' +
-                                    '<div class="form-group">Size<input type="text" class="form-control" ng-model="item.text.size"></div>' +
-                                    '<div class="form-group">Alignment<input type="text" class="form-control" ng-model="item.text.align"></div>' +
-                                    '<div class="form-group">Color<input colorpicker type="text" class="form-control" ng-model="item.text.color"></div>' +
-                                    '<div class="form-group">Format<input type="text" class="form-control" ng-model="item.text.format"></div>' +
-                                '</accordion-group>' +
-                                '<accordion-group heading="Other">' +
-                                    '<div class="form-group">Color<input colorpicker type="text" class="form-control" ng-model="item.style.background"></div>' +
-                                    '<div class="form-group">Border<input type="text" class="form-control" ng-model="item.style.border"></div>' +
-                                    '<div class="form-group">Border-Radius<input type="text" class="form-control" ng-model="item.style.border_radius"></div>' +
-                                '</accordion-group>' +
-                            '</accordion>' +
-//                          '<close-button></close-button>' + // Maybe change to "pin" button
-                            '<input type="text" class="delete-flag hidden" ng-model="item.deleted">' +
-                            '<div class="form-group">' +
-                                '<delete-Item-button></delete-Item-button>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>'
-    };
-});
-
-app.directive('deleteItemButton', function () {
-	"use strict";
-	function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            var that, input;
-            
-            that = $(this);
-            input = that.parent().parent().find('[ng-model="item.deleted"]');
-            input.val(true).change();
-            scope.deleteItems();
-            input.val('').change(); // Trigger angularjs to see the item is gone
-        });
-	}
-	
-    return {
-		link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<span class="btn btn-block btn-lg btn-primary">Delete Item</span>'
-    };
-});
-
-app.directive('deleteSlideButton', function () {
-	"use strict";
-	function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            var that, input;
-            
-            that = $(this);
-            input = that.parent().find('[ng-model="slide.deleted"]');
-            input.val(true).change();
-            scope.deleteSlides();
-            input.val('').change(); // Trigger angularjs to see the slide is gone
-        });
-	}
-	
-    return {
-		link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<span class="fui-cross close-button delete-slide-button"></span>'
-    };
-});
-
 app.directive('slideItems', function () {
     "use strict";
     return {
         restrict: 'E',
         replace: true,
         scope: true,
+        // Bindonce attribute is important for item directive
         template:   '<div bindonce ng-repeat="item in slide.items" class="item-wrapper">' +
                         '<item></item>' +
                     '</div>'
     };
 });
 
-app.directive('slideControlbar', function () {
-    "use strict";
+app.directive('item', function () {
+	"use strict";
+    function link(scope, element, attrs) {
+        element.on('click', function (event) {
+            var that = $(this);
+
+            // If the element has been moved dont fire click event (would unselect) 
+            if (that.hasClass('being-moved')) {
+                that.removeClass('being-moved');
+                return;
+            }
+            
+            // Get controls for this item
+            var item_id = that.attr('id').replace('item-', '');
+            var item_controls = $('#controls-' + item_id);
+            
+            // The already selected item was clicked
+            if (that.hasClass('selected-object')) {
+                that.removeClass('selected-object');
+                item_controls.addClass('sidebar-gone');
+                item_controls.addClass('hidden');
+                $('#item-controls-button').addClass('inactive');
+                
+            // A previously unselected item has been clicked
+            } else {
+                var old_item_controls, reopen_controls;
+                
+                var old_item = $('.selected-object');
+                var old_item_id = old_item.attr('id');
+
+                // If there is a previously selected item, unselect it and clean up
+                if (old_item_id) {
+                    old_item_id = old_item_id.replace('item-', '');
+                    
+                    old_item_controls = $('#controls-' + old_item_id);
+                    
+                    reopen_controls = !(old_item_controls.hasClass('hidden') ||
+                          old_item_controls.hasClass('sidebar-gone'));
+                    old_item_controls.addClass('sidebar-gone');
+                    old_item_controls.addClass('hidden');
+                    
+                    old_item.removeClass('selected-object');
+                }
+                
+                // Select clicked item and show controls if they were open for the previous item
+                that.addClass('selected-object');
+                item_controls.removeClass('hidden');
+                if (reopen_controls) {
+                    item_controls.removeClass('sidebar-gone');
+                }
+                
+                // Enable the control panel toggle
+                $('#item-controls-button').removeClass('inactive');
+            }
+        });
+        
+        element.on('mousedown', function (event) {
+            event.preventDefault();
+            var start_x, start_y, x, y;
+            var x_input, y_input;
+          
+            var that = $(this);
+            var item_id = that.attr('id').replace('item-', '');
+            var item_controls = $('#controls-' + item_id);
+            
+            // If the item is selected and not being resized, move it
+            if (that.hasClass('selected-object') && !that.hasClass('being-resized')) {
+                x_input = item_controls.find('[ng-model="item.location[0]"]');
+                y_input = item_controls.find('[ng-model="item.location[1]"]');
+                
+                start_x = event.pageX - x_input.val();
+                start_y = event.pageY - y_input.val();
+                
+                $(document).on('mousemove', mousemove);
+                $(document).on('mouseup', mouseup);
+            }
+            
+            function mousemove(event) {
+                that.addClass('being-moved');
+                
+                x = event.pageX - start_x;
+                y = event.pageY - start_y;
+                
+                x_input.val(x).change();
+                y_input.val(y).change();
+            }
+
+            function mouseup() {
+                $(document).unbind('mousemove', mousemove);
+                $(document).unbind('mouseup', mouseup);
+            }
+        });
+        
+        // Prevent accidental 'text' selection on double click
+        element.on('dblclick', function () {
+            event.preventDefault();
+        });
+    }
     
-    function tooltip(text) {
-        return  ' data-toggle="tooltip"' +
-                ' data-placement="bottom"' +
-                ' title=""' +
-                ' data-original-title="' + text + '"';
+    // Binding of all the attributes to the corresponding style
+    var style = 'position:          absolute;' +
+                'height:            {{item.height}}px;' +
+                'width:             {{item.width}}px;' +
+                '-webkit-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                'transform:         translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                'background:        {{item.style.background}};' +
+                'border:            {{item.style.border}};' +
+                'border-radius:     {{item.style.border_radius}}%;' +
+				'z-index:           {{item.layer}};' +
+                'text-align:        {{item.text.align}};' +
+                'font-size:         {{item.text.size}}rem;' +
+                'font-weight:       {{item.text.format}};' +
+                'color:             {{item.text.color}};';
+    
+    return {
+        link: link,
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        // bo-id gets the id from the model and then removes the watcher (the id should not change anymore)
+        template:   '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
+                        '<item-corner corner-position="top-left"></item-corner>' +
+                        '<item-corner corner-position="bottom-left"></item-corner>' +
+                        '<item-corner corner-position="bottom-right"></item-corner>' +
+                        '<item-corner corner-position="top-right"></item-corner>' +
+                        '{{item.text.content}}' +
+                    '</div>'
+    };
+});
+
+app.directive('itemCorner', function () {
+    "use strict";
+    function link(scope, element, attrs) {
+        element.on('mousedown', function (event) {
+            event.preventDefault();
+            
+            var start_width, start_height;
+            var width, height;
+            var start_x, start_y;
+            var old_x, old_y;
+            var x, y;
+            
+            var that = $(this);
+
+            // Get item this corner belongs to
+            var parent = that.parent();
+            
+            // Add being resized flag to prevent move of item on mousemove
+            parent.addClass('being-resized');
+            
+            // Get controls for this item
+            var item_id = parent.attr('id').replace('item-', '');
+            var item_controls = $('#controls-' + item_id);
+            
+            // Get input fields from controls
+            var x_input = item_controls.find('[ng-model="item.location[0]"]');
+            var y_input = item_controls.find('[ng-model="item.location[1]"]');
+            var width_input  = item_controls.find('[ng-model="item.width"]');
+            var height_input = item_controls.find('[ng-model="item.height"]');
+
+            // Set needed variables to needed values and bind needed function
+            if (that.hasClass('corner-top-right')) {
+                start_width  = event.pageX - width_input.val();
+                start_height = height_input.val();
+                
+                start_y = event.pageY - y_input.val();
+                old_y   = event.pageY;
+                
+                $(document).on('mousemove', resizeFromTopRight);
+            }
+            
+            else if (that.hasClass('corner-top-left')) {
+                start_width  = width_input.val();
+                start_height = height_input.val();
+                
+                start_y = event.pageY - y_input.val();
+                start_x = event.pageX - x_input.val();
+                
+                old_x = event.pageX;
+                old_y = event.pageY;
+                
+                $(document).on('mousemove', resizeFromTopLeft);
+            }
+            
+            else if (that.hasClass('corner-bottom-left')) {
+                start_width  = width_input.val();
+                start_height = event.pageY - height_input.val();
+                
+                start_x = event.pageX - x_input.val();
+                old_x   = event.pageX;
+                
+                $(document).on('mousemove', resizeFromBottomLeft);
+            }
+            
+            else { // bottom right
+                start_width  = event.pageX - width_input.val();
+                start_height = event.pageY - height_input.val();
+                
+                $(document).on('mousemove', resizeFromBottomRight);
+            }
+            
+            $(document).on('mouseup', mouseup);
+            
+            function resizeFromTopRight(event) {
+                width  = event.pageX - start_width;
+                height = start_height / 1 + (old_y - event.pageY);
+                y      = event.pageY - start_y;
+
+                width_input.val(width).change();
+                height_input.val(height).change();
+                y_input.val(y).change();
+            }
+            
+            function resizeFromTopLeft(event) {
+                width  = start_width / 1 + (old_x - event.pageX);
+                height = start_height / 1 + (old_y - event.pageY);
+                x = event.pageX - start_x;
+                y = event.pageY - start_y;
+
+                width_input.val(width).change();
+                height_input.val(height).change();
+                x_input.val(x).change();
+                y_input.val(y).change();
+            }
+            
+            function resizeFromBottomLeft(event) {
+                width  = start_width / 1 + (old_x - event.pageX);
+                height = event.pageY - start_height;
+                x      = event.pageX - start_x;
+
+                width_input.val(width).change();
+                height_input.val(height).change();
+                x_input.val(x).change();
+            }
+            
+            function resizeFromBottomRight(event) {
+                width  = event.pageX - start_width;
+                height = event.pageY - start_height;
+
+                width_input.val(width).change();
+                height_input.val(height).change();
+            }
+            
+            function mouseup() {
+                $(document).unbind('mousemove', resizeFromTopRight);
+                $(document).unbind('mousemove', resizeFromTopLeft);
+                $(document).unbind('mousemove', resizeFromBottomLeft);
+                $(document).unbind('mousemove', resizeFromBottomRight);
+                $(document).unbind('mouseup', mouseup);
+                parent.removeClass('being-resized');
+            }
+        });
+        
+        element.on('dblclick', function () {
+            event.preventDefault();
+        });
     }
     
     return {
         restrict: 'E',
+        //require: ['^cornerPosition'],  // NOT INCLUDED SINCE IT THROWS ERRORS WHEN USED IN CONJUNCTION WITH THE 'link' ATTRIBUTE!
+        scope: {
+            cornerPosition: '@'
+        },
         replace: true,
-        scope: true,
-        template:   '<div masl-sidebar-left class="slide-controls sidebar-left sidebar-gone">' +
-                        '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
-                            '<div class="btn-group col-xs-12 col-gutter-none">' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#" ng-click="addSlide()"' +                                               tooltip('add slide') + '>' +
-                                    '<span class="fui-plus"></span>' +
-                                '</a>' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('edit slide') + '>' +
-                                    '<span class="fui-new"></span>' +
-                                '</a>' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('lock slide') + '>' +
-                                    '<span class="fui-lock"></span>' +
-                                '</a>' +
-                                '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
-                                    tooltip('slide settings') + '>' +
-                                    '<span class="fui-gear"></span>' +
-                                '</a>' +
-                            '</div>' +
-                          '</div>' +
-                        '<div class="overflow-wrapper">' +
-                            '<div class="slide-preview-wrapper" ng-repeat="slide in presentation.slides">' +
-                                '<slide-preview></slide-preview>' +
-                                '<input type="text" class="delete-flag hidden" ng-model="slide.deleted">' +
-                                '<delete-slide-button></delete-slide-button>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>'
-    };
-});
-
-app.directive('slidePreview', function () {
-    "use strict";
-    function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            var that, selected_slides;
-            
-            that = $(this);
-            selected_slides = $('.selected');
-               
-            if (!that.hasClass('selected')) {
-                if (selected_slides.length !== 0) {
-                    selected_slides.removeClass('selected');
-                }
-                that.addClass('selected');
-            }
-        });
-	}
-	
-    return {
-		link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div class="slide-preview" ng-Click="setActiveSlide($index)"></div>'
-    };
-});
-
-app.directive('itemControlbar', function () {
-    "use strict";
-    return {
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div ng-repeat="slide in presentation.slides">' +
-                        '<div bindonce ng-repeat="item in slide.items">' +
-                            '<item-controls></item-controls>' +
-                        '</div>' +
-                    '</div>'
-    };
-});
-
-app.directive('itemControlsButton', function () {
-    "use strict";
-    
-     function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            $(".sidebar-right").toggleClass('sidebar-gone');
-        });
-         
-         element.on('mouseenter', function (event) {
-            $(".sidebar-right").removeClass('sidebar-gone');
-        });
-         
-         element.on('mouseleave', function (event) {
-            $(".sidebar-right").addClass('sidebar-gone');
-        });
-	}
-    
-    return {
         link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div id="item-controls-button" class="fui-new inactive"><button></button></div>'
+        template:   '<div class="item-corner corner-{{cornerPosition}}"></div>'
     };
 });
 
-app.directive('slideControlsButton', function () {
-    "use strict";
-    
-     function link(scope, element, attrs) {
-		element.on('click', function (event) {
-            $(".sidebar-left").toggleClass('sidebar-gone');
-        });
-         
-         element.on('mouseenter', function (event) {
-            $(".sidebar-left").removeClass('sidebar-gone');
-        });
-         
-         element.on('mouseleave', function (event) {
-            $(".sidebar-left").addClass('sidebar-gone');
-        });
-	}
-    
-    return {
-        link: link,
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        template:   '<div id="slide-controls-button" class="navbar-toggle collapsed"><button></button></div>'
-    };
-});
-
-app.directive('maslSidebarRight', function () {
-    "use strict";
-    
-     function link(scope, element, attrs) {
-        element.on('mouseenter', function (event) {
-            element.removeClass('sidebar-gone');
-        });
-	}
-    return {
-        link: link,
-        restrict: 'A',
-        replace: false,
-        scope: true,
-    };
-});
-
-app.directive('maslSidebarLeft', function () {
-    "use strict";
-    
-     function link(scope, element, attrs) {
-        element.on('mouseenter', function (event) {
-            element.removeClass('sidebar-gone');
-        });
-         
-        element.on('mouseleave', function (event) {
-            element.addClass('sidebar-gone');
-        });
-	}
-    return {
-        link: link,
-        restrict: 'A',
-        replace: false,
-        scope: true,
-    };
-});
-
-// THIS STUFF IS FOR FUTURE REFERENCE!!!
+// THIS IS FOR FUTURE REFERENCE!
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/

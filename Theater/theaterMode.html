@@ -7,12 +7,8 @@
         <meta name="description" content="Description.">
         
         <!-- bootstrapping -->
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
-        <link rel="stylesheet" href="../style/flat-ui.css">
-        
         <link rel="stylesheet" href="style/w2ui-1.3.min.css"/>
         <link rel="stylesheet" href="style/style2.css" >
-        <link rel="stylesheet/less" type="text/css" href="../style/many-slides-common.less" />
         <link rel="stylesheet/less" type="text/css" href="style/toastr.less"/>
         <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
         <script src="../scripts/less/less.js"></script>
@@ -36,6 +32,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
+						<li><a href="#" ng-click="printPresentation()">Print It!</a></li>
                         <li><a href="https://github.com/Gambloide/many-slides" target="_blank">GitHub</a></li>
                         <li><span class="fui-new"></span></li>
                     </ul>
@@ -71,14 +68,11 @@
     <script src="../scripts/angular/angular.js"></script>
     <script src="app.js"></script>
     <!-- External Angular Modules -->
-    <script src="../scripts/bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../scripts/angular-ui-bootstrap/ui-bootstrap-custom-tpls.js"></script>
     <!-- Angular Controllers -->
     <script src="controllers/theaterController.js"></script>
     <!-- Angular Directives -->
     <script src="directives/presentationDirectives.js"></script>
     <script src="directives/commonDirectives.js"></script>
-    <script src="directives/itemDirectives.js"></script>
     <script src="directives/theaterDirectives.js"></script>
-    <!-- Angular Factories -->
-    <script src="factories/presentationFactory.js"></script>
 </html>

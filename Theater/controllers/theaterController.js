@@ -1,19 +1,11 @@
-app.controller("theaterController", function ($scope, $timeout, presentationFactory) {
+app.controller("theaterController", function ($scope, $timeout) {
 	"use strict";
     $scope.presentation = {};
     
     init();
     
-    console.log("MOOP");
-    console.log("MOOP");
-    console.log("MOOP");
-    console.log("MOOP");
-    console.log("MOOP");
-    console.log($scope.presentation);
-    
-    
     function init() {
-        $scope.presentation = presentationFactory.getPresentation();
+        // Get presentation
     }
     
     $scope.setActiveSlide = function (index) {
@@ -27,6 +19,6 @@ app.controller("theaterController", function ($scope, $timeout, presentationFact
     };
     
     $timeout(function() {
-        $scope.setActiveSlide(0);
+        //$scope.setActiveSlide(0);
     });
 });
