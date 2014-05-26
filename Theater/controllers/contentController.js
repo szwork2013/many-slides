@@ -17,22 +17,6 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         loadInitialFile(launchData);
     }
 
-    $scope.previousSlide = function () {
-
-        var index = $scope.presentation.active_slide;
-        if( index > 0)
-        {
-            $scope.setActiveSlide(index - 1);
-        }
-    };
-    $scope.nextSlide = function () {
-        var length = $scope.presentation.slides.length;
-        var index = $scope.presentation.active_slide;
-        if( index < length - 1)
-        {
-            $scope.setActiveSlide(index + 1);
-        }
-    };
     // Simple error Handler
     function errorHandler(e) {
         console.error(e);
@@ -155,6 +139,29 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     
     /* --- Scope functions --- */
 
+	$scope.parsePresentation = function (element) {
+		foo = JSON.parse($(element).val());
+		console.log(foo);
+		$scope.presentation = foo;
+	}
+	
+    $scope.previousSlide = function () {
+
+        var index = $scope.presentation.active_slide;
+        if( index > 0)
+        {
+            $scope.setActiveSlide(index - 1);
+        }
+    };
+    $scope.nextSlide = function () {
+        var length = $scope.presentation.slides.length;
+        var index = $scope.presentation.active_slide;
+        if( index < length - 1)
+        {
+            $scope.setActiveSlide(index + 1);
+        }
+    };
+	
 	$scope.printPresentation = function () {
 		console.log($scope.presentation);
 	};
