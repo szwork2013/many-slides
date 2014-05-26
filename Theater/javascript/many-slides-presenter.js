@@ -134,8 +134,8 @@ var htmlChat = "<p id='chat'>Chat</p>" +
     "</form>";
 var htmlPresentation =  '<div id="presentationWindow">' +
     '<div id="presentationControlls">'+
-    '<span class="fui-arrow-left"></span>'+
-    '<span class="fui-arrow-right"></span>'+
+    '<span class="fui-arrow-left" ng-click="previousSlide()"></span>'+
+    '<span class="fui-arrow-right" ng-click="nextSlide()"></span>'+
     '</div>'+
 	'<masl-presentation></masl-presentation>' +
     '</div>';

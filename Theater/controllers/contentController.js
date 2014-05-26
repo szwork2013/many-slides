@@ -17,6 +17,22 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         loadInitialFile(launchData);
     }
 
+    $scope.previousSlide = function () {
+
+        var index = $scope.presentation.active_slide;
+        if( index > 0)
+        {
+            $scope.setActiveSlide(index - 1);
+        }
+    };
+    $scope.nextSlide = function () {
+        var length = $scope.presentation.slides.length;
+        var index = $scope.presentation.active_slide;
+        if( index < length - 1)
+        {
+            $scope.setActiveSlide(index + 1);
+        }
+    };
     // Simple error Handler
     function errorHandler(e) {
         console.error(e);
@@ -107,6 +123,8 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 fileContent = result.toString();
                 $scope.$apply(function () {
                     $scope.presentation = JSON.parse(fileContent);
+                    // Set loaded presentation to the globalPresentation
+                    globalPresentation =  $scope.presentation;
                 });
             });
         });

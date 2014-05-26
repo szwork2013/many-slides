@@ -89,7 +89,7 @@ var htmlPresentation = '<div id="presentationWindow">' +
     '<br>' +
     '<input id="startButton" type="button" class="btn btn-block btn-lg btn-primary introFormButton" value="Start">' +
     '</form>' +
-    '<presentation></presentation>' +
+    '<masl-presentation></masl-presentation>' +
     '</div>' +
     '</div>';
 

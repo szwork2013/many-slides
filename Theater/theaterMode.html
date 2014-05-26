@@ -15,6 +15,7 @@
     </head>
 
     <body ng-controller="theaterController">
+    <input id="presentation-content" type="text" ng-model="presentation">
         <div class="col-xs-12 col-gutter-none ng-scope">
             <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
                 <div class="navbar-header">
@@ -71,6 +72,7 @@
     <script src="../scripts/angular-ui-bootstrap/ui-bootstrap-custom-tpls.js"></script>
     <!-- Angular Controllers -->
     <script src="controllers/theaterController.js"></script>
+    <script src="controllers/contentController.js"></script>
     <!-- Angular Directives -->
     <script src="directives/presentationDirectives.js"></script>
     <script src="directives/commonDirectives.js"></script>

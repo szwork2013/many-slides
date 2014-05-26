@@ -1,8 +1,11 @@
+var globalPresentation;
+
 function sendDummyPresentation() {
+    console.log(globalPresentation);
     // For each active connection, send the message.
     eachActiveConnection(function (c, $c) {
         if (c.label === 'chat') {
-            var message = "{\"flag\": 3, \"content\":\"" + "'<b>this is bold content</b>'" + "\"}";
+            var message = "{\"flag\": 3, \"content\":" + JSON.stringify(globalPresentation) +" }";
             console.log(message);
             c.send(message);
         }
@@ -69,10 +72,12 @@ function onMessageRecieve(c, data) {
     else if (data.flag == 3) {
         console.log("received data");
         console.log(data);
+        $('#presentation-content').val(JSON.stringify(data.content)).change();
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
-        $scope.presentation = data.content;
+
     }
 }
+
 
 function onMessageSend(e) {
     e.preventDefault();
