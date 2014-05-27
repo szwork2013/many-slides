@@ -3,9 +3,9 @@ WARNING: THIS LESS VERSION IS CUSTOMIZED!
 Customized part:  
     // Load styles asynchronously (default: false)
     //
-    // This is set to `false` by default, so that the body
+    // This is set to 'false' by default, so that the body
     // doesn't start loading before the stylesheets are parsed.
-    // Setting this to `true` can result in flickering.
+    // Setting this to 'true' can result in flickering.
     //
     less.async = true;
     less.fileAsync = true;  
