@@ -79,6 +79,7 @@ app.directive('maslItemControls', function () {
                                     textControl('Left', 'item.location[0]') +
                                     textControl('Top', 'item.location[1]') +
                                     textControl('Layer', 'item.layer') +
+                                    textControl('Rotation', 'item.rotation') +
                                 '</accordion-group>' +
         
                                 '<accordion-group heading="Size">' +
@@ -94,7 +95,7 @@ app.directive('maslItemControls', function () {
                                     textControl('Format', 'item.text.format') +
                                 '</accordion-group>' +
         
-                                '<accordion-group heading="Other">' +
+                                '<accordion-group heading="Color & Decoration">' +
                                     colorControl('Color', 'item.style.background') +
                                     textControl('Border', 'item.style.border') +
                                     textControl('Border-Radius', 'item.style.border_radius') +

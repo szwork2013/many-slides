@@ -346,12 +346,14 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
         var lenght = $scope.presentation.slides.length;
-        var i;
-        for (i = 0; i < lenght; i++) {
-            $scope.presentation.slides[i].active = false;
-        }
-        $scope.presentation.slides[index].active = true;
-        $scope.presentation.active_slide = index;
+		if (index < lenght) {
+			var i;
+			for (i = 0; i < lenght; i++) {
+				$scope.presentation.slides[i].active = false;
+			}
+			$scope.presentation.slides[index].active = true;
+			$scope.presentation.active_slide = index;
+		}
     };
     
     // Tooltip activation after they have been created by angular

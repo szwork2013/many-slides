@@ -138,8 +138,12 @@ app.directive('item', function () {
     var style = 'position:          absolute;' +
                 'height:            {{item.height}}px;' +
                 'width:             {{item.width}}px;' +
-                '-webkit-transform: translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
-                'transform:         translateX({{item.location[0]}}px) translateY({{item.location[1]}}px);' +
+                '-webkit-transform: translateX({{item.location[0]}}px) ' +
+								    'translateY({{item.location[1]}}px) ' +
+								    'rotate({{item.rotation}}deg);' +
+                'transform:         translateX({{item.location[0]}}px) ' +
+								    'translateY({{item.location[1]}}px) ' +
+								    'rotate({{item.rotation}}deg);' +
                 'background:        {{item.style.background}};' +
                 'border:            {{item.style.border}};' +
                 'border-radius:     {{item.style.border_radius}}%;' +
