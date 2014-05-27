@@ -31,6 +31,18 @@ PeerJS - [Home](https://peerjs.com) - [GitHub](https://github.com/peers/peerjs)
 UnderscoreJS - [Home](https://underscorejs.org) - [GitHub](https://github.com/jashkenas/underscore)  
 angular-bootstrap-colorpicker - [GitHub](https://github.com/buberdds/angular-bootstrap-colorpicker)  
 
+##Version information
+We use the following version scheme:
+A version is formatted as <major>.<minor>.<build>.<revision>.
+<major>
+Defines a major new release. We will be using '0' for the alpha/beta state.
+<minor>
+Defines a minor new release. We will be using this when (big) new features are added.
+<build>
+Defines a small- and/or bug release. You will see this increasing mostly.
+<revision>
+This is an internal number, you can safely ignore this.
+
 ##Notes
 09.03.2014 - Not using ng-include directive for html templates/fragments/partials, since doing so results in unexpected behaviour.  
 *(When including the editor-menubar, fonts are not loaded before the text is hovered over or a console opened.)*
