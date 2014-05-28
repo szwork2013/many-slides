@@ -1,17 +1,17 @@
 app.controller('contentCtrl', function ($scope, $timeout) {
-	'use strict';
+    'use strict';
     $scope.presentation = {};
-    
+
     var chosenEntry = null;
     var fileStatus = ''; // status report
     var fileContent = '';
     var filePath = '';
     var scope;
-    
+
     init();
-    
+
     /* --- Private functions --- */
-    
+
     // Stuff that should be done when this controller is created
     function init() {
         loadInitialFile(launchData);
@@ -108,7 +108,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 $scope.$apply(function () {
                     $scope.presentation = JSON.parse(fileContent);
                     // Set loaded presentation to the globalPresentation
-                    globalPresentation =  $scope.presentation;
+                    globalPresentation = $scope.presentation;
                 });
             });
         });
@@ -126,7 +126,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                     chrome.fileSystem.isRestorable(items.chosenFile, function (bIsRestorable) {
                         // the entry is still there, load the content
                         console.info('Restoring ' + items.chosenFile);
-                            chrome.fileSystem.restoreEntry(items.chosenFile, function (chosenEntry) {
+                        chrome.fileSystem.restoreEntry(items.chosenFile, function (chosenEntry) {
                             if (chosenEntry && chosenEntry.isFile) {
                                 loadFileEntry(chosenEntry);
                             }
@@ -136,43 +136,73 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             });
         }
     }
-    
+
     /* --- Scope functions --- */
 
-	$scope.parsePresentation = function () {
-		var foo = $scope.presentationInputVaule;
-		console.log(foo);
-		$scope.presentation = JSON.parse(foo);
-	}
-	
+    $scope.parsePresentation = function () {
+        var foo = $scope.presentationInputVaule;
+        console.log(foo);
+        $scope.presentation = JSON.parse(foo);
+    }
+
     $scope.previousSlide = function () {
-        var index = $scope.presentation.active_slide;
-        if( index > 0)
-        {
-            $scope.setActiveSlide(index - 1);
+        if(document.getElementById('slide-index').value.length == 0 )
+        {document.getElementById('slide-index').value = 0;
         }
+        var index = parseInt(document.getElementById('slide-index').value);
+//        console.log(document.getElementById('slide-index').value);
+//        var index = $scope.presentation.active_slide;
+        if (index > 0) {
+
+            console.log(document.getElementById('slide-index').value);
+            index = index - 1;
+            document.getElementById('slide-index').value = index;
+            console.log(document.getElementById('slide-index').value);
+
+        onMessageSend(4);
+////            $scope.setActiveSlide(index - 1);
+//            document.getElementById('slide-index').value = index-1;
+////            $scope.activeSlideInputValue(index - 1);
+        }
+        $scope.setActiveSlide(index);
     };
-	
+
     $scope.nextSlide = function () {
+        if(document.getElementById('slide-index').value.length == 0 )
+        {document.getElementById('slide-index').value = 0;
+        }
+        var index = parseInt(document.getElementById('slide-index').value);
+
         var length = $scope.presentation.slides.length;
-        var index = $scope.presentation.active_slide;
-        if( index < length - 1)
-        {
-            $scope.setActiveSlide(index + 1);
+//        var index = $scope.presentation.active_slide;
+        if (index < length - 1) {
+
+            index = index + 1;
+        document.getElementById('slide-index').value = index;
+            $scope.setActiveSlide(index);
+        onMessageSend(4);
+////            $scope.setActiveSlide(index + 1);
+//            console.log("index" + index);
+//            console.log("before" + document.getElementById('slide-index').value);
+//            document.getElementById('slide-index').value = index + 1;
+//            console.log("after" + document.getElementById('slide-index').value);
+////            $scope.activeSlideInputValue.val(index + 1);
         }
     };
-	
-	$scope.printPresentation = function () {
-		console.log($scope.presentation);
-	};
-	
+
+    $scope.printPresentation = function () {
+        console.log($scope.presentation);
+    };
+
     // corresponds to 'open file'
     $scope.loadFile = function () {
-        var accepts = [{
-            mimeTypes: ['text/*'],
-            extensions: ['txt', 'json']
-        }];
-        
+        var accepts = [
+            {
+                mimeTypes: ['text/*'],
+                extensions: ['txt', 'json']
+            }
+        ];
+
         // opens file explorer to choose a file
         chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function (theEntry) {
             if (!theEntry) {
@@ -184,7 +214,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             loadFileEntry(theEntry);
         });
     };
-    
+
     // corresponds to 'save file as'
     $scope.saveFile = function () {
         var config = {
@@ -201,136 +231,136 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             });
         });
     };
-    
+
     // TODO - Implement presentation settings
     $scope.showPresentationSettings = function () {
         console.info('Nothing here, yet!');
     };
-    
+
     // Adds a fresh item to the active slide
     // TODO - Let icon appear at the center of the slide
     $scope.addItem = function (shape) {
         var shapes = {
             'circle': {
                 id: Math.random().toString(36).slice(2),
-                location : [100, 100],
-                layer : 0, //(Layer.position)
-                height : 130,
-                width : 130,
-                rotation : 0.0,
-                related_items : [], //Item Array
-                shape : {},
-                text : {
+                location: [100, 100],
+                layer: 0, //(Layer.position)
+                height: 130,
+                width: 130,
+                rotation: 0.0,
+                related_items: [], //Item Array
+                shape: {},
+                text: {
                     align: 'left',
                     color: '#000000'
                 },
-                style : {
-                    background : '#1abc9c',
+                style: {
+                    background: '#1abc9c',
                     border: '',
-                    border_radius : 100
+                    border_radius: 100
                 },
                 deleted: false
             },
             'square': {
                 id: Math.random().toString(36).slice(2),
-                location : [100, 100],
-                layer : 0, //(Layer.position)
-                height : 125,
-                width : 125,
-                rotation : 0.0,
-                related_items : [],
-                shape : {},
-                text : {
+                location: [100, 100],
+                layer: 0, //(Layer.position)
+                height: 125,
+                width: 125,
+                rotation: 0.0,
+                related_items: [],
+                shape: {},
+                text: {
                     align: 'left',
                     color: '#000000'
                 },
-                style : {
-                    background : "#1abc9c",
+                style: {
+                    background: "#1abc9c",
                     border: '',
-                    border_radius : 10
+                    border_radius: 10
                 },
                 deleted: false
             },
             'rectangle': {
                 id: Math.random().toString(36).slice(2),
-                location : [100, 100],
-                layer : 0,
-                height : 100,
-                width : 150,
-                rotation : 0.0,
-                related_items : [],
-                shape : {},
-                text : {
+                location: [100, 100],
+                layer: 0,
+                height: 100,
+                width: 150,
+                rotation: 0.0,
+                related_items: [],
+                shape: {},
+                text: {
                     align: 'left',
                     color: '#000000'
                 },
-                style : {
-                    background : "#1abc9c",
+                style: {
+                    background: "#1abc9c",
                     border: '',
-                    border_radius : 10
+                    border_radius: 10
                 },
                 deleted: false
             },
             'heading': {
                 id: Math.random().toString(36).slice(2),
-                location : [100, 100],
-                layer : 0, //(Layer.position)
-                height : 100,
-                width : 750,
-                rotation : 0.0,
-                related_items : [], //Item Array
-                shape : {},
-                text : {
-                    content : 'Enter heading text',
+                location: [100, 100],
+                layer: 0, //(Layer.position)
+                height: 100,
+                width: 750,
+                rotation: 0.0,
+                related_items: [], //Item Array
+                shape: {},
+                text: {
+                    content: 'Enter heading text',
                     size: 3.5,
                     align: 'left',
                     color: '#000000',
                     format: 'bold'
                 },
-                style : {},
+                style: {},
                 deleted: false
             },
             'textbox': {
                 id: Math.random().toString(36).slice(2),
-                location : [100, 100],
-                layer : 0, //(Layer.position)
-                height : 300,
-                width : 750,
-                rotation : 0.0,
-                related_items : [], //Item Array
-                shape : {},
-                text : {
-                    content : 'Enter text',
+                location: [100, 100],
+                layer: 0, //(Layer.position)
+                height: 300,
+                width: 750,
+                rotation: 0.0,
+                related_items: [], //Item Array
+                shape: {},
+                text: {
+                    content: 'Enter text',
                     size: 2.0,
                     align: 'left',
                     color: '#000000'
                 },
-                style : {},
+                style: {},
                 deleted: false
             },
             'footer': {
                 id: Math.random().toString(36).slice(2),
-                location : [100, 100],
-                layer : 0, //(Layer.position)
-                height : 100,
-                width : 750,
-                rotation : 0.0,
-                related_items : [], //Item Array
-                shape : {},
-                text : {
-                    content : 'Enter footer text',
+                location: [100, 100],
+                layer: 0, //(Layer.position)
+                height: 100,
+                width: 750,
+                rotation: 0.0,
+                related_items: [], //Item Array
+                shape: {},
+                text: {
+                    content: 'Enter footer text',
                     size: 1.5,
                     align: 'left',
                     color: '#000000'
                 },
-                style : {},
+                style: {},
                 deleted: false
             }
         };
-        
+
         $scope.presentation.slides[$scope.presentation.active_slide].items.push(shapes[shape]);
     };
-    
+
     // Deletes all items on the active slide that are flagged for deletion
     $scope.deleteItems = function () {
         var items = $scope.presentation.slides[$scope.presentation.active_slide].items;
@@ -338,7 +368,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             return !item.deleted;
         });
     };
-    
+
     // Tries to open the selected items control panel
     $scope.showItemSettings = function () {
         var item = $('.item.selected-object');
@@ -347,42 +377,43 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             $('#controls-' + item_id).removeClass('hidden').removeClass('sidebar-gone');
         }
     };
-    
+
     // Adds an empty slide to the end of the presentation
     $scope.addSlide = function () {
         $scope.presentation.slides.push({
-            transition : 0,
+            transition: 0,
             deleted: false,
-            items : []
-		});
+            items: []
+        });
     };
-    
+
     // Deletes all slides that are flagged for deletion
     // TODO - set new active_slide when active slide was deleted
-    $scope.deleteSlides = function () { 
+    $scope.deleteSlides = function () {
         var slides = $scope.presentation.slides;
         $scope.presentation.slides = _.filter(slides, function (slide) {
             return !slide.deleted;
         });
     };
-    
+
     // TODO - Implement slide settings
     $scope.showSlideSettings = function () {
         console.info('Nothing here, yet!');
     };
-    
-	$scope.setActiveSlideFromInput = function () {
-		var foo = $scope.activeSlideInputValue;
-		$scope.setActiveSlide(foo/1);
-	}
-	
+
+    $scope.setActiveSlideFromInput = function () {
+        var foo = $scope.activeSlideInputValue;
+        console.log("foo" + foo);
+        $scope.setActiveSlide(foo / 1);
+    }
+
     // Sets the slide at the given index active
     // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
         var lenght = $scope.presentation.slides.length;
-		if (lenght < index) {
-			return;
-		}
+        if (lenght < index) {
+            return;
+        }
         var i;
         for (i = 0; i < lenght; i++) {
             $scope.presentation.slides[i].active = false;
@@ -390,7 +421,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         $scope.presentation.slides[index].active = true;
         $scope.presentation.active_slide = index;
     };
-    
+
     // Tooltip activation after they have been created by angular
     // May be moved into the correpsonding directives, maybe
     $timeout(function () {

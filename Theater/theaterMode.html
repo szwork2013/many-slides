@@ -8,7 +8,7 @@
         
         <!-- bootstrapping -->
         <link rel="stylesheet" href="style/w2ui-1.3.min.css"/>
-        <link rel="stylesheet" href="style/style2.css" >
+        <!--<link rel="stylesheet" href="style/style2.css" >-->
         <link rel="stylesheet/less" type="text/css" href="style/toastr.less"/>
         <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
         <script src="../scripts/less/less.js"></script>
@@ -16,7 +16,7 @@
 
     <body ng-controller="contentCtrl">
     <input id="presentation-content" type="text" ng-change="parsePresentation()" ng-model="presentationInputVaule">
-    <input id="BLUBB" type="text" ng-change="setActiveSlideFromInput()" ng-model="activeSlideInputValue">
+    <input id="slide-index" type="text" ng-change="setActiveSlideFromInput()" ng-model="activeSlideInputValue">
         <div class="col-xs-12 col-gutter-none ng-scope">
             <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
                 <div class="navbar-header">

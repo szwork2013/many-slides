@@ -36,8 +36,7 @@ peer.on('connection', connect);
 function connect(c) {
     // Handle a chat connection.
     if (c.label === 'chat') {
-        console.log(peer);
-//      var messages = $('<div><em>Peer ' + c.peer + ' connected.</em></div>').addClass('messages');
+
 
         connectedPeers.push(c.peer);
         var message = "{\"flag\": 2 , \"send\": 1}";
@@ -46,7 +45,6 @@ function connect(c) {
         $('#messages').append(messages);
 
         c.on('data', function (data) {
-            console.log(data);
             data = jQuery.parseJSON(data);
             onMessageRecieve(c, data);
         });
@@ -54,12 +52,12 @@ function connect(c) {
         // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
             $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
-            updateConnections();
 
             if (peer.connections == 'undefined') {
                 $('.filler').show();
             }
             delete connectedPeers[c.peer];
+            updateConnections();
         });
     }
 }
@@ -114,16 +112,16 @@ $(function () {
 });
 
 function onStartButtonClick() {
-    var username = $('#nameInput').val();
+    name = $('#nameInput').val();
     var hostId = $('#peerIdInput').val();
+
 //    setUsername(username);
 //    setHostId(hostId);
 //    console.log(username);
-//    if (typeof username !== 'undefined' && username !== ''
     if (typeof hostId !== 'undefined' && hostId !== '') {
-        if (typeof username !== 'undefined' || username !== '') {
+        if (name.length == 0) {
             toastr.info("No username was set. Your are now Anonymus.");
-            username = 'Anonymus';
+            name = 'Anonymus'
         }
         $('#introForm').hide();
         requestedPeer = hostId;
@@ -134,7 +132,7 @@ function onStartButtonClick() {
                 serialization: 'none',
                 reliable: false,
                 metadata: {
-                    name: username,
+                    name: name,
                     message: 'hi i want to chat with you!'
                 }
             });
@@ -155,42 +153,6 @@ function onStartButtonClick() {
 }
 
 
-// CHROME APP STUFF
-// THEY DON'T WORK....
-
-function setHostId(id) {
-    if (!id) {
-        console.log('Error: No host id specified');
-        return;
-    }
-
-    chrome.storage.sync.set({'hostId': id}, function () {
-        console.log('Settings saved');
-    });
-}
-
-function getHostId() {
-    chrome.storage.sync.get('hostId', function (obj) {
-        console.log(obj['hostId']);
-    });
-}
-
-function setUsername(name) {
-    if (!name) {
-        name = 'Anonymus';
-    }
-
-    chrome.storage.sync.set({'username': name}, function () {
-        console.log('Settings saved');
-    });
-}
-
-function getUsername() {
-    chrome.storage.sync.get('username', function (obj) {
-        console.log(obj['username']);
-    });
-}
-
 
 // Make sure things clean up properly.
 window.onunload = window.onbeforeunload = function (e) {
@@ -202,7 +164,6 @@ window.onunload = window.onbeforeunload = function (e) {
 };
 
 $(document).ready(function () {
-    name = getUrlVars()["name"];
 
     $("#chatWindow").resizable();
 
@@ -215,3 +176,42 @@ $(document).ready(function () {
         onStartButtonClick();
     });
 });
+
+
+
+
+//// CHROME APP STUFF
+//// THEY DON'T WORK....
+//
+//function setHostId(id) {
+//    if (!id) {
+//        console.log('Error: No host id specified');
+//        return;
+//    }
+//
+//    chrome.storage.sync.set({'hostId': id}, function () {
+//        console.log('Settings saved');
+//    });
+//}
+//
+//function getHostId() {
+//    chrome.storage.sync.get('hostId', function (obj) {
+//        console.log(obj['hostId']);
+//    });
+//}
+//
+//function setUsername(name) {
+//    if (!name) {
+//        name = 'Anonymus';
+//    }
+//
+//    chrome.storage.sync.set({'username': name}, function () {
+//        console.log('Settings saved');
+//    });
+//}
+//
+//function getUsername() {
+//    chrome.storage.sync.get('username', function (obj) {
+//        console.log(obj['username']);
+//    });
+//}

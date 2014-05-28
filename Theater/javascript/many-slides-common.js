@@ -5,7 +5,7 @@ function sendDummyPresentation() {
     // For each active connection, send the message.
     eachActiveConnection(function (c, $c) {
         if (c.label === 'chat') {
-            var message = "{\"flag\": 3, \"content\":" + JSON.stringify(globalPresentation) +" }";
+            var message = "{\"flag\": 3, \"content\":" + JSON.stringify(globalPresentation) + " }";
             console.log(message);
             c.send(message);
         }
@@ -45,7 +45,7 @@ function onMessageRecieve(c, data) {
 
         }
         connectedPeers[requestedPeer] = 1;
-        $('#messages').append('<div><em>' + c.metadata.name + " - " + c.peer + ' joined.</em></div>');
+        $('#messages').append('<div><em>' + c.metadata.name + ' joined.</em></div>');
     }
 
     // Recieve normal text message
@@ -73,33 +73,45 @@ function onMessageRecieve(c, data) {
         console.log("received data");
         console.log(data);
         $('#presentation-content').val(JSON.stringify(data.content)).change();
-        $('#BLUBB').val(1).change();
+        $('#slide-index').val(1).change();
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
+    }
 
+    else if (data.flag == 4) {
+        console.log("received data");
+        console.log(data);
+//        $('#presentation-content').val(JSON.stringify(data.content)).change();
+        $('#slide-index').val(data.content).change();
+        $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
     }
 }
 
 
-function onMessageSend(e) {
-    e.preventDefault();
-    if (!jQuery.isEmptyObject(peer.connections))
-    {
+function onMessageSend(flag) {
 
+    if (!jQuery.isEmptyObject(peer.connections)) {
         // For each active connection, send the message.
         var msg = $('#text').val();
         eachActiveConnection(function (c, $c) {
             if (c.label === 'chat') {
-                var message = "{\"flag\": 1, \"content\":\"" + msg + "\"}";
-                console.log(message);
-                c.send(message);
+                if (flag != 4) {
+                    var message = "{\"flag\": 1, \"content\":\"" + msg + "\"}";
+                    console.log(message);
+                    c.send(message);
+                }
+                if(flag === 4)
+                {
+                    var message = "{\"flag\": 4, \"content\":\"" + document.getElementById('slide-index').value + "\"}";
+                    console.log(message);
+                    c.send(message);
+                }
             }
         });
         $('#messages').append('<div><span class="you">You: </span>' + msg + '</div>');
         $('#text').val('');
         $('#text').focus();
     }
-    else
-    {
+    else {
         toastr.info("Unable to send message, no members in chat yet.");
     }
 }
@@ -121,13 +133,6 @@ function eachActiveConnection(fn) {
     });
 }
 
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = value;
-    });
-    return vars;
-}
 
 // Updates the list of all connections. Removes them and them adds them all sorted new
 function updateConnections() {
@@ -141,14 +146,12 @@ function updateConnections() {
     names.push(name);
     names.sort();
     names.forEach(function (name) {
-
         $('#connections').append("<div><img class='dot' src='images/dot.png'>" + name + "</div>");
     });
 
     $('#amount').empty();
     $('#amount').append("Connections: " + names.length);
 }
-
 
 
 function sidebarHeight() {
