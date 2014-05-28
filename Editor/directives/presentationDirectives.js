@@ -46,6 +46,12 @@ app.directive('item', function () {
                 that.removeClass('being-moved');
                 return;
             }
+			
+			// Same if it is being resized
+			if (that.hasClass('being-resized')) {
+				parent.removeClass('being-resized');
+				return;
+			}
             
             // Get controls for this item
             var item_id = that.attr('id').replace('item-', '');
@@ -297,7 +303,6 @@ app.directive('itemCorner', function () {
                 $(document).unbind('mousemove', resizeFromBottomLeft);
                 $(document).unbind('mousemove', resizeFromBottomRight);
                 $(document).unbind('mouseup', mouseup);
-                parent.removeClass('being-resized');
             }
         });
 		
