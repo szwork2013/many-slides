@@ -93,7 +93,7 @@ app.directive('item', function () {
         
         element.on('mousedown', function (event) {
             event.preventDefault();
-            var start_x, start_y, x, y;
+            var start_x, start_y;
             var x_input, y_input;
           
             var that = $(this);
@@ -114,12 +114,8 @@ app.directive('item', function () {
             
             function mousemove(event) {
                 that.addClass('being-moved');
-                
-                x = event.pageX - start_x;
-                y = event.pageY - start_y;
-                
-                x_input.val(x).change();
-                y_input.val(y).change();
+                x_input.val(event.pageX - start_x).change();
+                y_input.val(event.pageY - start_y).change();
             }
 
             function mouseup() {
@@ -200,6 +196,8 @@ app.directive('itemCorner', function () {
             var height_input = item_controls.find('[ng-model="item.height"]');
 
             // Set needed variables to needed values and bind needed function
+			
+			// Deal with top right corner drag
             if (that.hasClass('corner-top-right')) {
                 start_width  = event.pageX - width_input.val();
                 start_height = height_input.val();
@@ -210,6 +208,7 @@ app.directive('itemCorner', function () {
                 $(document).on('mousemove', resizeFromTopRight);
             }
             
+			// Deal with top left corner drag
             else if (that.hasClass('corner-top-left')) {
                 start_width  = width_input.val();
                 start_height = height_input.val();
@@ -223,6 +222,7 @@ app.directive('itemCorner', function () {
                 $(document).on('mousemove', resizeFromTopLeft);
             }
             
+			// Deal with bottom left corner drag
             else if (that.hasClass('corner-bottom-left')) {
                 start_width  = width_input.val();
                 start_height = event.pageY - height_input.val();
@@ -233,13 +233,15 @@ app.directive('itemCorner', function () {
                 $(document).on('mousemove', resizeFromBottomLeft);
             }
             
-            else { // bottom right
+			// Deal with bottom right corner drag
+            else {
                 start_width  = event.pageX - width_input.val();
                 start_height = event.pageY - height_input.val();
                 
                 $(document).on('mousemove', resizeFromBottomRight);
             }
             
+			// Additionally bind mouseup event
             $(document).on('mouseup', mouseup);
             
             function resizeFromTopRight(event) {
@@ -252,6 +254,12 @@ app.directive('itemCorner', function () {
                 y_input.val(y).change();
             }
             
+			// Individual resize calculations
+			/* 
+			 * Html Objects are anchored at their top left
+			 * corner, therefore items have to be moved as well
+			 * when they are being rezised to stick to the cursor!
+			 */
             function resizeFromTopLeft(event) {
                 width  = start_width / 1 + (old_x - event.pageX);
                 height = start_height / 1 + (old_y - event.pageY);
@@ -281,7 +289,8 @@ app.directive('itemCorner', function () {
                 width_input.val(width).change();
                 height_input.val(height).change();
             }
-            
+			
+            // Cleanup
             function mouseup() {
                 $(document).unbind('mousemove', resizeFromTopRight);
                 $(document).unbind('mousemove', resizeFromTopLeft);
@@ -291,7 +300,8 @@ app.directive('itemCorner', function () {
                 parent.removeClass('being-resized');
             }
         });
-        
+		
+		// Prevent accidental 'text' selection on double click
         element.on('dblclick', function () {
             event.preventDefault();
         });
