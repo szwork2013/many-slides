@@ -1,5 +1,5 @@
 app.directive('maslPresentation', function () {
-	"use strict";
+	'use strict';
     return {
         restrict: 'E',
         replace: true,
@@ -11,7 +11,7 @@ app.directive('maslPresentation', function () {
 });
 
 app.directive('activeSlide', function () {
-	"use strict";
+	'use strict';
     return {
         restrict: 'E',
         replace: true,
@@ -23,7 +23,7 @@ app.directive('activeSlide', function () {
 });
 
 app.directive('slideItems', function () {
-    "use strict";
+    'use strict';
     return {
         restrict: 'E',
         replace: true,
@@ -36,7 +36,7 @@ app.directive('slideItems', function () {
 });
 
 app.directive('item', function () {
-	"use strict";
+	'use strict';
     function link(scope, element, attrs) {
         element.on('click', function (event) {
             var that = $(this);
@@ -166,7 +166,7 @@ app.directive('item', function () {
 });
 
 app.directive('itemCorner', function () {
-    "use strict";
+    'use strict';
     function link(scope, element, attrs) {
         element.on('mousedown', function (event) {
             event.preventDefault();

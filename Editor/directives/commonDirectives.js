@@ -1,5 +1,5 @@
 app.directive('maslLogo', function () {
-    "use strict";
+    'use strict';
     
     return {
         restrict: 'E',

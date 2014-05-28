@@ -1,5 +1,5 @@
 app.directive('maslSlideControlbar', function () {
-    "use strict";
+    'use strict';
     
     function tooltip(text) {
         return  ' data-toggle="tooltip"' +
@@ -45,7 +45,7 @@ app.directive('maslSlideControlbar', function () {
 });
 
 app.directive('maslSidebarLeft', function () {
-    "use strict";
+    'use strict';
     
     function link(scope, element, attrs) {
         element.on('mouseenter', function (event) {
@@ -66,7 +66,7 @@ app.directive('maslSidebarLeft', function () {
 });
 
 app.directive('maslSlidePreview', function () {
-    "use strict";
+    'use strict';
     function link(scope, element, attrs) {
 		element.on('click', function (event) {
             var that, selected_slides;
@@ -93,7 +93,7 @@ app.directive('maslSlidePreview', function () {
 });
 
 app.directive('maslDeleteSlideButton', function () {
-	"use strict";
+	'use strict';
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
             var that, input;
@@ -116,7 +116,7 @@ app.directive('maslDeleteSlideButton', function () {
 });
 
 app.directive('maslSlideControlsButton', function () {
-    "use strict";
+    'use strict';
     
     function link(scope, element, attrs) {
 		element.on('click', function (event) {

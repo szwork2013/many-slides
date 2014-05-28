@@ -1,5 +1,5 @@
 app.directive('maslItemControlbar', function () {
-    "use strict";
+    'use strict';
     return {
         restrict: 'E',
         replace: true,
@@ -14,7 +14,7 @@ app.directive('maslItemControlbar', function () {
 });
 
 app.directive('maslItemControls', function () {
-    "use strict";
+    'use strict';
     function tooltip(text) {
         return  ' data-toggle="tooltip"' +
                 ' data-placement="bottom"' +
@@ -22,17 +22,11 @@ app.directive('maslItemControls', function () {
                 ' data-original-title="' + text + '"';
     }
     
-    function textControl(name, model) {
+	function control(name, model, type) {
         return  '<div class="form-group">' + name +
                     '<input type="text" class="form-control" ' +
-                    'ng-model="' + model + '" >' +
-                '</div>';
-    }
-    
-    function colorControl(name, model) {
-        return  '<div class="form-group">' + name +
-                    '<input colorpicker type="text" class="form-control" ' +
-                    'ng-model="' + model + '" >' +
+                    'ng-model="' + model + '" ' +
+					((type === 'color') ? 'colorpicker >' : '>') +
                 '</div>';
     }
     
@@ -49,7 +43,6 @@ app.directive('maslItemControls', function () {
         link: link,
         // bo-id gets the id from the model and then removes the watcher (the id should not change anymore)
         template:   '<div bo-id="\'controls-\' + item.id" masl-sidebar-right class="sidebar-right item-controls sidebar-gone hidden">' +
-        
                         '<div class="btn-toolbar col-xs-12 col-gutter-none">' +
                             '<div class="btn-group col-xs-12 col-gutter-none">' +
                                 '<a class="btn btn-primary col-xs-3 col-gutter-none" href="#"' +
@@ -76,29 +69,29 @@ app.directive('maslItemControls', function () {
                         '<div class="overflow-wrapper" ng-controller="accordionCtrl">' +
                             '<accordion close-others="oneAtATime">' +
                                 '<accordion-group heading="Position" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">' +
-                                    textControl('Left', 'item.location[0]') +
-                                    textControl('Top', 'item.location[1]') +
-                                    textControl('Layer', 'item.layer') +
-                                    textControl('Rotation', 'item.rotation') +
+                                    control('Left', 'item.location[0]') +
+                                    control('Top', 'item.location[1]') +
+                                    control('Layer', 'item.layer') +
+                                    control('Rotation', 'item.rotation') +
                                 '</accordion-group>' +
         
                                 '<accordion-group heading="Size">' +
-                                    textControl('Width', 'item.width') +
-                                    textControl('Height', 'item.height') +
+                                    control('Width', 'item.width') +
+                                    control('Height', 'item.height') +
                                 '</accordion-group>' +
         
                                 '<accordion-group heading="Text">' +
-                                    textControl('Content', 'item.text.content') +
-                                    textControl('Size', 'item.text.size') +
-                                    textControl('Alignment', 'item.text.align') +
-                                    colorControl('Color', 'item.text.color') +
-                                    textControl('Format', 'item.text.format') +
+                                    control('Content', 'item.text.content') +
+                                    control('Size', 'item.text.size') +
+                                    control('Alignment', 'item.text.align') +
+                                    control('Color', 'item.text.color', 'color') +
+                                    control('Format', 'item.text.format') +
                                 '</accordion-group>' +
         
                                 '<accordion-group heading="Color & Decoration">' +
-                                    colorControl('Color', 'item.style.background') +
-                                    textControl('Border', 'item.style.border') +
-                                    textControl('Border-Radius', 'item.style.border_radius') +
+                                    control('Color', 'item.style.background', 'color') +
+                                    control('Border', 'item.style.border') +
+                                    control('Border-Radius', 'item.style.border_radius') +
                                 '</accordion-group>' +
                             '</accordion>' +
         
@@ -114,7 +107,7 @@ app.directive('maslItemControls', function () {
 });
 
 app.directive('maslSidebarRight', function () {
-    "use strict";
+    'use strict';
     
     function link(scope, element, attrs) {
         element.on('mouseenter', function (event) {
@@ -130,7 +123,7 @@ app.directive('maslSidebarRight', function () {
 });
 
 app.directive('maslDeleteItemButton', function () {
-	"use strict";
+	'use strict';
 	function link(scope, element, attrs) {
 		element.on('click', function (event) {
             var that, input;
@@ -154,7 +147,7 @@ app.directive('maslDeleteItemButton', function () {
 });
 
 app.directive('maslItemControlsButton', function () {
-    "use strict";
+    'use strict';
     
     function link(scope, element, attrs) {
 		element.on('click', function (event) {
