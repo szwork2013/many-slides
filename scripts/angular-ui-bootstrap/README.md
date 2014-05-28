@@ -19,4 +19,6 @@ The solution is to use the 'Create a Build' option from the website (http://angu
   
 The version somehow shows to be 0.10 but the implementation of the 'accordion' module still is the new one from version 0.11.  
 
+The Modal still behaves like the 0.10 one, since the 'size' attribute does not do anything (known issue in 0.10). I hardcoded the class 'modal-lg' into the modal directive since it is only used at one point of the project as of the time of writing this.  
+
 I don't get this project...  
