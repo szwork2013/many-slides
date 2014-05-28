@@ -164,10 +164,6 @@ app.directive('maslItemControlsButton', function () {
         element.on('mouseenter', function (event) {
             $(".sidebar-right").removeClass('sidebar-gone');
         });
-         
-        element.on('mouseleave', function (event) {
-            $(".sidebar-right").addClass('sidebar-gone');
-        });
 	}
     
     return {
