@@ -1,26 +1,6 @@
 var name;
+
 var peer = new Peer({host: 'it-bejga2.dhbw-stuttgart.de', port: 9000, debug: true});
-//var peer = new Peer({
-//    // Set API key for cloud server (you don't need this if you're running your
-//    // own.
-//    key: 'lwjd5qra8257b9',
-//
-//    // Set highest debug level (log everything!).
-//    debug: 3,
-//
-//    // Set a logging function:
-//    logFunction: function () {
-//        var copy = Array.prototype.slice.call(arguments).join(' ');
-//        console.log(copy);
-//    },
-//
-//    // Use a TURN server for more network support
-//    config: {
-//        'iceServers': [
-//            { url: 'stun:stun.l.google.com:19302' }
-//        ]
-//    } /* Sample servers, please use appropriate ones */
-//});
 
 var connectedPeers = new Array();
 
@@ -154,14 +134,14 @@ function onStartButtonClick() {
 
 
 
-// Make sure things clean up properly.
-window.onunload = window.onbeforeunload = function (e) {
-    if (!!peer && !peer.destroyed) { // TODO - WTF?? Are you askigng if peer does not not exist AND peer ist not destroyed?
-        peer.destroy();
-    }
-    // Proposal:
-    // try{ peer.destroy(); } catch {}
-};
+//// Make sure things clean up properly.
+//window.onunload = window.onbeforeunload = function (e) {
+//    if (!!peer && !peer.destroyed) { // TODO - WTF?? Are you askigng if peer does not not exist AND peer ist not destroyed?
+//        peer.destroy();
+//    }
+//    // Proposal:
+//    // try{ peer.destroy(); } catch {}
+//};
 
 $(document).ready(function () {
 
@@ -176,42 +156,3 @@ $(document).ready(function () {
         onStartButtonClick();
     });
 });
-
-
-
-
-//// CHROME APP STUFF
-//// THEY DON'T WORK....
-//
-//function setHostId(id) {
-//    if (!id) {
-//        console.log('Error: No host id specified');
-//        return;
-//    }
-//
-//    chrome.storage.sync.set({'hostId': id}, function () {
-//        console.log('Settings saved');
-//    });
-//}
-//
-//function getHostId() {
-//    chrome.storage.sync.get('hostId', function (obj) {
-//        console.log(obj['hostId']);
-//    });
-//}
-//
-//function setUsername(name) {
-//    if (!name) {
-//        name = 'Anonymus';
-//    }
-//
-//    chrome.storage.sync.set({'username': name}, function () {
-//        console.log('Settings saved');
-//    });
-//}
-//
-//function getUsername() {
-//    chrome.storage.sync.get('username', function (obj) {
-//        console.log(obj['username']);
-//    });
-//}

@@ -61,26 +61,19 @@ function onMessageRecieve(c, data) {
         }
         else if (data.send == 0) {
             // Looking for the corresponding peerID in the Array, after that the correct name gets set
-            console.log(peer.connections[data.peer][0].peer + " - " + data.peer);
             peer.connections[data.peer][0].metadata.name = data.name;
-            console.log(peer.connections[data.peer][0].metadata.name + " - " + data.name);
 
             updateConnections();
         }
     }
 
     else if (data.flag == 3) {
-        console.log("received data");
-        console.log(data);
         $('#presentation-content').val(JSON.stringify(data.content)).change();
-        $('#slide-index').val(1).change();
+        $('#slide-index').val(0).change();
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
     }
 
     else if (data.flag == 4) {
-        console.log("received data");
-        console.log(data);
-//        $('#presentation-content').val(JSON.stringify(data.content)).change();
         $('#slide-index').val(data.content).change();
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
     }
