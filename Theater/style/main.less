@@ -5,26 +5,41 @@
 
 body, html {
   height: 100%;
+  min-height: 100%;
+  max-height: 100%;
   //  min-height: 100%;
   background-color: @base;
 }
-
-footer {
-  text-align: center;
-  padding-top: 3em;
-  padding-bottom: 3em;
-  position: relative;
-  bottom: 0;
+#wrapper > .body{
+  //  top: 0;
+  //  bottom: 0;
+//  height: 100%;
+//  max-height: 100%;
+  overflow: auto;
+  //  margin-top: 5rem;
+  //  border: 5rem black;
 }
-// Message Design
+
+// Style for the messages
 .message {
 }
 
+.you {
+  color: #0C6BA1;
+  &:extend(.message);
+}
 .peer {
   color: #FF7500;
-  &:extend(.message)
-;
+  &:extend(.message);
 }
+
+#messages {
+  font-size: 14px;
+  overflow-y: auto;
+  display: block;
+  height: auto;
+}
+
 
 .switch-on {
   background-color: green;
@@ -52,49 +67,17 @@ li {
   cursor: pointer;
 }
 
-.you {
-  color: #0C6BA1;
-  &:extend(.message);
-}
-#layout_layout_panel_preview
-{
-  overflow: hidden;
-}
-#messages {
-  font-size: 14px;
-//  height: auto;
-//  max-height: 100%;
-    overflow-y: auto;
-  display: block;
-//  height: -moz-calc(100% - (20px));
-//  height: -webkit-calc(100% - (20px));
-//  height: calc(100% - (20px));
-}
 
 #send {
-  height: 30px;
+//  height: 30px;
   width: auto;
+  position: absolute;
   bottom: 0;
 }
+
 #connections {
   font-size: 14px;
   overflow-y: auto;
-}
-
-#text{
-float: left;
-width: auto;
-}
-//#btnSend{
-//float: right;
-//}
-#peers {
-  height: 40%;
-}
-
-#wrapper {
-  height: 90%;
-  border: 5rem black;
 }
 
 .dot {
@@ -104,13 +87,20 @@ width: auto;
   height: 11px;
 }
 
+#text {
+  float: left;
+  width: auto;
+}
+
+
+
 #presentationWindow {
   height: 100%;
-//  width: 60%;
+  //  width: 60%;
   float: left;
 }
 
-// Intro Design
+// Gets shown in the THeater Mode - where the user enters the name and the peerID
 #introForm {
   height: 100%;
   width: 90%;
@@ -131,10 +121,6 @@ width: auto;
   margin-right: auto;
 }
 
-.headerPresentationTextBox {
-  height: auto;
-  margin: 0.5em;
-}
 
 .headerPresentationButton {
   height: auto;
@@ -168,23 +154,8 @@ width: auto;
   font-weight: bold;
 }
 
-#loadingWindow {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background-color: rgba(164, 153, 160, 0.50);
-}
 
-#slide-index
-{
+.hidden {
   display: none;
 }
-
-#presentation-content
-{  display: none;}
-
-
 

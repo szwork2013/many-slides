@@ -14,6 +14,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
 
     // Stuff that should be done when this controller is created
     function init() {
+        // TODO should not run if theater is opened
         loadInitialFile(launchData);
     }
 
@@ -154,15 +155,10 @@ app.controller('contentCtrl', function ($scope, $timeout) {
 //        var index = $scope.presentation.active_slide;
         if (index > 0) {
 
-            console.log(document.getElementById('slide-index').value);
             index = index - 1;
             document.getElementById('slide-index').value = index;
-            console.log(document.getElementById('slide-index').value);
 
         onMessageSend(4);
-////            $scope.setActiveSlide(index - 1);
-//            document.getElementById('slide-index').value = index-1;
-////            $scope.activeSlideInputValue(index - 1);
         }
         $scope.setActiveSlide(index);
     };
@@ -212,6 +208,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             // use local storage to retain access to this file
             chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
             loadFileEntry(theEntry);
+            toastr.success("New presentation successfully loaded!");
         });
     };
 
@@ -402,9 +399,8 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     };
 
     $scope.setActiveSlideFromInput = function () {
-        var foo = $scope.activeSlideInputValue;
-        console.log("foo" + foo);
-        $scope.setActiveSlide(foo / 1);
+        var value = $scope.activeSlideInputValue;
+        $scope.setActiveSlide(value / 1);
     }
 
     // Sets the slide at the given index active

@@ -1,7 +1,10 @@
+// Stores the name of the Audience member
 var name;
 
+// Peer Object... :)
 var peer = new Peer({host: 'it-bejga2.dhbw-stuttgart.de', port: 9000, debug: true});
 
+// Array stores all connected peers
 var connectedPeers = new Array();
 
 // Show this peer's ID.
@@ -37,7 +40,7 @@ function connect(c) {
                 $('.filler').show();
             }
             delete connectedPeers[c.peer];
-            updateConnections();
+            Connections();
         });
     }
 }
@@ -72,6 +75,15 @@ var htmlPresentation = '<div id="presentationWindow">' +
     '</div>';
 
 $(function () {
+    // Set w2ui layout to correct height
+    var bodyHeight = $('body').height();
+    // TODO - take da shit out! It is wrong!
+    var navHeight = $('#GitHubLink').height();
+    if (navHeight < 53) {
+        navHeight = 53;
+    }
+    $('#layout').height(bodyHeight - navHeight);
+
     var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
     $('#layout').w2layout({
         name: 'layout',
@@ -124,14 +136,12 @@ function onStartButtonClick() {
             });
         }
         connectedPeers[requestedPeer] = 1;
-        toastr.info("done");
     }
     else {
         toastr.options = {"positionClass": "toast-bottom-full-width" }
         toastr.error("Please enter an ID.");
     }
 }
-
 
 
 //// Make sure things clean up properly.

@@ -1,8 +1,10 @@
 // global variable that contains the name of the presneter
 var name = "Presenter";
 
+// Peer Object... :)
 var peer = new Peer({host: 'it-bejga2.dhbw-stuttgart.de', port: 9000, debug: true});
 
+// Array stores all connected peers
 var connectedPeers = new Array();
 
 // Show this peer's ID.
@@ -23,35 +25,39 @@ function connect(c) {
             data = jQuery.parseJSON(data);
             onMessageRecieve(c, data);
         });
+
+        // If connection is successfully established
         c.on('open', function (open) {
 
-            var messages = $('<div><em>' + c.metadata.name + " - " + c.peer + ' joined.</em></div>');
+            // Message that new peer joined
+            var messages = $('<div><em>' + c.metadata.name + ' joined.</em></div>');
+            $('.filler').hide();
+            $('#messages').append(messages);
 
-
-
+            // Send all other peers the peerID and the name of the newly joined peer - so they can connect
             eachActiveConnection(function (con, $c) {
                 if (con.label === 'chat') {
                     var message = "{\"flag\": 0, " +
                         "\"content\":\"" + c.peer + "\"," +
                         "\"name\":\"" + c.metadata.name + "\"}";
                     con.send(message);
-//              $('#messages').append('<div><span class="you">You: </span>' + c.peer + ' Joined</div>');
                 }
             });
 
-            $('.filler').hide();
-            $('#messages').append(messages);
-
-
+            // Push new peer on the array and update the connection pane
             connectedPeers.push(c.peer);
             updateConnections();
-            // Select connection handler.
 
             // Send presentation to newly connected peer
             var message = "{\"flag\": 3, \"content\":" + JSON.stringify(globalPresentation) + " }";
             console.log(message);
             c.send(message);
+
+            // Send slide index - theater member could join later
+            var message = "{\"flag\": 4, \"content\":\"" + document.getElementById('slide-index').value + "\"}";
+            c.send(message);
         });
+
         // If a Peer leave a message gets shown and he gets removed from the list
         c.on('close', function () {
             $('#messages').append('<div><em>' + c.metadata.name + ' has left the Chat.</em></div>');
@@ -63,46 +69,12 @@ function connect(c) {
             delete connectedPeers[c.peer];
             updateConnections();
         });
-
     }
-//    // Sending presnetation to newly connected peer
-//    var message = "{\"flag\": 3, \"content\":" + JSON.stringify(globalPresentation) + " }";
-//    console.log(message);
-//    c.send(message);
 }
 
-//
-//
-//// Make sure things clean up properly.
-//// TODO - Make sure if this is really needed, since chrome apps do not support window.onunload and window.onbeforeunload
-//window.onunload = window.onbeforeunload = function (e) {
-//    if (!!peer && !peer.destroyed) { // TODO - WTF?? Are you askigng if peer does not not exist AND peer ist not destroyed?
-//        peer.destroy();
-//    }
-//    // Proposal:
-//    // try{ peer.destroy(); } catch {}
-//};
 
-function copyPeerIdToClipboard() {
-    var peerID = document.getElementById("pid").innerHTML;
-    console.log(peerID);
-    copyToClipboard(peerID);
-}
-
-// TODO - Maybe relocate this to somewhere else als external module
-function copyToClipboard(text) {
-    var copyDiv = document.createElement('div');
-    copyDiv.contentEditable = true;
-    document.body.appendChild(copyDiv);
-    copyDiv.innerHTML = text;
-    copyDiv.unselectable = "off";
-    copyDiv.focus();
-    document.execCommand('SelectAll');
-    document.execCommand("Copy", false, null);
-    document.body.removeChild(copyDiv);
-}
-
-function emailLink() {
+// Creates an E-Mail invitation template that can be send to others
+function emailInvitation() {
     var peerID = document.getElementById("pid").innerHTML;
     var subject = encodeURIComponent("Join my Many Slide Presentation");
     var body = "Hi,\n\n " +
@@ -139,6 +111,14 @@ var htmlPresentation = '<div id="presentationWindow">' +
     '</div>';
 
 $(function () {
+    // Set w2ui layout to correct height
+    var bodyHeight = $('body').height();
+    // TODO - take da shit out! It is wrong!
+    var navHeight =  $('#GitHubLink').height();
+    if(navHeight < 53)
+    {navHeight= 53;}
+    $('#layout').height(bodyHeight - navHeight);
+
     var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
     $('#layout').w2layout({
         name: 'layout',
@@ -182,7 +162,7 @@ $(document).ready(function () {
     });
 
     $('#emailLink').click(function () {
-        emailLink();
+        emailInvitation();
     });
 
     $('#toogleSharing').click(function () {

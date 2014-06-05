@@ -19,7 +19,7 @@ function sendDummyPresentation() {
 // Distinguished between different cases of messages
 function onMessageRecieve(c, data) {
 
-    // Recive new peer ID
+    // Receive new peer ID
     if (data.flag == 0) {
         connectedPeers.push(data.content);
         requestedPeer = data.content;
@@ -48,7 +48,7 @@ function onMessageRecieve(c, data) {
         $('#messages').append('<div><em>' + c.metadata.name + ' joined.</em></div>');
     }
 
-    // Recieve normal text message
+    // Receive normal text message
     else if (data.flag == 1) {
         $('#messages').append('<div><span class="peer">' + c.metadata.name + '</span><em>: ' + data.content + '</em></div>');
     }
@@ -60,21 +60,25 @@ function onMessageRecieve(c, data) {
             c.send(message);
         }
         else if (data.send == 0) {
-            // Looking for the corresponding peerID in the Array, after that the correct name gets set
+            // Looking for the corresponding peerID in the Array, after that, the correct name gets set
             peer.connections[data.peer][0].metadata.name = data.name;
 
             updateConnections();
         }
     }
 
+    // If presentation JSON is received
     else if (data.flag == 3) {
         $('#presentation-content').val(JSON.stringify(data.content)).change();
         $('#slide-index').val(0).change();
+        // TODO - remove
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
     }
 
     else if (data.flag == 4) {
+        // New presentation index received
         $('#slide-index').val(data.content).change();
+        // TODO - remove
         $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
     }
 }
@@ -82,27 +86,28 @@ function onMessageRecieve(c, data) {
 
 function onMessageSend(flag) {
 
+    // Does not allow the sending of an empty string
     if (!jQuery.isEmptyObject(peer.connections)) {
         // For each active connection, send the message.
         var msg = $('#text').val();
         eachActiveConnection(function (c, $c) {
             if (c.label === 'chat') {
-                if (flag != 4) {
+
+                // Send normal message
+                if (flag == 1) {
                     var message = "{\"flag\": 1, \"content\":\"" + msg + "\"}";
-                    console.log(message);
-                    c.send(message);
+                    $('#messages').append('<div><span class="you">You: </span>' + msg + '</div>');
+                    $('#text').val('');
+                    $('#text').focus();
                 }
-                if(flag === 4)
-                {
+
+                // Send slide index
+                else if (flag == 4) {
                     var message = "{\"flag\": 4, \"content\":\"" + document.getElementById('slide-index').value + "\"}";
-                    console.log(message);
-                    c.send(message);
                 }
+                c.send(message);
             }
         });
-        $('#messages').append('<div><span class="you">You: </span>' + msg + '</div>');
-        $('#text').val('');
-        $('#text').focus();
     }
     else {
         toastr.info("Unable to send message, no members in chat yet.");
@@ -150,10 +155,30 @@ function updateConnections() {
 function sidebarHeight() {
     var wrapperChatWindow = $("#layout_layout_panel_preview").height();
     var sendAreaHeight = $("#send").height();
-    var chatTextdAreaHeight = $("#chat").height();
-    $("#messages").height(wrapperChatWindow - sendAreaHeight - chatTextdAreaHeight - 30);
+    var chatTextAreaHeight = $("#chat").height();
+    $("#messages").height(wrapperChatWindow - sendAreaHeight - chatTextAreaHeight - 90);
 
     var wrapperConnectionsWindow = $("#layout_layout_panel_main").height();
-    var amountTextdAreaHeight = $("#amount").height();
-    $("#connections").height(wrapperConnectionsWindow - amountTextdAreaHeight - 10);
+    var amountTextAreaHeight = $("#amount").height();
+    $("#connections").height(wrapperConnectionsWindow - amountTextAreaHeight - 10);
+}
+
+
+// Copy PeerID to Clipboard - uses general copyToClipboard function
+function copyPeerIdToClipboard() {
+    var peerID = document.getElementById("pid").innerHTML;
+    copyToClipboard(peerID);
+}
+
+// General function to copy a parameter object to the clipboard
+function copyToClipboard(text) {
+    var copyDiv = document.createElement('div');
+    copyDiv.contentEditable = true;
+    document.getElementById("wrapper").appendChild(copyDiv);
+    copyDiv.innerHTML = text;
+    copyDiv.unselectable = "off";
+    copyDiv.focus();
+    document.execCommand('SelectAll');
+    document.execCommand("Copy", false, null);
+    document.getElementById("wrapper").removeChild(copyDiv);
 }

@@ -8,15 +8,14 @@
 
     <!-- bootstrapping -->
     <link rel="stylesheet" href="style/w2ui-1.3.min.css"/>
-    <!--<link rel="stylesheet" href="style/style2.css">-->
     <link rel="stylesheet/less" type="text/css" href="style/toastr.less"/>
     <link rel="stylesheet/less" type="text/css" href="style/main.less"/>
     <script src="../scripts/less/less.js"></script>
 </head>
 
 <body ng-controller="contentCtrl">
-<div class="col-xs-12 col-gutter-none ng-scope">
-    <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
+<div id="navi" class="col-xs-12 col-gutter-none ng-scope">
+    <nav  role="navigation" class="navbar navbar-inverse navbar-embossed">
         <div class="navbar-header">
             <button data-target="#navbar-collapse-01" data-toggle="collapse" class="navbar-toggle" type="button"><span
                     class="sr-only">Toggle navigation</span></button>
@@ -30,7 +29,9 @@
                         <li><a href="#" ng-click="loadFile()">Open</a></li>
                     </ul>
                 </li>
+            </ul>
 
+            <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
                     <span class="dropdown-arrow"></span>
@@ -43,7 +44,9 @@
                 </li>
             </ul>
 
-            <input id="slide-index" type="text" ng-change="setActiveSlideFromInput()" ng-model="activeSlideInputValue" value="0">
+            <input id="slide-index" class="hidden" type="text" ng-change="setActiveSlideFromInput()"
+                   ng-model="activeSlideInputValue"
+                   value="0">
 
             <ul class="nav navbar-nav center-logo">
                 <many-slides-logo logo-color="#fff" logo-size="53px"></many-slides-logo>
@@ -51,7 +54,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" ng-click="printPresentation()">Print It!</a></li>
-                <li><a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
+                <li><a id="GitHubLink" a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
                 <li><a id="toogleSharing" class="switch-off">Start sharing</a></li>
             </ul>
         </div>
@@ -59,13 +62,13 @@
 </div>
 
 <!-- Needs to be removed-->
-<input id="rid" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox"
-       style="display: none;">
-<input value="Connect" id="connect" type="button" class="btn  btn-lg btn-primary headerPresentationButton"
-       style="display: none;">
+<input id="rid" class="hidden" placeholder="Someone else's id" type="text" class="form-control  introFormTextBox">
+<input id="connect" value="Connect" class="hidden" type="button"
+       class="btn  btn-lg btn-primary headerPresentationButton">
 
 <div id="wrapper" class="col-xs-12 col-gutter-none ng-scope">
-    <div id="layout" style="width: 100%; height: 100%;"></div>
+    <div id="layout" style="width: 100%;"></div>
+    <!--<div id="layout" style="width: 100%; height: 100%;"></div>-->
 </div>
 </body>
 
@@ -81,13 +84,6 @@
 <script src="../scripts/jquery/jquery.placeholder.js"></script>
 <script src="../scripts/jquery/jquery.tagsinput.js"></script>
 
-<!-- Other Imports -->
-<script src="../scripts/peer/peer.js"></script>
-<script src="../scripts/toaster/toastr.js"></script>
-<script src="javascript/many-slides-common.js"></script>
-<script src="javascript/many-slides-presenter.js"></script>
-<script src="../scripts/w2ui/w2ui.min.js"></script>
-
 <!-- Angular Main -->
 <script src="../scripts/angular/angular.js"></script>
 <script src="app.js"></script>
@@ -100,4 +96,13 @@
 <script src="directives/commonDirectives.js"></script>
 <script src="directives/presentationDirectives.js"></script>
 <script src="directives/theaterDirectives.js"></script>
+
+
+<!-- Other Imports -->
+<script src="../scripts/peer/peer.js"></script>
+<script src="../scripts/toaster/toastr.js"></script>
+<script src="javascript/many-slides-common.js"></script>
+<script src="javascript/many-slides-presenter.js"></script>
+<script src="../scripts/w2ui/w2ui.min.js"></script>
+
 </html>
