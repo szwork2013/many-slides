@@ -88,36 +88,42 @@ function emailInvitation() {
     tmpMailWindow = window.open(mailToStr);
 }
 
-
 // LAYOUT STUFF
 
 var htmlConnections = "<p id='amount'>Connections: 0</p>" +
     "<div id='connections' >" +
-    "<span class='filler'>No Audience yet.</span>" +
+        "<span class='filler'>No Audience yet.</span>" +
     "</div>";
 var htmlChat = "<p id='chat'>Chat</p>" +
-    "<div id='messages'>" +
+        "<div id='messages'>" +
     "</div>" +
     "<form id='send'>" +
-    "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
-    "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
+        "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
+        "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
     "</form>";
 var htmlPresentation = '<div id="presentationWindow">' +
-    '<div id="presentationControlls">' +
-    '<span class="fui-arrow-left" ng-click="previousSlide()"></span>' +
-    '<span class="fui-arrow-right" ng-click="nextSlide()"></span>' +
-    '</div>' +
-    '<masl-presentation></masl-presentation>' +
+    '<div class="btn-toolbar" id="presentationControlls">' +
+        '<div class="btn-group">' +
+            '<a class="btn btn-primary fui-arrow-left" ng-click="previousSlide()"></a>' +
+            '<a id="blankPresentation" class="btn btn-primary" ng-click="blankPresentation()">hide</a>' +
+        //    '<div class="switch has-switch">'+
+        //        '<div class="switch-off switch-animate">' +
+        //            '<input data-toggle="switch" type="checkbox">' +
+        //            ' <span class="switch-left">ON</span>' +
+        //            '  <label>&nbsp;</label>' +
+        //            '   <span class="switch-right">OFF</span>' +
+        //            '</div>' +
+        //        '</div>' +
+        //    '</div>' +
+            '<a class="btn btn-primary fui-arrow-right" ng-click="nextSlide()"></a>' +
+
+            '</div>' +
+        '</div>' +
+        '<masl-presentation></masl-presentation>' +
     '</div>';
 
 $(function () {
-    // Set w2ui layout to correct height
-    var bodyHeight = $('body').height();
-    // TODO - take da shit out! It is wrong!
-    var navHeight =  $('#GitHubLink').height();
-    if(navHeight < 53)
-    {navHeight= 53;}
-    $('#layout').height(bodyHeight - navHeight);
+    setLayoutSize();
 
     var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
     $('#layout').w2layout({
@@ -137,7 +143,6 @@ $(function () {
         }
     });
 });
-
 $(document).ready(function () {
 
     $('.rsh').draggable({
@@ -174,3 +179,5 @@ $(document).ready(function () {
         onMessageSend(e);
     });
 });
+
+//setLayoutSize();

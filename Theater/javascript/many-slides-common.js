@@ -76,15 +76,26 @@ function onMessageRecieve(c, data) {
     }
 
     else if (data.flag == 4) {
-        // New presentation index received
-        $('#slide-index').val(data.content).change();
-        // TODO - remove
-        $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
+        if (data.command == 1) {
+            // New presentation index received
+            $('#slide-index').val(data.content).change();
+            // TODO - remove
+            $('#messages').append('<div><em>' + c.metadata.name + " - data received</em></div>");
+        }
+        // Hide presentation
+        if (data.command == 2) {
+            $('#presentation').hide();
+        }
+
+        // Show presentation
+        if (data.command == 3) {
+            $('#presentation').show();
+        }
     }
 }
 
 
-function onMessageSend(flag) {
+function onMessageSend(flag, command) {
 
     // Does not allow the sending of an empty string
     if (!jQuery.isEmptyObject(peer.connections)) {
@@ -103,7 +114,17 @@ function onMessageSend(flag) {
 
                 // Send slide index
                 else if (flag == 4) {
-                    var message = "{\"flag\": 4, \"content\":\"" + document.getElementById('slide-index').value + "\"}";
+                    if (command == 1) {
+                        var message = "{\"flag\": 4, \"command\":\"" + command + "\", \"content\":\"" + document.getElementById('slide-index').value + "\"}";
+                    }
+                    // Hide presentation
+                    else if (command == 2) {
+                        var message = "{\"flag\": 4, \"command\":\"" + command + "\"}";
+                    }
+                    // Show presentation
+                    else if (command == 3) {
+                        var message = "{\"flag\": 4, \"command\":\"" + command + "\"}";
+                    }
                 }
                 c.send(message);
             }
@@ -181,4 +202,23 @@ function copyToClipboard(text) {
     document.execCommand('SelectAll');
     document.execCommand("Copy", false, null);
     document.getElementById("wrapper").removeChild(copyDiv);
+}
+
+
+window.onresize = function () {
+
+    var myVar = setInterval(function () {
+        setLayoutSize()
+    }, 3);
+};
+
+function setLayoutSize() {
+    var bodyHeight = $('body').height();
+    // TODO - take da shit out! It is wrong!
+    var navHeight = $('#GitHubLink').height();
+    if (navHeight < 53) {
+        navHeight = 53;
+    }
+
+    $('#layout').height(bodyHeight - navHeight);
 }

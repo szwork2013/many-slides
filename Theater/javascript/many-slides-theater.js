@@ -75,14 +75,7 @@ var htmlPresentation = '<div id="presentationWindow">' +
     '</div>';
 
 $(function () {
-    // Set w2ui layout to correct height
-    var bodyHeight = $('body').height();
-    // TODO - take da shit out! It is wrong!
-    var navHeight = $('#GitHubLink').height();
-    if (navHeight < 53) {
-        navHeight = 53;
-    }
-    $('#layout').height(bodyHeight - navHeight);
+    setLayoutSize();
 
     var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
     $('#layout').w2layout({
