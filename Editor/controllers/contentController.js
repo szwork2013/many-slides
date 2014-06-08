@@ -1,8 +1,21 @@
 app.controller('contentCtrl', function ($scope, $timeout) {
 	'use strict';
     $scope.presentation = {};
-    
-    var chosenEntry = null;
+	
+	function loadWelcomePresentation() {
+		var xhr = new XMLHttpRequest();
+			xhr.responseType='json';
+			xhr.open('GET', 'factories/welcome.json');
+			xhr.onload = function() {
+				var xhrResponse = this.response;
+				$scope.$apply(function () {
+					$scope.presentation = xhrResponse;
+				});
+			}
+			xhr.send();
+	}
+	
+    var chosenEntry = {'name':'welcome.json'};
     var fileStatus = ''; // status report
     var fileContent = '';
     var filePath = '';
@@ -14,7 +27,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     
     // Stuff that should be done when this controller is created
     function init() {
-        loadInitialFile(launchData);
+        if (!loadInitialFile(launchData)) {
+			loadWelcomePresentation();
+		}
     }
 
     // Simple error Handler
@@ -117,7 +132,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         if (launchData && launchData.items && launchData.items[0]) {
             loadFileEntry(launchData.items[0].entry);
         } else {
-            // see if the app retained access to an earlier file or directory
+            // see if the app retained access to an earlier file
             chrome.storage.local.get('chosenFile', function (items) {
                 if (items.chosenFile) {
                     // if an entry was retained earlier, see if it can be restored
@@ -127,9 +142,11 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                             chrome.fileSystem.restoreEntry(items.chosenFile, function (chosenEntry) {
                             if (chosenEntry && chosenEntry.isFile) {
                                 loadFileEntry(chosenEntry);
+								return true;
                             }
                         });
                     });
+					return false;
                 }
             });
         }

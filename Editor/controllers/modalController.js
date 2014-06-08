@@ -4,11 +4,10 @@ app.controller('modalCtrl', function ($scope, $modal, $log) {
 	init();
 	
 	function init() {
-		console.log('start request');
-		var xhr=new XMLHttpRequest();
+		var xhr = new XMLHttpRequest();
 		xhr.responseType='json';
 		xhr.open('GET', 'factories/sources.json');
-		xhr.onload=function() {
+		xhr.onload = function() {
 			sources = this.response;
 		}
 		xhr.send();
