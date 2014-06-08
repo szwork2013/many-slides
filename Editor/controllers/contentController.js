@@ -362,6 +362,10 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     // Sets the slide at the given index active
     // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
+		// Deselect the current item to prevent rogue sidebars
+		// staying on screen without reason
+		$('.selected-object').click();
+		
         var lenght = $scope.presentation.slides.length;
 		if (index < lenght) {
 			var i;

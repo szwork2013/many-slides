@@ -52,8 +52,6 @@ app.directive('item', function () {
 				that.removeClass('being-resized');
 				return;
 			}
-            
-			
 			
             // Get controls for this item
             var item_id = that.attr('id').replace('item-', '');
