@@ -40,7 +40,7 @@ app.directive('item', function () {
     function link(scope, element, attrs) {
         element.on('click', function (event) {
             var that = $(this);
-
+			
             // If the element has been moved dont fire click event (would unselect) 
             if (that.hasClass('being-moved')) {
                 that.removeClass('being-moved');
@@ -49,16 +49,19 @@ app.directive('item', function () {
 			
 			// Same if it is being resized
 			if (that.hasClass('being-resized')) {
-				parent.removeClass('being-resized');
+				that.removeClass('being-resized');
 				return;
 			}
             
+			
+			
             // Get controls for this item
             var item_id = that.attr('id').replace('item-', '');
             var item_controls = $('#controls-' + item_id);
             
-            // The already selected item was clicked
+            // The already selected item was clicked (unselect it)
             if (that.hasClass('selected-object')) {
+				that.blur(); // Removes focus so keydown is nto fired for this anymore
                 that.removeClass('selected-object');
                 item_controls.addClass('sidebar-gone');
                 item_controls.addClass('hidden');
@@ -85,8 +88,13 @@ app.directive('item', function () {
                     old_item.removeClass('selected-object');
                 }
                 
-                // Select clicked item and show controls if they were open for the previous item
+				// Focus clicked item to enable keydown event
+				that.focus();
+				
+                // Select clicked item
                 that.addClass('selected-object');
+				
+				// Show controls if they were open for the previous item
                 item_controls.removeClass('hidden');
                 if (reopen_controls) {
                     item_controls.removeClass('sidebar-gone');
@@ -130,6 +138,52 @@ app.directive('item', function () {
             }
         });
         
+		element.on('keydown', function(event) {
+			var key = event.keyCode || event.charCode;
+			var rate = event.shiftKey ? 1 : 10;
+			var that = $(this);
+			var item_id = that.attr('id').replace('item-', '');
+			var item_controls = $('#controls-' + item_id);
+			var left_input = item_controls.find('[ng-model="item.location[0]"]');
+			var top_input  = item_controls.find('[ng-model="item.location[1]"]');
+			
+			// delete item if delete key is pressed
+			switch (key) {
+				// delete
+				case 46:
+					item_controls.find('.delete-btn').click();
+					return false;
+					
+				// escape
+				case 27: 
+					that.click();
+					return false;
+			
+				// arrow-left
+				case 37: 
+					left_input.val(left_input.val() - rate).change();
+					return false;
+				
+				// arrow-up
+				case 38: 
+					top_input.val(top_input.val() - rate).change();
+					return false;
+					
+				// arrow-right
+				case 39: 
+					left_input.val(left_input.val()/1 + rate).change();
+					return false;
+					
+				//arrow-down
+				case 40: 
+					top_input.val(top_input.val()/1 + rate).change();
+					return false;
+					
+				// something else
+				default: break;
+			}
+		});
+		
         // Prevent accidental 'text' selection on double click
         element.on('dblclick', function () {
             event.preventDefault();
@@ -161,7 +215,7 @@ app.directive('item', function () {
         replace: true,
         scope: true,
         // bo-id gets the id from the model and then removes the watcher (the id should not change anymore)
-        template:   '<div bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
+        template:   '<div tabindex="0" bo-id="\'item-\' + item.id" class="item" style="' + style + '">' +
                         '<item-corner corner-position="top-left"></item-corner>' +
                         '<item-corner corner-position="bottom-left"></item-corner>' +
                         '<item-corner corner-position="bottom-right"></item-corner>' +
