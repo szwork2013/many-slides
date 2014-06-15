@@ -9,7 +9,8 @@ app.directive('maslLogo', function () {
             logoSize: '@'
         },
         replace: true,
-        template:   '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{logoSize}}" height="{{logoSize}}" viewBox="-2 -5 105 100">' +
+        template:   '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ' +
+						'style="width: {{logoSize}}; height: {{logoSize}};" viewBox="-2 -5 105 100">' +
                         '<defs></defs>' +
                         '<g>' +
                             '<path d="M20.329,22.686c-0.734-2.246,0.492-4.662,2.737-5.397l16.881-5.521l-3.233-4.282c-1.423-1.885-4.105-2.261-5.991-0.836   L1.7,28.562c-1.885,1.424-2.259,4.107-0.835,5.993L36.31,81.501c1.424,1.885,2.064,3.039,3.951,1.612c0,0-0.967-2.449-1.643-4.52   L20.329,22.686z" transform="translate(0.5590000152587891,-5.225001335144043)" fill="{{logoColor}}"></path>' +
