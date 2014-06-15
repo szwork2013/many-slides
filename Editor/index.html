@@ -80,7 +80,8 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-01">
-                    <ul class="nav navbar-nav navbar-left">
+                    <ul class="nav navbar-nav navbar-left" ng-model="fileStatus">
+						<li><a href="#">{{fileStatus}}</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg')">About</a></li>

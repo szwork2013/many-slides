@@ -1,22 +1,9 @@
 app.controller('contentCtrl', function ($scope, $timeout) {
 	'use strict';
     $scope.presentation = {};
-	
-	function loadWelcomePresentation() {
-		var xhr = new XMLHttpRequest();
-			xhr.responseType='json';
-			xhr.open('GET', 'factories/welcome.json');
-			xhr.onload = function() {
-				var xhrResponse = this.response;
-				$scope.$apply(function () {
-					$scope.presentation = xhrResponse;
-				});
-			}
-			xhr.send();
-	}
+	$scope.fileStatus = '';
 	
     var chosenEntry = {'name':'welcome.json'};
-    var fileStatus = ''; // status report
     var fileContent = '';
     var filePath = '';
     var scope;
@@ -29,8 +16,38 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     function init() {
         if (!loadInitialFile(launchData)) {
 			loadWelcomePresentation();
+			//bindGlobalKeypressListener();
 		}
     }
+	
+	/*function bindGlobalKeypressListener() {
+		window.on('keydown', function(event) {
+			var key = event.keyCode || event.charCode;
+			var isFullscreen = false;
+			
+			if (key == 122) {
+				if (isFullscreen) {
+					chrome.app.window.current().normal();
+				} else {
+					chrome.app.window.current().fullscreen();
+				}
+				isFullscreen = !isFullscreen;
+			}
+	}*/
+	
+	function loadWelcomePresentation() {
+		var xhr = new XMLHttpRequest();
+			xhr.responseType='json';
+			xhr.open('GET', 'factories/welcome.json');
+			xhr.onload = function() {
+				var xhrResponse = this.response;
+				$scope.$apply(function () {
+					$scope.presentation = xhrResponse;
+					$scope.fileStatus = 'Viewing welcome presentation';
+				});
+			}
+			xhr.send();
+	}
 
     // Simple error Handler
     function errorHandler(e) {
@@ -66,7 +83,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     // Writes the given blob to the given writable file entry
     function writeFileEntry(writableEntry, opt_blob, callback) {
         if (!writableEntry) {
-            fileStatus = 'Nothing selected';
+			$scope.$apply(function () {
+                    $scope.fileStatus = 'Nothing selected';
+			});
             return;
         }
 
@@ -122,6 +141,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 fileContent = result.toString();
                 $scope.$apply(function () {
                     $scope.presentation = JSON.parse(fileContent);
+					$scope.fileStatus = 'Viewing ' + chosenEntry.name;
                 });
             });
         });
@@ -164,7 +184,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         // opens file explorer to choose a file
         chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function (theEntry) {
             if (!theEntry) {
-                fileStatus = 'No file selected';
+				$scope.$apply(function () {
+                    $scope.fileStatus = 'No file selected';
+                });
                 return;
             }
             // use local storage to retain access to this file
@@ -185,7 +207,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             var blob = new Blob([fileContent], {type: 'text/plain'});
 
             writeFileEntry(writableEntry, blob, function (e) {
-                fileStatus = 'Presentation <ADD-NAME> saved !';
+				$scope.$apply(function () {
+                    $scope.fileStatus = 'Presentation ' + writableEntry.name + ' saved !';
+                });
             });
         });
     };

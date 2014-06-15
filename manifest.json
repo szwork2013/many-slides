@@ -16,7 +16,8 @@
     "permissions": [
         {"fileSystem": ["write", "retainEntries", "directory"]},
         "clipboardWrite",
-        "storage"
+        "storage",
+		"fullscreen"
     ],
     "file_handlers": {
         "text": {
