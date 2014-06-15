@@ -60,7 +60,6 @@
                         <masl-logo logo-color="#fff" logo-size="53px"></masl-logo>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg')">About</a></li>
                         <li><span class="fui-new"></span></li>
                         <li><masl-item-controls-button></masl-item-controls-button></li>
                     </ul>
@@ -71,6 +70,23 @@
         <masl-slide-controlbar></masl-slide-controlbar>
         <masl-item-controlbar></masl-item-controlbar>
         <masl-presentation></masl-presentation>
+		
+		<masl-footer></masl-footer>
+		<footer><div class="col-xs-12 col-gutter-none">
+            <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                    <ul class="nav navbar-nav navbar-left">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg')">About</a></li>
+                    </ul>
+                </div>
+            </nav></footer>
         
         <!-- Flat UI scripts -->
         <script src="../scripts/jquery/jquery.js"></script>
@@ -101,7 +117,8 @@
         <script src="directives/commonDirectives.js"></script>
         <!-- Angular Factories -->
         <!-- temporary empty until proper usage of factories/services
-			 using async data sources is found -->
+			 using async data sources is found and implemented
+			 Idea: promises -->
         
         <!-- Other scripts -->
         <script src="external-modules/prototype-extensions.js"></script>

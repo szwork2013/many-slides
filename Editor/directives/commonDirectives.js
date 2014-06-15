@@ -20,3 +20,21 @@ app.directive('maslLogo', function () {
                     '</svg>'
     };
 });
+
+app.directive('maslFooter', function () {
+    'use strict';
+    
+	function link(scope, element, attrs) {
+		$('.footer-toggle').on('click', function(){
+			$(this).toggleClass('active');
+		});
+	}
+	
+    return {
+        restrict: 'E',
+        scope: true,
+        replace: true,
+		link: link,
+        template:   '<span class="footer-toggle">●</span>'
+    };
+});
