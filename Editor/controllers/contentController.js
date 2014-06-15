@@ -3,14 +3,14 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     $scope.presentation = {};
 	$scope.fileStatus = '';
 	
-    var chosenEntry = {'name':'welcome.json'};
+    var chosenEntry = {'name': 'welcome.json'};
     var fileContent = '';
     var filePath = '';
     var scope;
     
     init();
     
-    /* --- Private functions --- */
+  /* --- Private functions --- */
     
     // Stuff that should be done when this controller is created
     function init() {
@@ -21,11 +21,11 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     }
 	
 	function bindGlobalKeypressListener() {
-		$(document).on('keydown', function(event) {
+		$(document).on('keydown', function (event) {
 			var key = event.keyCode || event.charCode;
 			var current_window = chrome.app.window.current();
 			
-			if (key == 122) {
+			if (key === 122) {
 				if (current_window.isFullscreen()) {
 					current_window.restore();
 				} else {
@@ -35,18 +35,20 @@ app.controller('contentCtrl', function ($scope, $timeout) {
 		});
 	}
 	
+	// --- Filesystem access ---
+	
 	function loadWelcomePresentation() {
 		var xhr = new XMLHttpRequest();
-			xhr.responseType='json';
-			xhr.open('GET', 'factories/welcome.json');
-			xhr.onload = function() {
-				var xhrResponse = this.response;
-				$scope.$apply(function () {
-					$scope.presentation = xhrResponse;
-					$scope.fileStatus = 'Viewing welcome presentation';
-				});
-			}
-			xhr.send();
+		xhr.responseType = 'json';
+		xhr.open('GET', 'factories/welcome.json');
+		xhr.onload = function () {
+			var xhrResponse = this.response;
+			$scope.$apply(function () {
+				$scope.presentation = xhrResponse;
+				$scope.fileStatus = 'Viewing welcome presentation';
+			});
+		};
+		xhr.send();
 	}
 
     // Simple error Handler
@@ -84,7 +86,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     function writeFileEntry(writableEntry, opt_blob, callback) {
         if (!writableEntry) {
 			$scope.$apply(function () {
-                    $scope.fileStatus = 'Nothing selected';
+				$scope.fileStatus = 'Nothing selected';
 			});
             return;
         }
@@ -172,7 +174,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         }
     }
     
-    /* --- Scope functions --- */
+  /* --- Scope functions --- */
 
     // corresponds to 'open file'
     $scope.loadFile = function () {
