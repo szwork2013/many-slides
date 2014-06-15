@@ -1,9 +1,12 @@
 app.controller('modalCtrl', function ($scope, $modal, $log) {
 	var sources = {};
+    var manifest;
 	
 	init();
 	
 	function init() {
+		manifest = chrome.runtime.getManifest();
+	
 		var xhr = new XMLHttpRequest();
 		xhr.responseType='json';
 		xhr.open('GET', 'factories/sources.json');
@@ -13,10 +16,15 @@ app.controller('modalCtrl', function ($scope, $modal, $log) {
 		xhr.send();
 	}
 	
-	$scope.open = function (size) {
-        var manifest = chrome.runtime.getManifest();
-        var modalInstance = $modal.open({
-            template:   '<div class="modal-header">' +
+	function control(name, model, type) {
+        return  '<div class="form-group">' + name +
+                    '<input type="text" class="form-control" ' +
+                    'ng-model="' + model + '" ' +
+					((type === 'color') ? 'colorpicker >' : '>') +
+                '</div>';
+    }
+	
+	var about = '<div class="modal-header">' +
                             '<h4 class="modal-title">About Many-Slides</h4>' +
 							'<masl-logo logo-color="#1ABC9C" logo-size="53px"></masl-logo>' +
                         '</div>' +
@@ -52,7 +60,37 @@ app.controller('modalCtrl', function ($scope, $modal, $log) {
                         '<div class="modal-footer">' +
 							'<span class="version">Version ' + manifest.version + '</span>' +
                             '<button class="btn btn-primary" ng-click="ok()">Got it!</button>' +
-                        '</div>',
+                        '</div>';
+	
+	
+	var presentation_settings = '<div class="modal-header">' +
+                            '<h4 class="modal-title">Presentation Settings</h4>' +
+							'<masl-logo logo-color="#1ABC9C" logo-size="53px"></masl-logo>' +
+                        '</div>' +
+                        '<div class="modal-body">' +
+							'<p><from>' +
+								 control('Width', 'item.width') +
+								 control('Height', 'item.height') +
+							'</form></p>' +
+							'<button class="btn btn-primary" ng-click="ok()">I\'m done here</button>' +
+                        '</div>';
+	
+	
+	$scope.open = function (size, type) {
+		
+		switch (type) {
+			case 'about':
+				template = about;
+				break;
+			case 'presentation-settings':
+				template = presentation_settings;
+				break;
+			case 'slide-settings':
+				break;
+		}
+		
+        var modalInstance = $modal.open({
+            template: template,
             size: size,
             controller: function ($scope, $modalInstance) {
 							$scope.ok = function () { $modalInstance.close(); };

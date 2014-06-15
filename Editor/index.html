@@ -50,8 +50,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
                             <span class="dropdown-arrow"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="#" ng-click="">Presentation</a></li>
-                                <li><a href="#" ng-click="">Slide</a></li>
+								<li ng-controller="modalCtrl"><a href="#" ng-click="open('md', 'presentation-settings')">Presentation</a></li>
+								<li ng-controller="modalCtrl"><a href="#" ng-click="open('md', 'slide-settings')">Slide</a></li>
                                 <li><a href="#" ng-click="showItemSettings();">Item</a></li>
                             </ul> 
                         </li>
@@ -84,7 +84,7 @@
 						<li><a href="#">{{fileStatus}}</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg')">About</a></li>
+                        <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg', 'about')">About</a></li>
                     </ul>
                 </div>
             </nav></footer>
