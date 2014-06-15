@@ -16,24 +16,24 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     function init() {
         if (!loadInitialFile(launchData)) {
 			loadWelcomePresentation();
-			//bindGlobalKeypressListener();
+			bindGlobalKeypressListener();
 		}
     }
 	
-	/*function bindGlobalKeypressListener() {
-		window.on('keydown', function(event) {
+	function bindGlobalKeypressListener() {
+		$(document).on('keydown', function(event) {
 			var key = event.keyCode || event.charCode;
-			var isFullscreen = false;
+			var current_window = chrome.app.window.current();
 			
 			if (key == 122) {
-				if (isFullscreen) {
-					chrome.app.window.current().normal();
+				if (current_window.isFullscreen()) {
+					current_window.restore();
 				} else {
-					chrome.app.window.current().fullscreen();
+					current_window.fullscreen();
 				}
-				isFullscreen = !isFullscreen;
 			}
-	}*/
+		});
+	}
 	
 	function loadWelcomePresentation() {
 		var xhr = new XMLHttpRequest();
