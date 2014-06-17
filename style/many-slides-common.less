@@ -1,3 +1,4 @@
+// main: ../Editor/style/editor.less
 @charset "UTF-8";
 @import "../../bootstrap/css/bootstrap.css";
 @import "../../style/flat-ui.css";
@@ -6,6 +7,8 @@
 
 @holo-blue: #33B5E5;
 @body-background: #E5E5E5;
+
+@bright-menu-bg: @flat-clouds;
 
 /* Flat UI colors */
 
@@ -113,6 +116,12 @@ input[type="text"] {
 	.modal-content {
 		ul { margin-left: 2.5rem; }
 		p.last { margin-bottom: 0; }
+		.btn-primary {
+			position: absolute;
+			right: 2rem;
+			bottom: 2rem;
+		}
+		input { background: @flat-clouds; }
 	}
 	
 	.modal-footer {
@@ -121,5 +130,45 @@ input[type="text"] {
 			float: left;
 			line-height: 41px;
 		}
+	}
+}
+
+/* Footer */
+
+@footer-heigth: 5.3rem;
+@footer-transition-duration: 300ms;
+
+footer {
+	color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 0px;
+    height: @footer-heigth;
+    background-color: @flat-wet-asphalt;
+    -webkit-transition: max-height @footer-transition-duration;
+    transition: max-height @footer-transition-duration;
+}
+
+.footer-toggle {
+	color: white;
+    position: absolute;
+    left: 0;
+	right: 0;
+	margin: 0 auto;
+    bottom: 0;
+	width: 5%;
+	height: 2rem;
+	text-align: center;
+	line-height: 2rem;
+	border-radius: 0.5rem 0.5rem 0 0;
+	background: @flat-wet-asphalt;
+    -webkit-transition: bottom @footer-transition-duration;
+    transition: bottom @footer-transition-duration;
+	&.active + footer { max-height: @footer-heigth; }
+	&.active {
+		bottom: @footer-heigth;
+		color: @flat-turquoise;
 	}
 }

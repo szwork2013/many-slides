@@ -1,21 +1,55 @@
 app.controller('contentCtrl', function ($scope, $timeout) {
 	'use strict';
     $scope.presentation = {};
-    
-    var chosenEntry = null;
-    var fileStatus = ''; // status report
+	$scope.fileStatus = '';
+	
+    var chosenEntry = {'name': 'welcome.json'};
     var fileContent = '';
     var filePath = '';
     var scope;
     
     init();
     
-    /* --- Private functions --- */
+  /* --- Private functions --- */
     
     // Stuff that should be done when this controller is created
     function init() {
-        loadInitialFile(launchData);
+        if (!loadInitialFile(launchData)) {
+			loadWelcomePresentation();
+			bindGlobalKeypressListener();
+		}
     }
+	
+	function bindGlobalKeypressListener() {
+		$(document).on('keydown', function (event) {
+			var key = event.keyCode || event.charCode;
+			var current_window = chrome.app.window.current();
+			
+			if (key === 122) {
+				if (current_window.isFullscreen()) {
+					current_window.restore();
+				} else {
+					current_window.fullscreen();
+				}
+			}
+		});
+	}
+	
+	// --- Filesystem access ---
+	
+	function loadWelcomePresentation() {
+		var xhr = new XMLHttpRequest();
+		xhr.responseType = 'json';
+		xhr.open('GET', 'factories/welcome.json');
+		xhr.onload = function () {
+			var xhrResponse = this.response;
+			$scope.$apply(function () {
+				$scope.presentation = xhrResponse;
+				$scope.fileStatus = 'Viewing welcome presentation';
+			});
+		};
+		xhr.send();
+	}
 
     // Simple error Handler
     function errorHandler(e) {
@@ -51,7 +85,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     // Writes the given blob to the given writable file entry
     function writeFileEntry(writableEntry, opt_blob, callback) {
         if (!writableEntry) {
-            fileStatus = 'Nothing selected';
+			$scope.$apply(function () {
+				$scope.fileStatus = 'Nothing selected';
+			});
             return;
         }
 
@@ -107,6 +143,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 fileContent = result.toString();
                 $scope.$apply(function () {
                     $scope.presentation = JSON.parse(fileContent);
+					$scope.fileStatus = 'Viewing ' + chosenEntry.name;
                 });
             });
         });
@@ -117,7 +154,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         if (launchData && launchData.items && launchData.items[0]) {
             loadFileEntry(launchData.items[0].entry);
         } else {
-            // see if the app retained access to an earlier file or directory
+            // see if the app retained access to an earlier file
             chrome.storage.local.get('chosenFile', function (items) {
                 if (items.chosenFile) {
                     // if an entry was retained earlier, see if it can be restored
@@ -127,15 +164,17 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                             chrome.fileSystem.restoreEntry(items.chosenFile, function (chosenEntry) {
                             if (chosenEntry && chosenEntry.isFile) {
                                 loadFileEntry(chosenEntry);
+								return true;
                             }
                         });
                     });
+					return false;
                 }
             });
         }
     }
     
-    /* --- Scope functions --- */
+  /* --- Scope functions --- */
 
     // corresponds to 'open file'
     $scope.loadFile = function () {
@@ -147,7 +186,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
         // opens file explorer to choose a file
         chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function (theEntry) {
             if (!theEntry) {
-                fileStatus = 'No file selected';
+				$scope.$apply(function () {
+                    $scope.fileStatus = 'No file selected';
+                });
                 return;
             }
             // use local storage to retain access to this file
@@ -168,7 +209,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             var blob = new Blob([fileContent], {type: 'text/plain'});
 
             writeFileEntry(writableEntry, blob, function (e) {
-                fileStatus = 'Presentation <ADD-NAME> saved !';
+				$scope.$apply(function () {
+                    $scope.fileStatus = 'Presentation ' + writableEntry.name + ' saved !';
+                });
             });
         });
     };
@@ -345,6 +388,10 @@ app.controller('contentCtrl', function ($scope, $timeout) {
     // Sets the slide at the given index active
     // TODO - Make better using underscorejs
     $scope.setActiveSlide = function (index) {
+		// Deselect the current item to prevent rogue sidebars
+		// staying on screen without reason
+		$('.selected-object').click();
+		
         var lenght = $scope.presentation.slides.length;
 		if (index < lenght) {
 			var i;

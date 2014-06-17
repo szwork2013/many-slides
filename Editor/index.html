@@ -1,15 +1,12 @@
 <html ng-app="manySlidesEditor" ng-csp lang="en">
     <head>
-        <meta charset="utf-8">
         <title>Many Slides Editor</title>
-        <link rel="shortcut icon" href="../images/favicon.ico">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <meta name="description" content="Here you can create completely fresh or edit your existing presentations!">
         <meta name="author" content="Sebasian M. Reuter">
-        
-        <script sr="less_options.js"></script>
-        <link rel="stylesheet/less" type="text/css" href="style/default.less" />
-        <script src="../scripts/less/less.js"></script>
+        <link rel="shortcut icon" href="../images/favicon.ico">
+		<link rel="stylesheet" href="style/style.css"/>
     </head>
     
     <!-- top menu -->
@@ -53,8 +50,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
                             <span class="dropdown-arrow"></span>
                             <ul class="dropdown-menu">
-                                <li><a href="#" ng-click="">Presentation</a></li>
-                                <li><a href="#" ng-click="">Slide</a></li>
+								<li ng-controller="modalCtrl"><a href="#" ng-click="open('md', 'presentation-settings')">Presentation</a></li>
+								<li ng-controller="modalCtrl"><a href="#" ng-click="open('md', 'slide-settings')">Slide</a></li>
                                 <li><a href="#" ng-click="showItemSettings();">Item</a></li>
                             </ul> 
                         </li>
@@ -63,7 +60,6 @@
                         <masl-logo logo-color="#fff" logo-size="53px"></masl-logo>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg')">About</a></li>
                         <li><span class="fui-new"></span></li>
                         <li><masl-item-controls-button></masl-item-controls-button></li>
                     </ul>
@@ -74,6 +70,24 @@
         <masl-slide-controlbar></masl-slide-controlbar>
         <masl-item-controlbar></masl-item-controlbar>
         <masl-presentation></masl-presentation>
+		
+		<masl-footer></masl-footer>
+		<footer><div class="col-xs-12 col-gutter-none">
+            <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                    <ul class="nav navbar-nav navbar-left" ng-model="fileStatus">
+						<li><a href="#">{{fileStatus}}</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-controller="modalCtrl"><a href="#" ng-click="open('lg', 'about')">About</a></li>
+                    </ul>
+                </div>
+            </nav></footer>
         
         <!-- Flat UI scripts -->
         <script src="../scripts/jquery/jquery.js"></script>
@@ -103,7 +117,9 @@
         <script src="directives/itemSidebarDirectives.js"></script>
         <script src="directives/commonDirectives.js"></script>
         <!-- Angular Factories -->
-        <!-- temporary empty -->
+        <!-- temporary empty until proper usage of factories/services
+			 using async data sources is found and implemented
+			 Idea: promises -->
         
         <!-- Other scripts -->
         <script src="external-modules/prototype-extensions.js"></script>

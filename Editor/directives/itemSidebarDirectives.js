@@ -142,7 +142,7 @@ app.directive('maslDeleteItemButton', function () {
         restrict: 'E',
         replace: true,
         scope: true,
-        template:   '<span class="btn btn-block btn-lg btn-primary">Delete Item</span>'
+        template:   '<span class="btn btn-block btn-lg btn-primary delete-btn">Delete Item</span>'
     };
 });
 
