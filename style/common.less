@@ -1,7 +1,10 @@
-// main: ../Editor/style/editor.less
+// main: master.less
 @charset "UTF-8";
-@import "../../bootstrap/css/bootstrap.css";
-@import "../../style/flat-ui.css";
+@import "../bootstrap/css/bootstrap.css";
+@import "external/colorpicker.css";
+@import "external/flat-ui.css";
+@import "external/toastr.less";
+@import "external/w2ui-min.css";
     
 /* many-slides colors */
 
@@ -59,6 +62,10 @@
 @item-transition-duration: 100ms;
 
 /* Generic Defaults */
+*::selection {
+    background: @holo-blue;
+}
+
 * {
     margin: 0;
     padding: 0;
