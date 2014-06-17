@@ -147,13 +147,12 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             $scope.presentation = JSON.parse(foo);
         }
 
+        // Jump to previous Slide
         $scope.previousSlide = function () {
             if (document.getElementById('slide-index').value.length == 0) {
                 document.getElementById('slide-index').value = 0;
             }
             var index = parseInt(document.getElementById('slide-index').value);
-//        console.log(document.getElementById('slide-index').value);
-//        var index = $scope.presentation.active_slide;
             if (index > 0) {
 
                 index = index - 1;
@@ -163,7 +162,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             }
             $scope.setActiveSlide(index);
         };
-
+        // Jump to next Slide
         $scope.nextSlide = function () {
             if (document.getElementById('slide-index').value.length == 0) {
                 document.getElementById('slide-index').value = 0;
@@ -171,7 +170,6 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             var index = parseInt(document.getElementById('slide-index').value);
 
             var length = $scope.presentation.slides.length;
-//        var index = $scope.presentation.active_slide;
             if (index < length - 1) {
 
                 index = index + 1;
@@ -180,6 +178,7 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 onMessageSend(4, 1);
             }
         };
+        // Show or Hide presentation
         $scope.blankPresentation = function () {
             if ($('#blankPresentation').html() == "hide") {
                 $('#blankPresentation').html("show");
@@ -192,6 +191,21 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 onMessageSend(4, 3);
             }
         };
+
+        // Toggle Sharing
+        $scope.toggleSharing = function () {
+            if ($('#toogleSharing').html() == "Start sharing") {
+                $('#toogleSharing').removeClass("switch-off");
+                $('#toogleSharing').addClass("switch-on");
+                $('#toogleSharing').html("Stop sharing");
+            }
+            else if ($('#toogleSharing').html() == "Stop sharing") {
+                $('#toogleSharing').removeClass("switch-on");
+                $('#toogleSharing').addClass("switch-off");
+                $('#toogleSharing').html("Start sharing");
+            }
+        }
+
         $scope.printPresentation = function () {
             console.log($scope.presentation);
         };
@@ -218,158 +232,9 @@ app.controller('contentCtrl', function ($scope, $timeout) {
             });
         };
 
-        // corresponds to 'save file as'
-        $scope.saveFile = function () {
-            var config = {
-                type: 'saveFile',
-                suggestedName: chosenEntry.name
-            };
-
-            chrome.fileSystem.chooseEntry(config, function (writableEntry) {
-                fileContent = JSON.stringify($scope.presentation);
-                var blob = new Blob([fileContent], {type: 'text/plain'});
-
-                writeFileEntry(writableEntry, blob, function (e) {
-                    fileStatus = 'Presentation <ADD-NAME> saved !';
-                });
-            });
-        };
-
         // TODO - Implement presentation settings
         $scope.showPresentationSettings = function () {
             console.info('Nothing here, yet!');
-        };
-
-        // Adds a fresh item to the active slide
-        // TODO - Let icon appear at the center of the slide
-        $scope.addItem = function (shape) {
-            var shapes = {
-                'circle': {
-                    id: Math.random().toString(36).slice(2),
-                    location: [100, 100],
-                    layer: 0, //(Layer.position)
-                    height: 130,
-                    width: 130,
-                    rotation: 0.0,
-                    related_items: [], //Item Array
-                    shape: {},
-                    text: {
-                        align: 'left',
-                        color: '#000000'
-                    },
-                    style: {
-                        background: '#1abc9c',
-                        border: '',
-                        border_radius: 100
-                    },
-                    deleted: false
-                },
-                'square': {
-                    id: Math.random().toString(36).slice(2),
-                    location: [100, 100],
-                    layer: 0, //(Layer.position)
-                    height: 125,
-                    width: 125,
-                    rotation: 0.0,
-                    related_items: [],
-                    shape: {},
-                    text: {
-                        align: 'left',
-                        color: '#000000'
-                    },
-                    style: {
-                        background: "#1abc9c",
-                        border: '',
-                        border_radius: 10
-                    },
-                    deleted: false
-                },
-                'rectangle': {
-                    id: Math.random().toString(36).slice(2),
-                    location: [100, 100],
-                    layer: 0,
-                    height: 100,
-                    width: 150,
-                    rotation: 0.0,
-                    related_items: [],
-                    shape: {},
-                    text: {
-                        align: 'left',
-                        color: '#000000'
-                    },
-                    style: {
-                        background: "#1abc9c",
-                        border: '',
-                        border_radius: 10
-                    },
-                    deleted: false
-                },
-                'heading': {
-                    id: Math.random().toString(36).slice(2),
-                    location: [100, 100],
-                    layer: 0, //(Layer.position)
-                    height: 100,
-                    width: 750,
-                    rotation: 0.0,
-                    related_items: [], //Item Array
-                    shape: {},
-                    text: {
-                        content: 'Enter heading text',
-                        size: 3.5,
-                        align: 'left',
-                        color: '#000000',
-                        format: 'bold'
-                    },
-                    style: {},
-                    deleted: false
-                },
-                'textbox': {
-                    id: Math.random().toString(36).slice(2),
-                    location: [100, 100],
-                    layer: 0, //(Layer.position)
-                    height: 300,
-                    width: 750,
-                    rotation: 0.0,
-                    related_items: [], //Item Array
-                    shape: {},
-                    text: {
-                        content: 'Enter text',
-                        size: 2.0,
-                        align: 'left',
-                        color: '#000000'
-                    },
-                    style: {},
-                    deleted: false
-                },
-                'footer': {
-                    id: Math.random().toString(36).slice(2),
-                    location: [100, 100],
-                    layer: 0, //(Layer.position)
-                    height: 100,
-                    width: 750,
-                    rotation: 0.0,
-                    related_items: [], //Item Array
-                    shape: {},
-                    text: {
-                        content: 'Enter footer text',
-                        size: 1.5,
-                        align: 'left',
-                        color: '#000000'
-                    },
-                    style: {},
-                    deleted: false
-                }
-            };
-
-            $scope.presentation.slides[$scope.presentation.active_slide].items.push(shapes[shape]);
-        };
-
-        // Deletes all items on the active slide that are flagged for deletion
-        $scope.deleteItems = function () {
-            var items = $scope.presentation.slides[$scope.presentation.active_slide].items;
-            $scope.presentation.slides[$scope.presentation.active_slide].items = _.filter(items, function (item) {
-                return !item.deleted;
-            });
         };
 
         // Tries to open the selected items control panel
@@ -379,24 +244,6 @@ app.controller('contentCtrl', function ($scope, $timeout) {
                 var item_id = item.attr('id').replace('item-', '');
                 $('#controls-' + item_id).removeClass('hidden').removeClass('sidebar-gone');
             }
-        };
-
-        // Adds an empty slide to the end of the presentation
-        $scope.addSlide = function () {
-            $scope.presentation.slides.push({
-                transition: 0,
-                deleted: false,
-                items: []
-            });
-        };
-
-        // Deletes all slides that are flagged for deletion
-        // TODO - set new active_slide when active slide was deleted
-        $scope.deleteSlides = function () {
-            var slides = $scope.presentation.slides;
-            $scope.presentation.slides = _.filter(slides, function (slide) {
-                return !slide.deleted;
-            });
         };
 
         // TODO - Implement slide settings

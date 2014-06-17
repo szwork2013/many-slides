@@ -61,16 +61,17 @@ var htmlChat = "<p id='chat'>Chat</p>" +
     "</form>";
 var htmlPresentation = '<div id="presentationWindow">' +
     '<div id="mainWrapper">' +
-    '<form id="introForm">' +
-    '<h1 class="demo-section-title"> Welcome to Many Slides</h1>' +
-    '<h3 class="demo-section-title">To start the show enter you name and the ID of the presentation</h3>' +
-    '<input id="nameInput" class="form-control introFormTextBox" placeholder="Name" >' +
-    '<br>' +
-    '<input id="peerIdInput" class="form-control introFormTextBox" placeholder="ID">' +
-    '<br>' +
-    '<input id="startButton" type="button" class="btn btn-block btn-lg btn-primary introFormButton" value="Start">' +
-    '</form>' +
-    '<masl-presentation></masl-presentation>' +
+    '<p id="testID" style="display: none">Presenter is not sharing at the moment.</p>' +
+        '<form id="introForm">' +
+            '<h1 class="demo-section-title"> Welcome to Many Slides</h1>' +
+            '<h3 class="demo-section-title">To start the show enter you name and the ID of the presentation</h3>' +
+            '<input id="nameInput" class="form-control introFormTextBox" placeholder="Name" >' +
+            '<br>' +
+            '<input id="peerIdInput" class="form-control introFormTextBox" placeholder="ID">' +
+            '<br>' +
+            '<input id="startButton" type="button" class="btn btn-block btn-lg btn-primary introFormButton" value="Start">' +
+        '</form>' +
+        '<masl-presentation></masl-presentation>' +
     '</div>' +
     '</div>';
 

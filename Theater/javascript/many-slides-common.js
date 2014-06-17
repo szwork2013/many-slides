@@ -1,5 +1,6 @@
 var globalPresentation;
 
+// TODO Remove ?!
 function sendDummyPresentation() {
     console.log(globalPresentation);
     // For each active connection, send the message.
@@ -12,6 +13,19 @@ function sendDummyPresentation() {
     });
     $('#messages').append('<div><span class="you">You: </span> dummy send </div>');
     $('#text').val('');
+    $('#text').focus();
+}
+
+function sendPresentationToAll() {
+    console.log(globalPresentation);
+    // For each active connection, send the message.
+    eachActiveConnection(function (c, $c) {
+        if (c.label === 'chat') {
+            var message = "{\"flag\": 3, \"content\":" + JSON.stringify(globalPresentation) + " }";
+            console.log(message);
+            c.send(message);
+        }
+    });
     $('#text').focus();
 }
 
@@ -85,11 +99,14 @@ function onMessageRecieve(c, data) {
         // Hide presentation
         if (data.command == 2) {
             $('#presentation').hide();
+            $('#testID').show();
+
         }
 
         // Show presentation
         if (data.command == 3) {
             $('#presentation').show();
+            $('#testID').hide();
         }
     }
 }

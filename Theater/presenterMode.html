@@ -13,9 +13,9 @@
     <script src="../scripts/less/less.js"></script>
 </head>
 
-<body ng-controller="contentCtrl" >
+<body ng-controller="contentCtrl">
 <div id="navi" class="col-xs-12 col-gutter-none ng-scope">
-    <nav  role="navigation" class="navbar navbar-inverse navbar-embossed">
+    <nav role="navigation" class="navbar navbar-inverse navbar-embossed">
         <div class="navbar-header">
             <button data-target="#navbar-collapse-01" data-toggle="collapse" class="navbar-toggle" type="button"><span
                     class="sr-only">Toggle navigation</span></button>
@@ -55,7 +55,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" ng-click="printPresentation()">Print It!</a></li>
                 <li><a id="GitHubLink" a href="https://github.com/Gambloide/many-slides">GitHub</a></li>
-                <li><a id="toogleSharing" class="switch-off">Start sharing</a></li>
+                <li><a id="toogleSharing" class="switch-on" ng-click="toggleSharing()">Start sharing</a></li>
             </ul>
         </div>
     </nav>
@@ -103,7 +103,6 @@
 <script src="directives/commonDirectives.js"></script>
 <script src="directives/presentationDirectives.js"></script>
 <script src="directives/theaterDirectives.js"></script>
-
 
 
 </html>

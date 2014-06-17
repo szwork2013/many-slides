@@ -55,6 +55,10 @@ function connect(c) {
 
             // Send slide index - theater member could join later
             var message = "{\"flag\": 4, \"content\":\"" + document.getElementById('slide-index').value + "\"}";
+
+            // TODO Send all initial content
+
+
             c.send(message);
         });
 
@@ -170,10 +174,9 @@ $(document).ready(function () {
         emailInvitation();
     });
 
-    $('#toogleSharing').click(function () {
-        toogleSharing();
-    });
-
+//    $('#toogleSharing').click(function () {
+//        toogleSharing();
+//    });
     // Send a chat message to all active connections.
     $('#send').submit(function (e) {
         onMessageSend(e);
