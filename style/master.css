@@ -336,11 +336,6 @@ footer {
   display: inline-block;
   padding-left: 1.5rem;
 }
-#editor-mode button {
-  background: none;
-  border: none;
-  font-family: inherit;
-}
 #theater-mode body,
 #theater-modehtml {
   height: 100%;
