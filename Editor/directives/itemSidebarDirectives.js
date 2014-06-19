@@ -81,7 +81,10 @@ app.directive('maslItemControls', function () {
                                 '</accordion-group>' +
         
                                 '<accordion-group heading="Text">' +
-                                    control('Content', 'item.text.content') +
+									'<div class="form-group">' + 'Content' +
+										'<textarea class="form-control" ng-model="item.text.content" ></textarea>' +
+									'</div>' +
+                                    //control('Content', 'item.text.content') +
                                     control('Size', 'item.text.size') +
                                     control('Alignment', 'item.text.align') +
                                     control('Color', 'item.text.color', 'color') +

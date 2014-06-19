@@ -332,9 +332,15 @@ footer {
 #editor-mode #item-controls-button.inactive {
   color: transparent;
 }
+#editor-mode #item-controls-button button {
+  border: none;
+}
 #editor-mode #slide-controls-button {
   display: inline-block;
   padding-left: 1.5rem;
+}
+#editor-mode #slide-controls-button button {
+  border: none;
 }
 #theater-mode body,
 #theater-modehtml {
