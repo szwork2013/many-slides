@@ -1,4 +1,4 @@
-// global variable that contains the name of the presneter
+// global variable that contains the name of the presenter
 var name = "Presenter";
 
 // Peer Object... :)
@@ -101,7 +101,7 @@ var htmlConnections = "<p id='amount'>Connections: 0</p>" +
 var htmlChat = "<p id='chat'>Chat</p>" +
         "<div id='messages'>" +
     "</div>" +
-    "<form id='send'>" +
+	"<form id='send'>" +
         "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
         "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
     "</form>";
@@ -179,7 +179,7 @@ $(document).ready(function () {
 //    });
     // Send a chat message to all active connections.
     $('#send').submit(function (e) {
-        onMessageSend(e);
+        onMessageSend(1);
     });
 });
 

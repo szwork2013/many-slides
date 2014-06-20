@@ -55,9 +55,9 @@ var htmlConnections = "<p id='amount'>Connections: 0</p>" +
 var htmlChat = "<p id='chat'>Chat</p>" +
     "<div id='messages'>" +
     "</div>" +
-    "<form id='send'>" +
-    "<input type='text' id='text' placeholder='Enter message' class='form-control'>" +
-    "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary'>" +
+	"<form id='send'>" +
+    "<input type='text' id='text' placeholder='Enter message' class='form-control' >" +
+    "<input type='submit' id='btnSend' value='Send' class='btn  btn-lg btn-primary' >" +
     "</form>";
 var htmlPresentation = '<div id="presentationWindow">' +
     '<div id="mainWrapper">' +
@@ -153,7 +153,7 @@ $(document).ready(function () {
 
     // Send a chat message to all active connections.
     $('#send').submit(function (e) {
-        onMessageSend(e);
+        onMessageSend(1);
     });
 
     $('#startButton').click(function () {

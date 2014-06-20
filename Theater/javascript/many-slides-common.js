@@ -122,6 +122,8 @@ function onMessageSend(flag, command) {
             if (c.label === 'chat') {
 
                 // Send normal message
+				console.log('flag: ');
+				console.log(flag);
                 if (flag == 1) {
                     var message = "{\"flag\": 1, \"content\":\"" + msg + "\"}";
                     $('#messages').append('<div><span class="you">You: </span>' + msg + '</div>');
@@ -143,6 +145,8 @@ function onMessageSend(flag, command) {
                         var message = "{\"flag\": 4, \"command\":\"" + command + "\"}";
                     }
                 }
+				console.log('message: ');
+				console.log(message);
                 c.send(message);
             }
         });
