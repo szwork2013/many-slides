@@ -182,7 +182,7 @@ function updateConnections() {
     names.push(name);
     names.sort();
     names.forEach(function (name) {
-        $('#connections').append("<div><img class='dot' src='images/dot.png'>" + name + "</div>");
+        $('#connections').append("<div><img class='dot' src='../images/dot.png'>" + name + "</div>");
     });
 
     $('#amount').empty();

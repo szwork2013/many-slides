@@ -343,7 +343,7 @@ footer {
   border: none;
 }
 #theater-mode body,
-#theater-modehtml {
+html#theater-mode {
   height: 100%;
   min-height: 100%;
   max-height: 100%;
