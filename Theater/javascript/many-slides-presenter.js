@@ -68,7 +68,6 @@ function connect(c) {
 
             if (peer.connections == 'undefined') {
                 $('.filler').show();
-
             }
             delete connectedPeers[c.peer];
             updateConnections();
