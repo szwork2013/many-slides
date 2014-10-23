@@ -1,4 +1,7 @@
 #Many Slides
+### Notice
+Project on hold until further notice. Next discussion on the future and road ahead planned for end of Novermber - start of December 2014.
+
 ###General
 Many Slides is a web presentation application for creating and sharing presentations from within your web-browser!
 
